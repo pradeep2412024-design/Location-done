@@ -1,0 +1,754 @@
+{
+  "app": {
+    "name": "CropWise AI",
+    "tagline": "Smart Farming Solutions"
+  },
+  "home": {
+    "hero": {
+      "title": "Welcome to the Future of Farming",
+      "subtitle": "Get AI-powered crop yield predictions and personalized farming recommendations to increase your productivity by up to 15%"
+    },
+    "stats": {
+      "yield_increase": "Average Yield Increase",
+      "farmers_helped": "Farmers Helped",
+      "prediction_accuracy": "Prediction Accuracy"
+    },
+    "form": {
+      "title": "Tell Us About Your Farm",
+      "subtitle": "Help us provide personalized recommendations for your farming needs",
+      "name_label": "Your Name (Optional)",
+      "name_placeholder": "Enter your name",
+      "location_label": "Farm Location *",
+      "location_placeholder": "Enter your city, state, country...",
+      "location_help": "Enter your location manually, or click the location button to use your current location",
+      "size_label": "Farm Size (Hectares) *",
+      "size_placeholder": "e.g., 5 acres, 2 hectares",
+      "prev_crop_label": "Previous/Current Crop (Optional)",
+      "prev_crop_placeholder": "Type or select previous crop",
+      "next_crop_label": "Next Crop to Cultivate *",
+      "next_crop_placeholder": "Type or select crop to cultivate",
+      "month_label": "Planned Cultivation Month *",
+      "month_placeholder": "Select cultivation month",
+      "submit": "Get AI Predictions",
+      "processing": "Processing..."
+    },
+    "benefits": {
+      "title": "What You'll Get",
+      "yield": {
+        "title": "Yield Predictions",
+        "desc": "AI-powered forecasts for your specific crop and location"
+      },
+      "recommendations": {
+        "title": "Smart Recommendations",
+        "desc": "Personalized advice for irrigation, fertilization, and pest control"
+      },
+      "weather": {
+        "title": "Weather Insights",
+        "desc": "Local weather patterns and risk assessments for your farm"
+      }
+    }
+  },
+  "crop_categories": {
+    "cereals_grains": "Cereals & Grains",
+    "pulses": "Pulses",
+    "cash_crops": "Cash Crops",
+    "oilseeds": "Oilseeds",
+    "plantation_crops": "Plantation Crops",
+    "fruits": "Fruits",
+    "vegetables": "Vegetables",
+    "spices_herbs": "Spices & Herbs",
+    "medicinal_plants": "Medicinal Plants"
+  },
+  "crops": {
+    "rice": "Rice",
+    "wheat": "Wheat",
+    "maize_corn": "Maize (Corn)",
+    "barley": "Barley",
+    "jowar_sorghum": "Jowar (Sorghum)",
+    "bajra_pearl_millet": "Bajra (Pearl Millet)",
+    "ragi_finger_millet": "Ragi (Finger Millet)",
+    "lentil": "Lentil",
+    "gram": "Gram",
+    "arhar_tur": "Arhar/Tur",
+    "moong": "Moong",
+    "urad": "Urad",
+    "chickpea": "Chickpea",
+    "chickpea_gram": "Chickpea (Gram)",
+    "black_gram": "Black Gram",
+    "sugarcane": "Sugarcane",
+    "cotton": "Cotton",
+    "jute": "Jute",
+    "tobacco": "Tobacco",
+    "groundnut_peanut": "Groundnut (Peanut)",
+    "soybean": "Soybean",
+    "sunflower": "Sunflower",
+    "mustard": "Mustard",
+    "safflower": "Safflower",
+    "sesame": "Sesame",
+    "tea": "Tea",
+    "coffee": "Coffee",
+    "rubber": "Rubber",
+    "coconut": "Coconut",
+    "arecanut": "Arecanut",
+    "cocoa": "Cocoa",
+    "mango": "Mango",
+    "banana": "Banana",
+    "apple": "Apple",
+    "orange": "Orange",
+    "grapes": "Grapes",
+    "pineapple": "Pineapple",
+    "guava": "Guava",
+    "papaya": "Papaya",
+    "pomegranate": "Pomegranate",
+    "litchi": "Litchi",
+    "watermelon": "Watermelon",
+    "muskmelon": "Muskmelon",
+    "potato": "Potato",
+    "tomato": "Tomato",
+    "onion": "Onion",
+    "brinjal_eggplant": "Brinjal (Eggplant)",
+    "cauliflower": "Cauliflower",
+    "cabbage": "Cabbage",
+    "carrot": "Carrot",
+    "radish": "Radish",
+    "spinach": "Spinach",
+    "okra_ladyfinger": "Okra (Ladyfinger)",
+    "peas": "Peas",
+    "turmeric": "Turmeric",
+    "ginger": "Ginger",
+    "garlic": "Garlic",
+    "chilli": "Chilli",
+    "black_pepper": "Black Pepper",
+    "cardamom": "Cardamom",
+    "coriander": "Coriander",
+    "cumin": "Cumin",
+    "fennel": "Fennel",
+    "fenugreek": "Fenugreek",
+    "aloe_vera": "Aloe Vera",
+    "tulsi_holy_basil": "Tulsi (Holy Basil)",
+    "ashwagandha": "Ashwagandha",
+    "lemongrass": "Lemongrass",
+    "mint": "Mint",
+    "sarpagandha": "Sarpagandha",
+    "isabgol": "Isabgol",
+    "kalmegh": "Kalmegh",
+    "jowar": "Jowar (Sorghum)"
+  },
+  "units": {
+    "tons_per_hectare": "tons/hectare",
+    "quintal": "quintal",
+    "tons_co2": "tons CO2",
+    "per_hectare": "per hectare",
+    "mm": "mm"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "actions": {
+    "use_current_location": "Use current location",
+    "change_language": "Change language"
+  },
+  "common": {
+    "not_available": "Not available",
+    "or": "or"
+  },
+  "dashboard": {
+    "common": {
+      "live_data": "Live Data",
+      "updated": "Updated:"
+    },
+    "enhanced_recommendations": {
+      "title": "Enhanced Crop Recommendations",
+      "subtitle": "AI-powered crop suggestions based on your location, soil, and weather conditions",
+      "all_categories": "All Categories",
+      "match": "Match",
+      "demand": "Demand",
+      "overall_score": "Overall Score",
+      "expected_yield": "Expected Yield",
+      "market_price": "Market Price",
+      "profitability": "Profitability",
+      "location_advantage": "Location Advantage",
+      "why_recommended": "Why Recommended",
+      "more_reasons": "more reasons",
+      "data_source": "Data Source",
+      "variability": "Variability",
+      "no_results": "No Recommendations Found",
+      "no_results_category": "No crops found in the {category} category for your location and conditions.",
+      "no_results_general": "No crop recommendations available for your current location and conditions.",
+      "loading": "Loading recommendations...",
+      "sort_by_score": "Sort by Score",
+      "sort_by_yield": "Sort by Yield",
+      "sort_by_profitability": "Sort by Profitability",
+      "sort_by_price": "Sort by Price"
+    },
+    "farm_info": {
+      "title": "Farm Information",
+      "update": "Update Farm Data",
+      "current_location": "Current Location:",
+      "planning_to_cultivate": "Planning to cultivate:",
+      "farm_size": "Farm Size:",
+      "predicted_yield": "Predicted Yield:"
+    },
+    "ai_reco": {
+      "title": "AI Recommendations",
+      "irrigation": "Irrigation",
+      "pest": "Pest Management",
+      "fertilizer": "Fertilizer"
+    },
+    "weather": {
+      "title": "7-Day Weather Forecast",
+      "realtime_for": "Real-time weather for"
+    },
+    "soil": {
+      "title": "Soil Condition Analysis",
+      "realtime_from": "Real soil data from",
+      "coordinates": "Coordinates:"
+    },
+    "yield": {
+      "title": "Crop Yield Prediction",
+      "subtitle": "AI-powered yield forecast for your selected crop",
+      "confidence": "Confidence",
+      "factors": "Factors Affecting Yield:",
+      "factor_keys": {
+        "optimal_ph": "Optimal soil pH for cultivation",
+        "acidic_soil": "Acidic soil may reduce nutrient availability",
+        "alkaline_soil": "Alkaline soil may limit phosphorus uptake",
+        "low_moisture": "Low soil moisture requires irrigation planning",
+        "high_moisture": "High soil moisture may cause root diseases",
+        "good_moisture": "Good soil moisture levels for growth",
+        "excellent_nutrients": "Excellent nutrient levels support high yield",
+        "low_nutrients": "Low nutrient levels require fertilizer application",
+        "moderate_nutrients": "Moderate nutrient levels with room for improvement",
+        "excessive_rain": "Excessive rainfall may cause fungal diseases",
+        "dry_weather": "Dry weather requires careful irrigation management",
+        "favorable_weather": "Favorable weather conditions expected"
+      }
+    },
+    "weather_impact": {
+      "title": "Weather Impact Analysis",
+      "subtitle": "How weather conditions affect your crop yield"
+      ,
+      "items": {
+        "monitor_drainage": "Monitor soil drainage to prevent waterlogging",
+        "apply_fungicide": "Apply fungicide preventively for disease control",
+        "provide_shade": "Provide shade during peak heat hours",
+        "increase_irrigation": "Increase irrigation frequency in hot weather",
+        "cold_stress": "Monitor for cold stress in crops",
+        "ensure_air_circulation": "Ensure good air circulation to reduce humidity",
+        "watch_fungal": "Watch for fungal disease development",
+        "implement_drip": "Implement drip irrigation for water conservation",
+        "prepare_drainage": "Prepare drainage systems for excess water",
+        "favorable_weather": "Optimal growing conditions",
+        "regular_monitoring": "Regular monitoring sufficient"
+      }
+    },
+    "weather_risk": {
+      "title": "Weather Risk Analysis & Precautions",
+      "badge": "AI-Powered Analysis"
+    },
+    "risks": {
+      "types": {
+        "high_temp_alert": "High Temperature Alert",
+        "low_temp_warning": "Low Temperature Warning",
+        "heavy_rainfall_risk": "Heavy Rainfall Risk",
+        "drought_stress_alert": "Drought Stress Alert",
+        "fungal_disease_risk": "Fungal Disease Risk",
+        "crop_specific_guidance": "Crop-Specific Guidance"
+      },
+      "messages": {
+        "high_temp_alert": "Average temperature {avgTemp}°C is above optimal for {crop}. Schedule irrigation for early morning (5-7 AM) or evening (6-8 PM) to prevent heat stress.",
+        "low_temp_warning": "Cool temperatures ({avgTemp}°C) may slow {crop} growth. Consider row covers or greenhouse protection during cold nights.",
+        "heavy_rainfall_risk": "Expected {totalRain}mm rainfall over 7 days. Ensure proper field drainage and avoid fertilizer application before heavy rain to prevent nutrient runoff.",
+        "drought_stress_alert": "Low rainfall ({totalRain}mm) expected. Increase irrigation frequency and apply mulch to retain soil moisture for {crop}.",
+        "fungal_disease_risk": "High humidity ({avgHumidity}%) increases fungal disease risk for {crop}. Apply preventive fungicide and ensure good air circulation.",
+        "crop_specific_guidance": "{guidance}",
+        "crop_guidance": {
+          "rice": "Maintain 2-5cm standing water. Monitor for blast disease in high humidity.",
+          "wheat": "Avoid waterlogging. Watch for rust diseases in humid conditions.",
+          "maize_corn": "Ensure good drainage. Monitor for corn borer in warm, humid weather.",
+          "cotton": "Prevent waterlogging. Watch for bollworm activity in warm weather.",
+          "sugarcane": "Maintain consistent moisture. Monitor for red rot in humid conditions."
+        }
+      },
+      "crop_guidance": {
+        "rice": "Maintain 2-5cm standing water. Monitor for blast disease in high humidity.",
+        "wheat": "Avoid waterlogging. Watch for rust diseases in humid conditions.",
+        "maize_corn": "Ensure good drainage. Monitor for corn borer in warm, humid weather.",
+        "cotton": "Prevent waterlogging. Watch for bollworm activity in warm weather.",
+        "sugarcane": "Maintain consistent moisture. Monitor for red rot in humid conditions."
+      }
+    },
+    "sensor": {
+      "title": "Real-Time Sensor Data",
+      "badge": "AI-Enhanced Live Data",
+      "subtitle": "Intelligent monitoring based on weather and soil conditions"
+    },
+    "iot": {
+      "soil_moisture": "Soil Moisture",
+      "real_soil_data": "Based on real soil data",
+      "temperature": "Temperature",
+      "weather_api_enhanced": "Weather API enhanced",
+      "humidity": "Humidity",
+      "realtime_correlation": "Real-time correlation",
+      "light_intensity": "Light Intensity",
+      "weather_condition_based": "Weather condition based",
+      "last_updated": "Last updated",
+      "ai_enhanced": "AI-Enhanced Data"
+    },
+    "alerts": {
+      "title": "AI-Powered Sensor Alerts",
+      "subtitle": "Intelligent alerts based on crop requirements and conditions",
+      "risk_assessment": "Weather and soil condition based risk assessment",
+      "action_label": "Action",
+      "messages": {
+        "low_moisture": "Soil moisture ({moisture}%) below optimal for {crop}. Immediate irrigation recommended.",
+        "high_temp": "Temperature ({temp}°C) exceeding optimal range for {crop}. Heat stress risk.",
+        "high_humidity": "High humidity ({humidity}%) increases disease risk for {crop}."
+      },
+      "actions": {
+        "start_irrigation": "Start irrigation system within 2 hours",
+        "provide_shade": "Provide shade nets or increase irrigation frequency",
+        "improve_ventilation": "Improve ventilation and monitor for fungal diseases"
+      }
+    },
+    "optimization": {
+      "irrigation": {
+        "flood": "Flood Irrigation System",
+        "sprinkler": "Sprinkler System",
+        "drip": "Drip Irrigation System",
+        "subtitle": "Irrigation • Throughout Growing Season",
+        "description": "Optimal water management strategy for {crop} based on current soil moisture of {moisture}%",
+        "improvement": "Expected improvement: {efficiency} water efficiency"
+      },
+      "pest": {
+        "title": "Integrated Pest Management",
+        "subtitle": "Pest Control • Weekly Monitoring",
+        "description": "Preventive pest control measures for {crop}",
+        "improvement": "Expected improvement: {risk} loss prevention"
+      }
+    },
+    "timeline": {
+      "title_for": "AI-Powered Cultivation Timeline for {crop}",
+      "customized_for": "Customized for {location}",
+      "subtitle": "Dynamic timeline based on weather patterns and soil conditions",
+      "activities": "Activities:",
+      "critical_points": "Critical Points:",
+      "weather_considerations": "Weather Considerations:",
+      "soil_based": "Soil-Based Recommendations:",
+      "phases": {
+        "rice": { "land_prep": "Land Preparation & Nursery", "transplanting": "Transplanting" },
+        "wheat": {
+          "land_prep_sowing": "Land Preparation & Sowing",
+          "establishment": "Germination & Establishment",
+          "tillering": "Tillering Stage",
+          "stem_elongation": "Stem Elongation",
+          "grain_filling_harvest": "Grain Filling & Harvest"
+        },
+        "chickpea": {
+          "land_prep_sowing": "Land Preparation & Sowing",
+          "establishment": "Germination & Early Growth",
+          "flowering_pod": "Flowering & Pod Formation",
+          "pod_filling_harvest": "Pod Filling & Harvest"
+        },
+        "common": { "vegetative": "Vegetative Growth", "reproductive": "Reproductive Phase", "maturation": "Maturation & Harvest" },
+        "jowar": {
+          "land_prep_sowing": "Land Preparation & Sowing",
+          "establishment": "Establishment",
+          "vegetative": "Vegetative Growth",
+          "reproductive": "Reproductive Phase",
+          "maturation": "Maturation & Harvest"
+        }
+      },
+      "activities_list": {
+        "field_preparation": "Field preparation",
+        "seed_treatment": "Seed treatment",
+        "nursery_bed_preparation": "Nursery bed preparation",
+        "seedling_transplantation": "Seedling transplantation",
+        "field_flooding": "Field flooding",
+        "initial_fertilizer": "Initial fertilizer application",
+        "water_management": "Water management",
+        "weed_control": "Weed control",
+        "nitrogen_application": "Nitrogen application",
+        "panicle_initiation_care": "Panicle initiation care",
+        "pest_monitoring": "Pest monitoring",
+        "potassium_application": "Potassium application",
+        "gradual_water_reduction": "Gradual water reduction",
+        "harvest_preparation": "Harvest preparation",
+        "post_harvest_processing": "Post-harvest processing",
+        "sowing_operations": "Sowing operations",
+        "irrigation_scheduling": "Irrigation scheduling",
+        "n_top_dressing": "Nitrogen top-dressing",
+        "second_n_application": "Second nitrogen application",
+        "final_irrigation": "Final irrigation",
+        "harvest_timing": "Harvest timing",
+        "post_harvest_handling": "Post-harvest handling",
+        "seed_treatment_rhizobium": "Seed treatment with rhizobium",
+        "sowing": "Sowing",
+        "weed_management": "Weed management",
+        "thinning_if_required": "Thinning if required",
+        "light_irrigation": "Light irrigation",
+        "critical_irrigation": "Critical irrigation",
+        "pest_control": "Pest control",
+        "micronutrient_spray": "Micronutrient spray",
+        "threshing": "Threshing",
+        "irrigation_management": "Irrigation management",
+        "gap_filling": "Gap filling",
+        "phosphorus_application": "Phosphorus application"
+      },
+      "critical": {
+        "ensure_drainage": "Ensure proper drainage",
+        "maintain_nursery_moisture": "Maintain nursery moisture",
+        "monitor_seed_germination": "Monitor seed germination",
+        "maintain_water_level": "Maintain {cm}cm water level",
+        "proper_spacing": "Plant at proper spacing",
+        "apply_starter_fertilizer": "Apply starter fertilizer",
+        "monitor_water_levels": "Monitor water levels",
+        "control_weeds_early": "Control weeds early",
+        "apply_n_at_tillering": "Apply nitrogen at tillering stage",
+        "ensure_adequate_water": "Ensure adequate water",
+        "monitor_stem_borer": "Monitor for stem borer",
+        "apply_potassium": "Apply potassium fertilizer",
+        "reduce_irrigation_gradually": "Reduce irrigation gradually",
+        "harvest_at_maturity": "Harvest at {percent}% maturity",
+        "proper_drying_storage": "Proper drying and storage",
+        "ensure_soil_moisture": "Ensure proper soil moisture",
+        "use_certified_seeds": "Use certified seeds",
+        "maintain_seed_rate": "Maintain proper seed rate",
+        "provide_light_irrigation": "Provide light irrigation",
+        "control_early_weeds": "Control early weeds",
+        "ensure_uniform_stand": "Ensure uniform stand",
+        "apply_first_n_dose": "Apply first nitrogen dose",
+        "maintain_soil_moisture": "Maintain soil moisture",
+        "monitor_aphids": "Monitor for aphids",
+        "apply_remaining_n": "Apply remaining nitrogen",
+        "watch_for_rust": "Watch for rust diseases",
+        "stop_irrigation_before_harvest": "Stop irrigation before harvest",
+        "harvest_at_physiological_maturity": "Harvest at physiological maturity",
+        "proper_storage": "Proper storage",
+        "ensure_residual_moisture": "Ensure residual moisture",
+        "treat_seeds_fungicide": "Treat seeds with fungicide",
+        "maintain_proper_depth": "Maintain proper depth",
+        "monitor_germination_percentage": "Monitor germination percentage",
+        "ensure_water_during_flowering": "Ensure water during flowering",
+        "control_gram_pod_borer": "Control gram pod borer",
+        "apply_boron_spray": "Apply boron spray",
+        "harvest_proper_moisture": "Harvest at proper moisture",
+        "avoid_pod_shattering": "Avoid pod shattering",
+        "dry_and_store_properly": "Dry and store properly",
+        "drying_and_storage": "Drying and storage",
+        "avoid_waterlogging": "Avoid waterlogging",
+        "stop_irrigation_before_maturity": "Stop irrigation before maturity",
+        "harvest_when_pods_rattle": "Harvest when pods rattle",
+        "proper_drying": "Proper drying",
+        "apply_phosphorus_fertilizer": "Apply phosphorus fertilizer",
+        "monitor_pod_borer": "Monitor for pod borer",
+        "provide_irrigation_if_needed": "Provide irrigation if needed"
+      },
+      "considerations": {
+        "high_temp": "High temperatures ({avg}°C avg) - consider heat protection measures",
+        "heavy_rain": "Heavy rainfall expected ({rain}mm) - ensure proper drainage",
+        "low_rain": "Low rainfall ({rain}mm) - irrigation may be required"
+      },
+      "soil_reco": {
+        "ph_acidic": "Soil pH ({ph}) is acidic - consider lime application",
+        "ph_alkaline": "Soil pH ({ph}) is alkaline - consider gypsum application",
+        "low_n": "Low nitrogen levels ({n}) - increase nitrogen fertilizer",
+        "low_moisture": "Low soil moisture ({moisture}%) - irrigation critical"
+      }
+    }
+  ,
+    "tabs": {
+      "dashboard": "Dashboard",
+      "yield_prediction": "Yield Prediction",
+      "optimization": "Optimization",
+      "iot_sensors": "IoT Sensors",
+      "timeline": "Timeline",
+      "sustainability": "Sustainability",
+      "market_analysis": "Market Analysis",
+      "recommended_crops": "Recommended Crops"
+    }
+  ,
+    "sustainability": {
+      "carbon_footprint": "Carbon Footprint",
+      "water_usage": "Water Usage",
+      "soil_health": "Soil Health",
+      "biodiversity_score": "Biodiversity Score",
+      "recommendations_title": "AI Sustainability Recommendations:",
+      "header_title": "Environmental Impact Analysis",
+      "header_badge": "AI-Calculated",
+      "header_subtitle": "Real-time sustainability metrics based on your farm data",
+      "emission_reduction": "Emission Reduction",
+      "awd_action": "Consider alternate wetting and drying (AWD) irrigation method",
+      "methane_reduction": "Reduce methane emissions by 30-50%"
+    },
+    "soil_metrics": {
+      "ph_level": "pH Level",
+      "moisture": "Moisture",
+      "nitrogen_n": "Nitrogen (N)",
+      "phosphorus_p": "Phosphorus (P)",
+      "potassium_k": "Potassium (K)",
+      "organic_matter": "Organic Matter"
+    },
+    "fertility": {
+      "title": "AI Fertility Recommendations",
+      "badge_for": "AI-Powered for {crop} in {month}",
+      "priority": {
+        "high": "high priority",
+        "medium": "medium priority",
+        "low": "low priority"
+      },
+      "timing_label": "Timing:",
+      "expected_result": "Expected Result:",
+      "nutrient": {
+        "nitrogen": "Nitrogen",
+        "phosphorus": "Phosphorus",
+        "potassium": "Potassium",
+        "ph_correction": "pH Correction",
+        "organic_matter": "Organic Matter",
+        "weather_adaptive": "Weather-Adaptive"
+      },
+      "action": {
+        "nitrogen": {
+          "deficient": "Apply 40-50kg/hectare urea immediately. Current level ({value}%) is critically low for {crop} in {month}.",
+          "moderate": "Apply 20-25kg/hectare urea. Current level ({value}%) needs supplementation for optimal {crop} growth."
+        },
+        "phosphorus": {
+          "low": "Apply 30-40kg/hectare DAP. Current P level ({value}%) is limiting root development."
+        },
+        "potassium": {
+          "low": "Apply 25-30kg/hectare MOP. Low K ({value}%) affects disease resistance and fruit quality."
+        },
+        "ph_correction": {
+          "acidic": "Apply 2-3 tons/hectare agricultural lime. Current pH ({value}) is too acidic for optimal {crop} nutrient uptake.",
+          "alkaline": "Apply 1-2 tons/hectare gypsum. High pH ({value}) may cause micronutrient deficiencies."
+        },
+        "organic_matter": {
+          "low": "Add 3-4 tons/hectare compost. Low organic matter ({value}%) affects soil structure and water retention."
+        },
+        "weather_adaptive": "High rainfall and humidity detected. Use slow-release fertilizers to prevent nutrient leaching."
+      },
+      "timing": {
+        "nitrogen": {
+          "deficient": "Apply in 2 split doses: 60% at planting, 40% at vegetative stage.",
+          "moderate": "Apply during active growth phase for maximum uptake."
+        },
+        "phosphorus": {
+          "low": "Apply at soil preparation stage for better root establishment."
+        },
+        "potassium": {
+          "low": "Apply during flowering stage for better fruit/grain development."
+        },
+        "ph_correction": {
+          "acidic": "Apply 2-3 weeks before planting and incorporate into soil.",
+          "alkaline": "Apply during soil preparation and irrigate well."
+        },
+        "organic_matter": {
+          "low": "Apply during land preparation and mix thoroughly."
+        },
+        "weather_adaptive": "Switch to coated urea and apply micronutrient foliar spray."
+      },
+      "timing_detail": {
+        "nitrogen": {
+          "deficient": "Apply in 2 split doses: 60% at planting, 40% at vegetative stage.",
+          "moderate": "Apply during active growth phase for maximum uptake."
+        },
+        "phosphorus": {
+          "low": "Apply at soil preparation stage for better root establishment."
+        },
+        "potassium": {
+          "low": "Apply during flowering stage for better fruit/grain development."
+        },
+        "ph_correction": {
+          "acidic": "Apply 2-3 weeks before planting and mix well into soil.",
+          "alkaline": "Apply during soil preparation and provide good irrigation."
+        },
+        "organic_matter": {
+          "low": "Apply during land preparation and mix thoroughly."
+        },
+        "weather_adaptive": "Use coated urea and apply micronutrient foliar spray."
+      },
+      "expected": {
+        "nitrogen": {
+          "deficient": "15-25% yield increase expected",
+          "moderate": "8-12% yield increase expected"
+        },
+        "phosphorus": {
+          "low": "Strong root system, 10-15% better nutrient uptake"
+        },
+        "potassium": {
+          "low": "Enhanced disease resistance, better quality produce"
+        },
+        "ph_correction": {
+          "acidic": "20-30% better nutrient availability",
+          "alkaline": "Better micronutrient availability"
+        },
+        "organic_matter": {
+          "low": "Better soil structure, improved water and nutrient retention"
+        },
+        "weather_adaptive": "Reduced nutrient loss, sustained plant nutrition"
+      }
+    },
+    "recommended": {
+      "header_title": "AI-Powered Crop Recommendations",
+      "header_badge": "Based on Real Soil & Weather Data",
+      "header_subtitle": "Intelligent crop suggestions analyzing your soil conditions, weather patterns, and market trends",
+      "ai_match_score": "AI Match Score",
+      "duration_label": "Duration:",
+      "market_demand": "Market Demand",
+      "expected_yield": "Expected Yield",
+      "analysis_title": "AI Analysis - Why this crop is recommended:",
+      "reasons": {
+        "optimal_ph": "Optimal soil pH ({ph}) for {crop} cultivation",
+        "ph_manageable": "Soil pH ({ph}) can be managed for {crop}",
+        "good_moisture": "Good soil moisture levels ({moisture}%) support growth",
+        "moisture_irrigation": "Soil moisture ({moisture}%) may need irrigation support",
+        "favorable_temp": "Favorable temperature conditions ({temp}°C average)",
+        "temp_manageable": "Temperature ({temp}°C) manageable with proper practices",
+        "adequate_rainfall": "Adequate rainfall ({rainfall}mm) expected for the season",
+        "rainfall_irrigation": "Rainfall ({rainfall}mm) may require supplemental irrigation",
+        "excellent_nutrients": "Excellent nutrient levels (NPK avg: {nutrients}%) support high yield",
+        "moderate_nutrients": "Moderate nutrient levels can be enhanced with fertilization",
+        "location_suited": "{crop} is well-suited to {location} region",
+        "optimal_season": "{month} is optimal planting season for {crop}"
+      }
+    },
+    "disease": {
+      "header_title": "AI Disease & Pest Risk Analysis",
+      "risk_label": "Risk",
+      "ai_confidence": "AI Confidence",
+      "risk_levels": { "low": "Low", "medium": "Medium", "high": "High" },
+      "risk_factors_prefix": "Risk factors",
+      "factors": {
+        "optimal_temp": "optimal temperature ({temp}°C)",
+        "high_humidity": "high humidity ({humidity}%)",
+        "adequate_rainfall": "adequate rainfall ({rain}mm)",
+        "suitable_soil_moisture": "suitable soil moisture",
+        "favorable_ph": "favorable soil pH",
+        "not_favorable": "Conditions not favorable"
+      },
+      "loading": "Data Loading",
+      "fetching": "Fetching real-time analysis...",
+      "names": {
+        "fusarium_wilt": "Fusarium Wilt",
+        "ascochyta_blight": "Ascochyta Blight",
+        "blast_disease": "Blast Disease",
+        "bacterial_leaf_blight": "Bacterial Leaf Blight"
+      },
+      "actions": {
+        "use_resistant_varieties_and_avoid_waterlogging": "Use resistant varieties and avoid waterlogging",
+        "apply_mancozeb_or_chlorothalonil_fungicide": "Apply mancozeb or chlorothalonil fungicide",
+        "use_copper_based_bactericides_and_avoid_overhead_irrigation": "Use copper-based bactericides and avoid overhead irrigation"
+      }
+    },
+    "metrics": {
+      "predicted_yield_increase": "Predicted Yield Increase",
+      "soil_health_score": "Soil Health Score",
+      "weather_risk": "Weather Risk",
+      "high_priority_tasks": "High Priority Tasks"
+    },
+    "values": {
+      "soil_health": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "fair": "Fair",
+        "poor": "Poor",
+        "unknown": "Unknown"
+      },
+      "demand": { "high": "High", "medium": "Medium", "low": "Low" }
+    },
+    "units": { "days": "days" },
+    "dashboard": { "units": { "days": "days" } },
+    "locations": {
+      "cities": {
+        "ghaziabad": "Ghaziabad"
+      },
+      "states": {
+        "uttar_pradesh": "Uttar Pradesh"
+      }
+    },
+    "common": {
+      "live_data": "Live Data",
+      "updated": "Updated:",
+      "realtime_analysis": "Real-time Analysis"
+    },
+    "market": {
+      "header_title": "AI Market Intelligence",
+      "badge": "Weather & Quality Adjusted",
+      "subtitle": "Dynamic pricing based on conditions and quality predictions",
+      "current_price": "Current Market Price",
+      "from_seasonal_avg": "from seasonal average",
+      "demand_forecast": "AI Demand Forecast",
+      "optimal_selling_period": "Optimal Selling Period",
+      "profit_margin": "Expected Profit Margin",
+      "profit_display": "{margin}% (₹{profit}/{unit} profit)",
+      "insights_title": "AI Market Insights:",
+      "demand_levels": { "high": "High", "medium": "Medium", "low": "Low" },
+      "schemes": {
+        "title": "Government Schemes & Support",
+        "badge": "Location & Crop Specific",
+        "subtitle": "Personalized scheme recommendations based on your profile",
+        "eligibility": "Eligibility",
+        "status": { "active": "Active", "available": "Available", "upcoming": "Upcoming", "apply_now": "Apply Now" }
+      },
+      "action_label": "Action",
+      "insights": {
+        "prices_above_avg": "Prices are {percent}% above seasonal average",
+        "excess_rainfall_quality": "Excess rainfall may affect crop quality and market prices",
+        "market_access_good": "Located in major agricultural belt with good market access",
+        "focus_post_harvest": "Focus on post-harvest handling and storage",
+        "leverage_mandis": "Leverage proximity to mandis and processing units",
+        "actions": {
+          "forward_or_contract": "Consider forward selling or contract farming"
+        }
+      }
+    },
+    "sustainability": {
+      "carbon_footprint": "Carbon Footprint",
+      "water_usage": "Water Usage",
+      "soil_health": "Soil Health",
+      "biodiversity_score": "Biodiversity Score",
+      "recommendations_title": "AI Sustainability Recommendations:",
+      "header_title": "Environmental Impact Analysis",
+      "header_badge": "AI-Calculated",
+      "header_subtitle": "Real-time sustainability metrics based on your farm data",
+      "emission_reduction": "Emission Reduction",
+      "awd_action": "Consider alternate wetting and drying (AWD) irrigation method",
+      "methane_reduction": "Reduce methane emissions by 30-50%",
+      "carbon_display": "{total} {unit} ({per} {perUnit})",
+      "water_display": "{total}{mm} irrigation needed ({rainfall}{mm} from rainfall)"
+    }
+  },
+  "weather": {
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "conditions": {
+      "sunny": "Sunny",
+      "cloudy": "Cloudy",
+      "partly_cloudy": "Partly Cloudy",
+      "light_rain": "Light rain",
+      "moderate_rain": "Moderate Rain",
+      "heavy_rain": "Heavy Rain",
+      "patchy_rain_nearby": "Patchy rain nearby"
+    }
+  }
+}
+
+

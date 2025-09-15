@@ -1,0 +1,1065 @@
+{
+  "app": {
+    "name": "କ୍ରପୱାଇଜ୍ ଏଆଇ",
+    "tagline": "ସ୍ମାର୍ଟ ଚାଷୀ ସମାଧାନ"
+  },
+  "crop_categories": {
+    "cereals_grains": "ଧାନ୍ୟ ଏବଂ ଅନାଜ",
+    "pulses": "ଡାଲି",
+    "cash_crops": "ନଗଦ ଫସଲ",
+    "oilseeds": "ତେଲବୀଜ",
+    "plantation_crops": "ଚାଷ ଯୋଗ୍ୟ ଫସଲ",
+    "fruits": "ଫଳ",
+    "vegetables": "ସବ୍ଜି",
+    "spices_herbs": "ମସଲା ଏବଂ ଉଷଧି",
+    "medicinal_plants": "ଔଷଧୀୟ ଉଦ୍ଭିଦ"
+  },
+  "crops": {
+    "rice": "ଧାନ",
+    "wheat": "ଗହମ୍",
+    "maize_corn": "ମକା",
+    "barley": "ଯବ",
+    "jowar_sorghum": "ଜୌଆର",
+    "bajra_pearl_millet": "ବାଜରା",
+    "ragi_finger_millet": "ରାଗି",
+    "lentil": "ମସୁର ଡାଲ",
+    "gram": "ଚଣା",
+    "arhar_tur": "ଅରହର ଡାଲ",
+    "moong": "ମୁଗ ଡାଲ",
+    "urad": "ବିରି ଡାଲ",
+    "chickpea": "ଚିକ୍ପି",
+    "chickpea_gram": "ଚଣା (ଗ୍ରାମ)",
+    "black_gram": "କଳା ଚଣା",
+    "sugarcane": "ଅଖୁ",
+    "cotton": "ପଟ୍ଟ",
+    "jute": "ପାଟ",
+    "tobacco": "ତମାକୁ",
+    "groundnut_peanut": "ବାଦାମ",
+    "soybean": "ସୋଯାବିନ୍",
+    "sunflower": "ସୁର୍ଯ୍ୟମୁଖୀ",
+    "mustard": "ସରିଷ ଠେଲା",
+    "safflower": "କୁସୁମ୍",
+    "sesame": "ତିଳ",
+    "tea": "ଚା",
+    "coffee": "କଫି",
+    "rubber": "ରବର",
+    "coconut": "ନଡ଼ିଆ",
+    "arecanut": "ଗୁଆ",
+    "cocoa": "କୋକୋ",
+    "mango": "ଆମ୍ବ",
+    "banana": "କଦଳୀ",
+    "apple": "ସେଉ",
+    "orange": "କମଳା",
+    "grapes": "ଆଙ୍ଗୁର",
+    "pineapple": "ଆନାରସ",
+    "guava": "ପେଉଠି",
+    "papaya": "ପପିତା",
+    "pomegranate": "ଦାନା",
+    "litchi": "ଲିଚୁ",
+    "watermelon": "ତରଭୁଜ",
+    "muskmelon": "ଖରବୁଜା",
+    "potato": "ଆଳୁ",
+    "tomato": "ଟମାଟୋ",
+    "onion": "ପିଆଜ",
+    "brinjal_eggplant": "ବେଗୁନ",
+    "cauliflower": "ଫୁଲକୋବି",
+    "cabbage": "ବନ୍ଦାକୋବି",
+    "carrot": "ଗାଜର",
+    "radish": "ମୁଳା",
+    "spinach": "ପାଳଙ୍ଗ",
+    "okra_ladyfinger": "ଭିଣ୍ଡି",
+    "peas": "ମଟର",
+    "turmeric": "ହଳଦୀ",
+    "ginger": "ଅଦା",
+    "garlic": "ରସୁଣ",
+    "chilli": "ଲଙ୍କା",
+    "black_pepper": "ଗୋଲମରିଚ",
+    "cardamom": "ଗୁଜୁରାତି ଏଲାଚୀ",
+    "coriander": "ଧନିଆ",
+    "cumin": "ଜିରା",
+    "fennel": "ମଉରୀ",
+    "fenugreek": "ମେଥୀ",
+    "aloe_vera": "ଘୃତକୁମାରୀ",
+    "tulsi_holy_basil": "ତୁଳସୀ",
+    "ashwagandha": "ଅଶ୍ୱଗନ୍ଧା",
+    "lemongrass": "ଲେମନ୍ ଘାସ",
+    "mint": "ପୁଦିନା",
+    "sarpagandha": "ସର୍ପଗନ୍ଧା",
+    "isabgol": "ଇସବଗୋଲ୍",
+    "kalmegh": "କାଲମେଘ",
+    "jowar": "ଜୁଆର (ସୋରଘମ)"
+  },
+  "units": {
+    "tons_per_hectare": "ଟନ୍/ହେକ୍ଟେୟାର୍",
+    "quintal": "କ୍ୱିଣ୍ଟାଲ",
+    "tons_co2": "ଟନ CO2",
+    "per_hectare": "ପ୍ରତି ହେକ୍ଟର",
+    "mm": "ମି.ମି.",
+    "ph": "pH",
+    "water_efficiency": "ଜଳ କ୍ଷମତା"
+  },
+  "home": {
+    "hero": {
+      "title": "କୃଷିର ଭବିଷ୍ୟତ୍ ଏଠାରେ",
+      "subtitle": "ଏଆଇ ଆଧାରିତ ଫସଲ ଉତ୍ପାଦନ ଅନୁମାନ ଏବଂ ବ୍ୟକ୍ତିଗତ କୃଷି ପରାମର୍ଶ ପାଆନ୍ତୁ, ଯାହା ଆପଣଙ୍କର ଉତ୍ପାଦନ କ୍ଷମତାକୁ 15% ପର୍ଯ୍ୟନ୍ତ ବୃଦ୍ଧି କରିପାରେ"
+    },
+    "stats": {
+      "yield_increase": "ମାଧ୍ୟମିକ ଉତ୍ପାଦନ ବୃଦ୍ଧି",
+      "farmers_helped": "ସାହାଯ୍ୟ ପାଇଥିବା କୃଷକ",
+      "prediction_accuracy": "ପୂର୍ବାନୁମାନ ସଠିକତା"
+    },
+    "form": {
+      "title": "ଆମକୁ ଆପଣଙ୍କ ଖେତ ବିଷୟରେ କୁହନ୍ତୁ",
+      "subtitle": "ଆପଣଙ୍କ କୃଷି ଆବଶ୍ୟକତା ପାଇଁ ବ୍ୟକ୍ତିଗତ ପରାମର୍ଶ ଦେବାରେ ଆମକୁ ସାହାଯ୍ୟ କରନ୍ତୁ",
+      "name_label": "ଆପଣଙ୍କ ନାମ (ଇଚ୍ଛାନୁସାରେ)",
+      "name_placeholder": "ନାମ ଲେଖନ୍ତୁ",
+      "location_label": "ଖେତର ସ୍ଥାନ *",
+      "location_placeholder": "ସହର, ରାଜ୍ୟ, ଦେଶ ଲେଖନ୍ତୁ...",
+      "location_help": "ସ୍ଥାନକୁ ହାତେ ଦିଅନ୍ତୁ କିମ୍ବା ତଳର ବଟନ୍ ଦବାଇ ବର୍ତ୍ତମାନ ସ୍ଥାନ ବ୍ୟବହାର କରନ୍ତୁ",
+      "size_label": "ଖେତର ଆକାର (ହେକ୍ଟେୟାର୍ସ) *",
+      "size_placeholder": "ଯେପରିକି, 5 ଏକର୍, 2 ହେକ୍ଟେୟାର୍",
+      "prev_crop_label": "ପୂର୍ବତନ/ବର୍ତ୍ତମାନ ଫସଲ (ଇଚ୍ଛାନୁସାରେ)",
+      "prev_crop_placeholder": "ପୂର୍ବ ଫସଲ ଲେଖନ୍ତୁ କିମ୍ବା ବାଛନ୍ତୁ",
+      "next_crop_label": "ପରବର୍ତ୍ତୀ ଫସଲ ଯାହା ଚାଷ କରିବେ *",
+      "next_crop_placeholder": "ଫସଲ ଲେଖନ୍ତୁ କିମ୍ବା ବାଛନ୍ତୁ",
+      "month_label": "ଯୋଜିତ ଚାଷ ମାସ *",
+      "month_placeholder": "ଚାଷ ମାସ ବାଛନ୍ତୁ",
+      "submit": "ଏଆଇ ପ୍ରଡିକସନ୍ ପାଆନ୍ତୁ",
+      "processing": "ପ୍ରୋସେସିଂ ଚାଲିଛି..."
+    },
+    "benefits": {
+      "title": "ଆପଣ କ'ଣ ପାଇବେ",
+      "yield": {
+        "title": "ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ",
+        "desc": "ଆପଣଙ୍କ ବିଶେଷ ଫସଲ ଏବଂ ସ୍ଥାନ ପାଇଁ ଏଆଇ ଆଧାରିତ ଅନୁମାନ"
+      },
+      "recommendations": {
+        "title": "ସ୍ମାର୍ଟ ପରାମର୍ଶ",
+        "desc": "ସିଞ୍ଚାଇ, ସାର ଏବଂ ପୋକା ନିୟନ୍ତ୍ରଣ ପାଇଁ ବ୍ୟକ୍ତିଗତ ସଲାହ"
+      },
+      "weather": {
+        "title": "ଆବହାବାନୀ ସଚେତନତା",
+        "desc": "ଆପଣଙ୍କ ଖେତ ପାଇଁ ସ୍ଥାନୀୟ ଆବହାବାନୀ ପ୍ରଚଳନ ଏବଂ ଜୁଆଁ ମୂଲ୍ୟାୟନ"
+      }
+    }
+  },
+  "months": {
+    "january": "ଜାନୁଆରୀ",
+    "february": "ଫେବ୍ରୁଆରୀ",
+    "march": "ମାର୍ଚ୍ଚ",
+    "april": "ଅପ୍ରେଲ୍",
+    "may": "ମେ",
+    "june": "ଜୁନ୍",
+    "july": "ଜୁଲାଇ",
+    "august": "ଅଗଷ୍ଟ",
+    "september": "ସେପ୍ଟେମ୍ବର୍",
+    "october": "ଅକ୍ଟୋବର୍",
+    "november": "ନଭେମ୍ବର୍",
+    "december": "ଡିସେମ୍ବର୍"
+  },
+  "actions": {
+    "use_current_location": "ବର୍ତ୍ତମାନ ସ୍ଥାନ ବ୍ୟବହାର କରନ୍ତୁ",
+    "change_language": "ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
+  },
+  "common": {
+    "not_available": "ଉପଲବ୍ଧ ନୁହେଁ",
+    "or": "କିମ୍ବା"
+  },
+  "dashboard": {
+    "common": {
+      "live_data": "ଲାଇଭ୍ ଡାଟା",
+      "updated": "ଅଦ୍ୟତନ:",
+      "realtime_analysis": "ସଜୀବ ବିଶ୍ଲେଷଣ"
+    },
+    "units": {
+      "days": "ଦିନ"
+    },
+    "farm_info": {
+      "title": "ଖେତ ସୂଚନା",
+      "update": "ଖେତ ତଥ୍ୟ ଅଦ୍ୟତନ କରନ୍ତୁ",
+      "current_location": "ବର୍ତ୍ତମାନ ସ୍ଥାନ:",
+      "planning_to_cultivate": "ଚାଷ କରିବାର ଯୋଜନା:",
+      "farm_size": "ଖେତର ଆକାର:",
+      "predicted_yield": "ଅନୁମାନିତ ଉତ୍ପାଦନ:"
+    },
+    "ai_reco": {
+      "title": "ଏଆଇ ପରାମର୍ଶ",
+      "irrigation": "ସିଞ୍ଚାଇ",
+      "pest": "କୀଟ ପରିଚାଳନା",
+      "fertilizer": "ସାର"
+    },
+    "weather": {
+      "title": "7-ଦିନର ଆବହାବାନୀ ପୂର୍ବାନୁମାନ",
+      "realtime_for": "ସଜୀବ ଆବହାବାନୀ"
+    },
+    "soil": {
+      "title": "ମୃଦା ଅବସ୍ଥା ବିଶ୍ଲେଷଣ",
+      "realtime_from": "ବାସ୍ତବିକ ମୃଦା ତଥ୍ୟ",
+      "coordinates": "ସନ୍ୟୋଗାଙ୍କ:"
+    },
+    "tabs": {
+      "dashboard": "ଡ୍ୟାଶବୋର୍ଡ",
+      "yield_prediction": "ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ",
+      "optimization": "ଅପ୍ଟିମାଇଜେସନ୍",
+      "iot_sensors": "IoT ସେନ୍ସର",
+      "timeline": "ଟାଇମଲାଇନ୍",
+      "sustainability": "ସସ୍ତାୟୀତା",
+      "market_analysis": "ବଜାର ବିଶ୍ଲେଷଣ",
+      "recommended_crops": "ଅନୁଶଂସିତ ଫସଲ"
+    },
+    "yield": {
+      "title": "ଫସଲ ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ",
+      "subtitle": "ଆପଣଙ୍କ ଚୟନିତ ଫସଲ ପାଇଁ ଏଆଇ ଆଧାରିତ ପୂର୍ବାନୁମାନ",
+      "confidence": "ଭରସା",
+      "factors": "ଉତ୍ପାଦନକୁ ପ୍ରଭାବିତ କରୁଥିବା କାରକଗୁଡିକ:",
+      "factor_keys": {
+        "optimal_ph": "ଚାଷ ପାଇଁ ମୃଦା pH ଉତ୍ତମ",
+        "acidic_soil": "ଅମ୍ଲୀ ମୃଦା ପୋଷକ ଉପଲବ୍ଧତା କମାଇପାରେ",
+        "alkaline_soil": "କ୍ଷାରିୟ ମୃଦା ଫସଫୋରସ୍ ଗ୍ରହଣ ସୀମିତ କରେ",
+        "low_moisture": "କମ୍ ମୃଦା ଆର୍ଦ୍ରତା—ସିଞ୍ଚାଇ ଯୋଜନା ଆବଶ୍ୟକ",
+        "high_moisture": "ଅଧିକ ଆର୍ଦ୍ରତାରେ ମୂଳରୋଗ ବଢ଼ିପାରେ",
+        "good_moisture": "ବୃଦ୍ଧି ପାଇଁ ଭଲ ମୃଦା ଆର୍ଦ୍ରତା",
+        "excellent_nutrients": "ଉତ୍କୃଷ୍ଟ ପୋଷକ ସ୍ତର ଉଚ୍ଚ ଉତ୍ପାଦନ ସହଯୋଗ କରେ",
+        "low_nutrients": "କମ୍ ପୋଷକ ସ୍ତର—ଉର୍ବରକ ଆବଶ୍ୟକ",
+        "moderate_nutrients": "ମଧ୍ୟମ ପୋଷକ ସ୍ତର—ସୁଧାରର ସୁଯୋଗ",
+        "excessive_rain": "ଅତ୍ୟଧିକ ବର୍ଷାରେ ଫଂଗସ୍ ରୋଗ ହୋଇପାରେ",
+        "dry_weather": "ଶୁଷ୍କ ଆବହାବାନୀ—ସାବଧାନ ସିଞ୍ଚାଇ ପରିଚାଳନ",
+        "favorable_weather": "ଅନୁକୂଳ ଆବହାବାନୀ ପରିସ୍ଥିତି ଅପେକ୍ଷିତ"
+      }
+    },
+    "weather_impact": {
+      "title": "ଆବହାବାନୀ ପ୍ରଭାବ ବିଶ୍ଲେଷଣ",
+      "subtitle": "ଆବହାବାନୀ ପରିସ୍ଥିତି ଆପଣଙ୍କ ଉତ୍ପାଦନକୁ କିପରି ପ୍ରଭାବ କରେ",
+      "items": {
+        "monitor_drainage": "ଜଳ ଜମା ରୋକିବାକୁ ନିସ୍କାସନ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "apply_fungicide": "ରୋଗ ନିୟନ୍ତ୍ରଣ ପାଇଁ ପୂର୍ବ ନିରୋଧକ ଫଙ୍ଗିସାଇଡ୍ ଲଗାନ୍ତୁ",
+        "provide_shade": "ଅତ୍ୟଧିକ ଗରମରେ ଛାୟା ପ୍ରଦାନ କରନ୍ତୁ",
+        "increase_irrigation": "ଗରମରେ ସିଞ୍ଚାଇ ଆବୃତ୍ତି ବଢ଼ାନ୍ତୁ",
+        "cold_stress": "ଫସଲରେ ଥଣ୍ଡା ଚାପ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "ensure_air_circulation": "ଆର୍ଦ୍ରତା କମାଇବାକୁ ଭଲ ବାୟୁ ପରିଚଳନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "watch_fungal": "ଫଂଗସ୍ ରୋଗ ବିକାଶ ନିହାରନ୍ତୁ",
+        "implement_drip": "ଜଳ ସଞ୍ଚୟ ପାଇଁ ଡ୍ରିପ୍ ସିଞ୍ଚାଇ କରନ୍ତୁ",
+        "prepare_drainage": "ଅଧିକ ପାଣି ପାଇଁ ନିସ୍କାସନ ପ୍ରଣାଳୀ ପ୍ରସ୍ତୁତ କରନ୍ତୁ",
+        "favorable_weather": "ଅନୁକୂଳ ବୃଦ୍ଧି ପରିସ୍ଥିତି",
+        "regular_monitoring": "ନିୟମିତ ନିରୀକ୍ଷଣ ପର୍ଯ୍ୟାପ୍ତ"
+      }
+    },
+    "weather_risk": {
+      "title": "ଆବହାବାନୀ ଝୁମ୍ପ ବିଶ୍ଲେଷଣ ଏବଂ ସାବଧାନତା",
+      "badge": "ଏଆଇ-ଚାଲିତ ବିଶ୍ଲେଷଣ"
+    },
+    "risks": {
+      "types": {
+        "high_temp_alert": "ଉଚ୍ଚ ତାପମାତ୍ରା ସତର୍କତା",
+        "low_temp_warning": "ନିମ୍ନ ତାପମାତ୍ରା ସତର୍କତା",
+        "heavy_rainfall_risk": "ଅତ୍ୟଧିକ ବର୍ଷା ଝୁମ୍ପ",
+        "drought_stress_alert": "ଖରା ଜନିତ ଚାପ ସତର୍କତା",
+        "fungal_disease_risk": "ଫଂଗସ୍ ରୋଗ ଝୁମ୍ପ",
+        "crop_specific_guidance": "ଫସଲ-ବିଶେଷ ମର୍ଗଦର୍ଶନ"
+      },
+      "messages": {
+        "high_temp_alert": "ସର୍ବମାନ୍ୟ ତାପମାତ୍ରା {avgTemp}°C {crop} ପାଇଁ ଆଦର୍ଶ ଠାରୁ ଅଧିକ। ତାପ ଜଟିଳତା ରୋକିବା ପାଇଁ ସକାଳ (5-7 AM) କିମ୍ବା ସନ୍ଧ୍ୟା (6-8 PM) ରେ ସିଞ୍ଚାଇ କରନ୍ତୁ।",
+        "low_temp_warning": "କମ୍ ତାପମାତ୍ରା ({avgTemp}°C) {crop} ର ବୃଦ୍ଧିକୁ ଧୀରଗତି କରିପାରେ। ଥଣ୍ଡା ରାତିରେ ରୋ କଭର୍ କିମ୍ବା ଗ୍ରିନହାଉସ୍ ସୁରକ୍ଷା ବିଚାର କରନ୍ତୁ।",
+        "heavy_rainfall_risk": "7 ଦିନରେ {totalRain}ମି.ମି. ବର୍ଷା ଅପେକ୍ଷିତ। ଠିକ୍ ଭାବରେ ପାଣି ନିସ୍କାସନ ନିଶ୍ଚିତ କରନ୍ତୁ ଏବଂ ଅଧିକ ବର୍ଷା ପୂର୍ବରୁ ସାର୍ ପ୍ରୟୋଗ ଏଡ଼ାନ୍ତୁ।",
+        "drought_stress_alert": "କମ୍ ବର୍ଷା ({totalRain}ମି.ମି.) ଅପେକ୍ଷିତ। {crop} ପାଇଁ ମାଟିର ଆର୍ଦ୍ରତା ରଖିବା ପାଇଁ ସିଞ୍ଚାଇ ବୃଦ୍ଧି କରନ୍ତୁ ଏବଂ ମଲ୍ଚ୍ ଲଗାନ୍ତୁ।",
+        "fungal_disease_risk": "ଅଧିକ ଆର୍ଦ୍ରତା ({avgHumidity}%) {crop} ପାଇଁ ଫଂଗସ୍ ରୋଗ ଝୁମ୍ପ ବଢ଼ାଏ। ପ୍ରତିରୋଧକ ଫଙ୍ଗିସାଇଡ୍ ଲଗାନ୍ତୁ ଏବଂ ଭଲ ବାୟୁ ପରିଚଳନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ।",
+        "crop_guidance": {
+          "rice": "2-5ସେମି ପାଣି ରଖନ୍ତୁ। ଅଧିକ ଆର୍ଦ୍ରତାରେ ବ୍ଲାଷ୍ଟ ରୋଗ ଦେଖନ୍ତୁ।",
+          "wheat": "ପାଣି ଜମା ଏଡ଼ାନ୍ତୁ। ଆର୍ଦ୍ର ପରିସ୍ଥିତିରେ ରଷ୍ଟ ରୋଗ ଦେଖନ୍ତୁ।",
+          "maize_corn": "ଭଲ ନିସ୍କାସନ ନିଶ୍ଚିତ କରନ୍ତୁ। ଗରମ ଆର୍ଦ୍ର ଆବହାବାନୀରେ କର୍ନ ବୋରର ବିପଦ ଦେଖନ୍ତୁ।",
+          "cotton": "ପାଣି ଜମା ରୋକନ୍ତୁ। ଗରମ ଆବହାବାନୀରେ ବଲୱର୍ମ କାର୍ଯ୍ୟକଳାପ ଦେଖନ୍ତୁ।",
+          "sugarcane": "ସ୍ଥିର ଆର୍ଦ୍ରତା ରଖନ୍ତୁ। ଆର୍ଦ୍ର ପରିସ୍ଥିତିରେ ରେଡ୍ ରଟ୍ ଦେଖନ୍ତୁ।"
+        }
+      }
+    },
+    "sustainability": {
+      "carbon_footprint": "କାର୍ବନ୍ ଫୁଟ୍ପ୍ରିଣ୍ଟ",
+      "water_usage": "ଜଳ ବ୍ୟବହାର",
+      "soil_health": "ମୃଦା ସ୍ୱାସ୍ଥ୍ୟ",
+      "biodiversity_score": "ଜୈବ ବିବିଧତା ସ୍କୋର",
+      "recommendations_title": "ଏଆଇ ସସ୍ତାୟୀତା ପରାମର୍ଶ:",
+      "header_title": "ପରିବେଶୀୟ ପ୍ରଭାବ ବିଶ୍ଲେଷଣ",
+      "header_badge": "ଏଆଇ-ହିସାବିତ",
+      "header_subtitle": "ଆପଣଙ୍କ ଫାର୍ମ ତଥ୍ୟ ଆଧାରିତ ସଜୀବ ସସ୍ତାୟୀତା ମାପକ",
+      "emission_reduction": "ନିସ୍ସରଣ କମାଇବା",
+      "awd_action": "ପାଳଟି ପାଳଟି ଭିଜେଇବା ଏବଂ ସୁକାଇବା (AWD) ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ ବ୍ୟବହାର କରନ୍ତୁ",
+      "methane_reduction": "ମିଥେନ୍ ନିସ୍ସରଣ 30-50% କମାନ୍ତୁ",
+      "carbon_display": "{total} {unit} ({per} {perUnit})",
+      "water_display": "{total}{mm} ସିଞ୍ଚାଇ ଆବଶ୍ୟକ ({rainfall}{mm} ବର୍ଷାରୁ)"
+    },
+    "soil_metrics": {
+      "ph_level": "pH ସ୍ତର",
+      "moisture": "ଆର୍ଦ୍ରତା",
+      "nitrogen_n": "ନାଇଟ୍ରୋଜେନ୍ (N)",
+      "phosphorus_p": "ଫସ୍ଫୋରାସ୍ (P)",
+      "potassium_k": "ପଟାସିୟମ୍ (K)",
+      "organic_matter": "ଜୈବିକ ପଦାର୍ଥ"
+    },
+    "fertility": {
+      "title": "ଏଆଇ ଉର୍ବରକ ସୁପାରିଶ",
+      "badge_for": "{month} ରେ {crop} ପାଇଁ ଏଆଇ-ଚାଲିତ",
+      "priority": {
+        "high": "ଉଚ୍ଚ ପ୍ରାଥମିକତା",
+        "medium": "ମଧ୍ୟମ ପ୍ରାଥମିକତା",
+        "low": "ନିମ୍ନ ପ୍ରାଥମିକତା"
+      },
+      "timing_label": "ସମୟ:",
+      "expected_result": "ଆଶାକରା ପରିଣାମ:",
+      "nutrient": {
+        "nitrogen": "ନାଇଟ୍ରୋଜେନ୍",
+        "phosphorus": "ଫସ୍ଫୋରାସ୍",
+        "potassium": "ପଟାସିୟମ୍",
+        "ph_correction": "pH ସଂଶୋଧନ",
+        "organic_matter": "ଜୈବିକ ପଦାର୍ଥ",
+        "weather_adaptive": "ମୌସୁମ-ଅନୁକୂଳ"
+      },
+      "action": {
+        "nitrogen": {
+          "deficient": "ତତ୍କ୍ଷଣାତ୍ 40-50kg/ହେକ୍ଟର ୟୁରିଆ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ ସ୍ତର ({value}%) {month} ରେ {crop} ପାଇଁ ଅତ୍ୟନ୍ତ କମ୍।",
+          "moderate": "20-25kg/ହେକ୍ଟର ୟୁରିଆ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ ସ୍ତର ({value}%) {crop} ବୃଦ୍ଧି ପାଇଁ ଅତିରିକ୍ତ ଆବଶ୍ୟକ।"
+        },
+        "phosphorus": {
+          "low": "30-40kg/ହେକ୍ଟର DAP ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ P ସ୍ତର ({value}%) ମୂଳ ବିକାଶକୁ ସୀମିତ କରୁଛି।"
+        },
+        "potassium": {
+          "low": "25-30kg/ହେକ୍ଟର MOP ପ୍ରୟୋଗ କରନ୍ତୁ। କମ୍ K ({value}%) ରୋଗ ପ୍ରତିରୋଧ ଏବଂ ଫଳ ଗୁଣବତ୍ତାକୁ ପ୍ରଭାବିତ କରେ।"
+        },
+        "ph_correction": {
+          "acidic": "2-3 ଟନ୍/ହେକ୍ଟର କୃଷି ଚୁନଖଡ଼ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ pH ({value}) {crop} ପୋଷକ ଗ୍ରହଣ ପାଇଁ ଅତ୍ୟଧିକ ଅମ୍ଳୀୟ।",
+          "alkaline": "1-2 ଟନ୍/ହେକ୍ଟର ଜିପସମ୍ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ pH ({value}) {crop} ପାଇଁ ଅତ୍ୟଧିକ କ୍ଷାରୀୟ।"
+        },
+        "organic_matter": {
+          "low": "ଜୈବିକ ପଦାର୍ଥ ବୃଦ୍ଧି ପାଇଁ 5-10 ଟନ୍/ହେକ୍ଟର କମ୍ପୋଷ୍ଟ ପ୍ରୟୋଗ କରନ୍ତୁ।"
+        }
+      },
+      "timing": {
+        "nitrogen": {
+          "deficient": "2 ବିଭାଗରେ ପ୍ରୟୋଗ କରନ୍ତୁ: 60% ରୋପଣ ସମୟରେ, 40% ଉଦ୍ଭିଦୀୟ ପର୍ଯ୍ୟାୟରେ।",
+          "moderate": "ରୋପଣ ପରେ 3-4 ସପ୍ତାହରେ ପ୍ରୟୋଗ କରନ୍ତୁ।"
+        },
+        "phosphorus": {
+          "low": "ରୋପଣ ସମୟରେ ମୂଳ ପ୍ରୟୋଗ କରନ୍ତୁ।"
+        },
+        "potassium": {
+          "low": "ଫୁଲ ଆରମ୍ଭ ପୂର୍ବରୁ ପ୍ରୟୋଗ କରନ୍ତୁ।"
+        }
+      },
+      "expected": {
+        "nitrogen": {
+          "deficient": "15-25% ଉତ୍ପାଦନ ବୃଦ୍ଧି ଆଶା",
+          "moderate": "10-15% ଉତ୍ପାଦନ ବୃଦ୍ଧି ଆଶା"
+        },
+        "phosphorus": {
+          "low": "ମୂଳ ବିକାଶ ଏବଂ ପୋଷକ ଗ୍ରହଣ ଉନ୍ନତି"
+        },
+        "potassium": {
+          "low": "ରୋଗ ପ୍ରତିରୋଧ ଏବଂ ଫଳ ଗୁଣବତ୍ତା ଉନ୍ନତି"
+        }
+      }
+    },
+    "market": {
+      "header_title": "ଏଆଇ ବଜାର ବୁଦ୍ଧିମତ୍ତା",
+      "badge": "ଆବହାଅ ଏବଂ ଗୁଣଗତତା ଅନୁଯାୟୀ",
+      "subtitle": "ପରିସ୍ଥିତି ଏବଂ ଗୁଣପୂର୍ବାନୁମାନ ଆଧାରିତ ଗତିଶୀଳ ଦର",
+      "current_price": "ବର୍ତ୍ତମାନ ବଜାର ଦର",
+      "from_seasonal_avg": "ମୌସୁମୀ ଉସତ୍ ଠାରୁ",
+      "demand_forecast": "ଏଆଇ ଚାହିଦା ପୂର୍ବାନୁମାନ",
+      "optimal_selling_period": "ସର୍ବୋତ୍ତମ ବିକ୍ରୟ ସମୟ",
+      "profit_margin": "ଆଶାକରା ଲାଭ ମାର୍ଜିନ",
+      "profit_display": "{margin}% (₹{profit}/{unit} ଲାଭ)",
+      "insights_title": "ଏଆଇ ବଜାର ଜ୍ଞାନ:",
+      "demand_levels": { "high": "ଉଚ୍ଚ", "medium": "ମଧ୍ୟମ", "low": "କମ୍" },
+      "schemes": {
+        "title": "ସରକାରୀ ଯୋଜନା ଏବଂ ସହଯୋଗ",
+        "badge": "ଅବସ୍ଥାନ ଏବଂ ଫସଲ ନିର୍ଦ୍ଦିଷ୍ଟ",
+        "subtitle": "ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ ଆଧାରିତ ବ୍ୟକ୍ତିଗତ ଯୋଜନା ସୁପାରିଶ",
+        "eligibility": "ଯୋଗ୍ୟତା",
+        "status": { "active": "ସକ୍ରିୟ", "available": "ଉପଲବ୍ଧ", "upcoming": "ଆସନ୍ତା", "apply_now": "ଏବେ ଆବେଦନ କରନ୍ତୁ" }
+      },
+      "action_label": "କାର୍ଯ୍ୟ",
+      "insights": {
+        "prices_above_avg": "ମୌସୁମୀ ଉସତ୍ ଠାରୁ ଦର {percent}% ଅଧିକ",
+        "excess_rainfall_quality": "ଅଧିକ ବର୍ଷା ଫସଲ ଗୁଣବତ୍ତା ଏବଂ ବଜାର ଦରକୁ ପ୍ରଭାବିତ କରିପାରେ",
+        "market_access_good": "ମୁଖ୍ୟ କୃଷି ମାଳାରେ ଅବସ୍ଥିତ, ଭଲ ବଜାର ପହଞ୍ଚ",
+        "focus_post_harvest": "କଟାଇ ପରେ ବ୍ୟବସ୍ଥାପନ ଏବଂ ସଂରକ୍ଷଣରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ",
+        "leverage_mandis": "ମାଣ୍ଡୀ ଏବଂ ପ୍ରୋସେସିଂ ୟୁନିଟ୍ ନିକଟତାର ଲାଭ ନିଅନ୍ତୁ",
+        "actions": {
+          "forward_or_contract": "ଫରୱାର୍ଡ ବିକ୍ରୟ କିମ୍ବା କନ୍ଟ୍ରାକ୍ଟ ଫାର୍ମିଂ ବିଚାର କରନ୍ତୁ"
+        }
+      }
+    },
+    "recommended": {
+      "header_title": "ଏଆଇ-ସଂଚାଳିତ ଫସଲ ସୁପାରିଶ",
+      "header_badge": "ବାସ୍ତବ ମାଟି ଏବଂ ମୌସୁମ ଡାଟା ଉପରେ ଆଧାରିତ",
+      "header_subtitle": "ଆପଣଙ୍କ ମାଟିର ସ୍ଥିତି, ମୌସୁମ ପ୍ୟାଟର୍ନ ଏବଂ ବଜାର ରୁଝାନଗୁଡ଼ିକର ବିଶ୍ଲେଷଣ କରି ବୁଦ୍ଧିମାନ ଫସଲ ସୁପାରିଶ",
+      "ai_match_score": "ଏଆଇ ମ୍ୟାଚ୍ ସ୍କୋର",
+      "duration_label": "ଅବଧି:",
+      "market_demand": "ବଜାର ଚାହିଦା",
+      "expected_yield": "ଆଶାକରା ଉତ୍ପାଦନ",
+      "analysis_title": "ଏଆଇ ବିଶ୍ଲେଷଣ - ଏହି ଫସଲ କାହିଁକି ସୁପାରିଶ:",
+      "reasons": {
+        "optimal_ph": "ମାଟିର pH ({ph}) {crop} ଚାଷ ପାଇଁ ଉପଯୁକ୍ତ",
+        "ph_manageable": "ମାଟିର pH ({ph}) {crop} ପାଇଁ ପରିଚାଳିତ ହୋଇପାରେ",
+        "good_moisture": "ଭଲ ମାଟି ଆର୍ଦ୍ରତା ({moisture}%) ବୃଦ୍ଧି ପାଇଁ ସହାୟକ",
+        "moisture_irrigation": "ମାଟି ଆର୍ଦ୍ରତା ({moisture}%) ପାଇଁ ସିଞ୍ଚାଇ ସହାୟତା ଆବଶ୍ୟକ ହୋଇପାରେ",
+        "favorable_temp": "ଅନୁକୂଳ ତାପମାତ୍ରା ({temp}°C ହାରାହାରି)",
+        "temp_manageable": "ତାପମାତ୍ରା ({temp}°C) ଉପଯୁକ୍ତ ପ୍ରଥା ସହିତ ପରିଚାଳିତ",
+        "adequate_rainfall": "ଋତୁ ପାଇଁ ପର୍ଯ୍ୟାପ୍ତ ବର୍ଷା ({rainfall}mm) ଆଶା",
+        "rainfall_irrigation": "ବର୍ଷା ({rainfall}mm) ପାଇଁ ଅତିରିକ୍ତ ସିଞ୍ଚାଇ ଆବଶ୍ୟକ ହୋଇପାରେ",
+        "excellent_nutrients": "ଉତ୍କୃଷ୍ଟ ପୋଷକ ତତ୍ତ୍ୱ (NPK ହାରାହାରି: {nutrients}%) ଉଚ୍ଚ ଉତ୍ପାଦନକୁ ସମର୍ଥନ କରେ",
+        "moderate_nutrients": "ମଧ୍ୟମ ପୋଷକ ତତ୍ତ୍ୱକୁ ଉର୍ବରକ ସହିତ ଉନ୍ନତ କରାଯାଇପାରେ",
+        "location_suited": "{crop} {location} ଅଞ୍ଚଳ ପାଇଁ ଉପଯୁକ୍ତ",
+        "optimal_season": "{month} {crop} ପାଇଁ ଉତ୍ତମ ରୋପଣ ଋତୁ"
+      }
+    },
+    "metrics": {
+      "predicted_yield_increase": "ଅନୁମାନିତ ଉତ୍ପାଦନ ବୃଦ୍ଧି",
+      "soil_health_score": "ମୃଦା ସ୍ୱାସ୍ଥ୍ୟ ସ୍କୋର",
+      "weather_risk": "ଆବହାବାନୀ ଝୁମ୍ପ",
+      "high_priority_tasks": "ଉଚ୍ଚ ପ୍ରାଥମିକତା କାର୍ଯ୍ୟ"
+    },
+    "values": {
+      "demand": { "high": "ଉଚ୍ଚ", "medium": "ମଧ୍ୟମ", "low": "କମ୍" },
+      "soil_health": {
+        "excellent": "ଉତ୍କୃଷ୍ଟ",
+        "good": "ଭଲ",
+        "fair": "ମଧ୍ୟମ",
+        "poor": "ଖରାପ"
+      }
+    },
+    "disease": {
+      "header_title": "ଏଆଇ ରୋଗ ଏବଂ କୀଟ ଝୁମ୍ପ ବିଶ୍ଲେଷଣ",
+      "risk_label": "ଝୁମ୍ପ",
+      "ai_confidence": "ଏଆଇ ଭରସା",
+      "risk_levels": { "low": "କମ୍", "medium": "ମଧ୍ୟମ", "high": "ଉଚ୍ଚ" },
+      "risk_factors_prefix": "ଝୁମ୍ପ କାରକ",
+      "factors": {
+        "optimal_temp": "ଇଷ୍ଟତମ ତାପମାତ୍ରା ({temp}°C)",
+        "high_humidity": "ଉଚ୍ଚ ଆର୍ଦ୍ରତା ({humidity}%)",
+        "adequate_rainfall": "ପର୍ଯ୍ୟାପ୍ତ ବର୍ଷା ({rain}mm)",
+        "suitable_soil_moisture": "ଉପଯୁକ୍ତ ମୃଦା ନମୀ",
+        "favorable_ph": "ଅନୁକୂଳ ମୃଦା pH",
+        "not_favorable": "ପରିସ୍ଥିତି ଅନୁକୂଳ ନୁହେଁ"
+      },
+      "loading": "ଡାଟା ଲୋଡ୍ ହେଉଛି",
+      "fetching": "ସଜୀବ ବିଶ୍ଲେଷଣ ପ୍ରାପ୍ତ କରାଯାଉଛି...",
+      "names": {
+        "fusarium_wilt": "ଫ୍ୟୁଜେରିଅମ୍ ୱିଲ୍ଟ",
+        "ascochyta_blight": "ଏସ୍କୋକାଇଟା ବ୍ଲାଇଟ୍",
+        "blast_disease": "ବ୍ଲାସ୍ଟ୍ ରୋଗ",
+        "bacterial_leaf_blight": "ବ୍ୟାକ୍ଟେରିଆଲ୍ ଲିଫ୍ ବ୍ଲାଇଟ୍"
+      },
+      "actions": {
+        "use_resistant_varieties_and_avoid_waterlogging": "ପ୍ରତିରୋଧୀ କିସମ ବ୍ୟବହାର କରନ୍ତୁ ଏବଂ ଜଳଜମା ଏଡ଼ାନ୍ତୁ",
+        "apply_mancozeb_or_chlorothalonil_fungicide": "ମେନକୋଜେବ୍ କିମ୍ବା କ୍ଲୋରୋଥାଲୋନିଲ୍ ଫଙ୍ଗିସାଇଡ୍ ବ୍ୟବହାର କରନ୍ତୁ",
+        "use_copper_based_bactericides_and_avoid_overhead_irrigation": "କପର-ଆଧାରିତ ଜୀବାଣୁନାଶକ ବ୍ୟବହାର କରନ୍ତୁ ଏବଂ ଓଭରହେଡ୍ ସିଞ୍ଚାଇ ଏଡ଼ାନ୍ତୁ"
+      }
+    },
+    "sensor": {
+      "title": "ସଜୀବ ସେନ୍ସର ତଥ୍ୟ",
+      "badge": "ଏଆଇ-ଉନ୍ନତ ଲାଇଭ୍ ଡାଟା",
+      "subtitle": "ଆବହାବାନୀ ଏବଂ ମୃଦା ଅବସ୍ଥା ଉପରେ ଆଧାରିତ ବୁଦ୍ଧିମାନ ନିରୀକ୍ଷଣ"
+    },
+    "iot": {
+      "soil_moisture": "ମୃଦା ଆର୍ଦ୍ରତା",
+      "real_soil_data": "ବାସ୍ତବିକ ମୃଦା ତଥ୍ୟ ଆଧାରିତ",
+      "temperature": "ତାପମାତ୍ରା",
+      "weather_api_enhanced": "ଆବହାବାନୀ API ଉନ୍ନତ",
+      "humidity": "ଆର୍ଦ୍ରତା",
+      "realtime_correlation": "ସଜୀବ ସମ୍ପର୍କ",
+      "light_intensity": "ଆଲୋକ ତୀବ୍ରତା",
+      "weather_condition_based": "ଆବହାବାନୀ ପରିସ୍ଥିତି ଆଧାରିତ",
+      "last_updated": "ଶେଷ ଅଦ୍ୟତନ",
+      "ai_enhanced": "ଏଆଇ-ଉନ୍ନତ ତଥ୍ୟ"
+    },
+    "alerts": {
+      "title": "ଏଆଇ-ଚାଲିତ ସେନ୍ସର ଆଲର୍ଟ",
+      "subtitle": "ଫସଲ ଆବଶ୍ୟକତା ଏବଂ ପରିସ୍ଥିତି ଉପରେ ଆଧାରିତ ସ୍ମାର୍ଟ ଆଲର୍ଟ",
+      "risk_assessment": "ଆବହାବାନୀ ଏବଂ ମୃଦା ଅବସ୍ଥା ଆଧାରିତ ଝୁମ୍ପ ମୂଲ୍ୟାୟନ",
+      "action_label": "କାର୍ଯ୍ୟ",
+      "messages": {
+        "low_moisture": "ମୃଦା ଆର୍ଦ୍ରତା ({moisture}%) {crop} ପାଇଁ ଇଷ୍ଟତମ ଠାରୁ କମ୍। ତତ୍କ୍ଷଣତ ସିଞ୍ଚାଇ କରନ୍ତୁ।",
+        "high_temp": "ତାପମାତ୍ରା ({temp}°C) {crop} ପାଇଁ ଇଷ୍ଟତମ ସୀମା ଠାରୁ ଅଧିକ। ତାପ ଚାପ ଝୁମ୍ପ।",
+        "high_humidity": "ଅଧିକ ଆର୍ଦ୍ରତା ({humidity}%) {crop} ପାଇଁ ରୋଗ ଝୁମ୍ପ ବଢ଼ାଏ।"
+      },
+      "actions": {
+        "start_irrigation": "2 ଘଣ୍ଟା ମଧ୍ୟରେ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ ଚାଲୁ କରନ୍ତୁ",
+        "provide_shade": "ଛାୟା ଜାଲ ବ୍ୟବସ୍ଥା କରନ୍ତୁ କିମ୍ବା ସିଞ୍ଚାଇ ଆବୃତ୍ତି ବଢାନ୍ତୁ",
+        "improve_ventilation": "ବାୟୁ ପରିଚଳନ ସୁଧାରନ୍ତୁ ଏବଂ ଫଂଗସ୍ ରୋଗ ନିରୀକ୍ଷଣ କରନ୍ତୁ"
+      }
+    },
+    "optimization": {
+      "irrigation": {
+        "flood": "ବାଢ଼ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ",
+        "sprinkler": "ସ୍ପ୍ରିଙ୍କଲର୍ ପ୍ରଣାଳୀ",
+        "drip": "ଡ୍ରିପ୍ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ",
+        "subtitle": "ସିଞ୍ଚାଇ • ସମଗ୍ର ବୃଦ୍ଧି ଋତୁରେ",
+        "description": "ବର୍ତ୍ତମାନ ମୃଦା ଆର୍ଦ୍ରତା {moisture}% ଆଧାରରେ {crop} ପାଇଁ ଜଳ ପରିଚାଳନା ରଣନୀତି",
+        "improvement": "ଅପେକ୍ଷିତ ସୁଧାର: {efficiency} ଜଳ କ୍ଷମତା"
+      },
+      "pest": {
+        "title": "ଏକୀକୃତ କୀଟ ପରିଚାଳନା",
+        "subtitle": "କୀଟ ନିୟନ୍ତ୍ରଣ • ସାପ୍ତାହିକ ନିରୀକ୍ଷଣ",
+        "description": "{crop} ପାଇଁ ପୂର୍ବ ନିରୋଧକ କୀଟ ନିୟନ୍ତ୍ରଣ ବ୍ୟବସ୍ଥା",
+        "improvement": "ଅପେକ୍ଷିତ ସୁଧାର: {risk} କ୍ଷତି ରୋକଥାମ"
+      }
+    }
+  },
+  "weather": {
+    "weekdays": {
+      "mon": "ସୋମ",
+      "tue": "ମଙ୍ଗଳ",
+      "wed": "ବୁଧ",
+      "thu": "ଗୁରୁ",
+      "fri": "ଶୁକ୍ର",
+      "sat": "ଶନି",
+      "sun": "ରବି"
+    },
+    "conditions": {
+      "sunny": "ସୁର୍ଯ୍ୟମୟ",
+      "cloudy": "ମେଘାଚ୍ଛନ୍ନ",
+      "partly_cloudy": "ଆଂଶିକ ମେଘାଚ୍ଛନ୍ନ",
+      "light_rain": "ହାଲୁକା ବର୍ଷା",
+      "moderate_rain": "ମଧ୍ୟମ ବର୍ଷା",
+      "heavy_rain": "ଭାରି ବର୍ଷା",
+      "patchy_rain_nearby": "ଇପାରି-ସେପାରି ବର୍ଷା"
+    }
+  },
+  "dashboard": {
+    "common": {
+      "live_data": "ଲାଇଭ୍ ଡାଟା",
+      "updated": "ଅଦ୍ୟତନ:",
+      "realtime_analysis": "ସଜୀବ ବିଶ୍ଲେଷଣ"
+    },
+    "farm_info": {
+      "title": "ଖେତ ସୂଚନା",
+      "update": "ଖେତ ତଥ୍ୟ ଅଦ୍ୟତନ କରନ୍ତୁ",
+      "current_location": "ବର୍ତ୍ତମାନ ସ୍ଥାନ:",
+      "planning_to_cultivate": "ଚାଷ କରିବାର ଯୋଜନା:",
+      "farm_size": "ଖେତର ଆକାର:",
+      "predicted_yield": "ଅନୁମାନିତ ଉତ୍ପାଦନ:"
+    },
+    "ai_reco": {
+      "title": "ଏଆଇ ପରାମର୍ଶ",
+      "update_farm": "ଖେତ ତଥ୍ୟ ଅଦ୍ୟତନ କରନ୍ତୁ",
+      "fertilizer": "ସାର ପରାମର୍ଶ",
+      "irrigation": "ସିଞ୍ଚାଇ ପରାମର୍ଶ",
+      "pest": "କୀଟ ପରାମର୍ଶ"
+    },
+    "weather": {
+      "title": "7-ଦିନର ଆବହାବାନୀ ପୂର୍ବାନୁମାନ",
+      "realtime_for": "ସଜୀବ ଆବହାବାନୀ"
+    },
+    "soil": {
+      "title": "ମୃଦା ଅବସ୍ଥା ବିଶ୍ଲେଷଣ",
+      "real_time_analysis": "ସଜୀବ ବିଶ୍ଲେଷଣ",
+      "coordinates": "ଅକ୍ଷାଂଶ ଦ୍ରାଘିମା",
+      "realtime_from": "ସଜୀବ ତଥ୍ୟ ଆଧାରିତ"
+    },
+    "tabs": {
+      "dashboard": "ଡ୍ୟାଶବୋର୍ଡ",
+      "yield_prediction": "ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ",
+      "optimization": "ଅପ୍ଟିମାଇଜେସନ୍",
+      "iot_sensors": "IoT ସେନ୍ସର",
+      "timeline": "ଟାଇମଲାଇନ୍",
+      "sustainability": "ସସ୍ତାୟୀତା",
+      "market_analysis": "ବଜାର ବିଶ୍ଲେଷଣ",
+      "recommended_crops": "ଅନୁଶଂସିତ ଫସଲ"
+    },
+    "yield": {
+      "title": "ଫସଲ ଉତ୍ପାଦନ ପୂର୍ବାନୁମାନ",
+      "subtitle": "ଆପଣଙ୍କ ଚୟନିତ ଫସଲ ପାଇଁ ଏଆଇ ଆଧାରିତ ପୂର୍ବାନୁମାନ",
+      "confidence": "ଭରସା",
+      "factors": "ଉତ୍ପାଦନକୁ ପ୍ରଭାବିତ କରୁଥିବା କାରକଗୁଡିକ:",
+      "factor_keys": {
+        "optimal_ph": "ଚାଷ ପାଇଁ ମୃଦା pH ଉତ୍ତମ",
+        "acidic_soil": "ମୃଦା ଅମ୍ଳୀୟ ଅବସ୍ଥାରେ ଅଛି",
+        "low_moisture": "ମୃଦା ଆର୍ଦ୍ରତା କମ୍",
+        "excellent_nutrients": "ପୋଷକ ତତ୍ତ୍ୱ ଉତ୍କୃଷ୍ଟ",
+        "excessive_rain": "ଅତ୍ୟଧିକ ବର୍ଷା ହେବାର ସମ୍ଭାବନା",
+        "alkaline_soil": "ମୃଦା କ୍ଷାରୀୟ ଅବସ୍ଥାରେ ଅଛି",
+        "dry_weather": "ଶୁଷ୍କ ଆବହାବାନୀ",
+        "favorable_weather": "ଅନୁକୂଳ ଆବହାବାନୀ",
+        "good_moisture": "ମୃଦା ଆର୍ଦ୍ରତା ଭଲ",
+        "high_moisture": "ମୃଦା ଆର୍ଦ୍ରତା ଅଧିକ",
+        "low_nutrients": "ପୋଷକ ତତ୍ତ୍ୱ କମ୍",
+        "moderate_nutrients": "ପୋଷକ ତତ୍ତ୍ୱ ମଧ୍ୟମ"
+      }
+    },
+    "weather_impact": {
+      "title": "ଆବହାବାନୀ ପ୍ରଭାବ ମୂଲ୍ୟାୟନ",
+      "subtitle": "ଆଗାମୀ 7 ଦିନର ଆବହାବାନୀ ଆଧାରରେ ଫସଲ ଯତ୍ନ ସୁପାରିଶ",
+      "items": {
+        "monitor_drainage": "ଉତ୍ତମ ନିଷ୍କାସନ ବ୍ୟବସ୍ଥା ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "apply_fungicide": "ଫଂଗିସାଇଡ୍ ପ୍ରୟୋଗ କରିବା ବିଚାରନ୍ତୁ",
+        "cold_stress": "ଠଣ୍ଡା ଚାପ ପରିସ୍ଥିତି",
+        "ensure_air_circulation": "ବାୟୁ ପରିଚଳନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "favorable_weather": "ଅନୁକୂଳ ଆବହାବାନୀ",
+        "implement_drip": "ଡ୍ରିପ୍ ସିଞ୍ଚାଇ କାର୍ଯ୍ୟକାରୀ କରନ୍ତୁ",
+        "increase_irrigation": "ସିଞ୍ଚାଇ ବୃଦ୍ଧି କରନ୍ତୁ",
+        "prepare_drainage": "ନିଷ୍କାସନ ପ୍ରସ୍ତୁତ କରନ୍ତୁ",
+        "provide_shade": "ଛାୟା ପ୍ରଦାନ କରନ୍ତୁ",
+        "regular_monitoring": "ନିୟମିତ ନିରୀକ୍ଷଣ",
+        "watch_fungal": "ଫଂଗାଲ ରୋଗ ଦେଖନ୍ତୁ"
+      }
+    },
+    "weather_risk": {
+      "title": "ଆବହାବାନୀ ବିପଦ ବିଶ୍ଲେଷଣ",
+      "badge": "7-ଦିନର ପୂର୍ବାନୁମାନ ଆଧାରିତ"
+    },
+    "risks": {
+      "types": {
+        "high_temp_alert": "ଉଚ୍ଚ ତାପମାତ୍ରା ଚେତାବନୀ",
+        "heavy_rainfall_risk": "ଭାରି ବର୍ଷା ବିପଦ",
+        "fungal_disease_risk": "ଫଂଗାଲ ରୋଗ ବିପଦ",
+        "crop_specific_guidance": "ଫସଲ-ନିର୍ଦ୍ଦିଷ୍ଟ ମାର୍ଗଦର୍ଶନ",
+        "drought_stress_alert": "ଶୁଷ୍କ ଚାପ ଚେତାବନୀ",
+        "low_temp_warning": "ନିମ୍ନ ତାପମାତ୍ରା ଚେତାବନୀ"
+      },
+      "messages": {
+        "high_temp": "ଆଗାମୀ 3 ଦିନରେ ତାପମାତ୍ରା {avgTemp}°C ହାରାହାରି ରହିବ। {crop} ପାଇଁ ତାପ ଚାପ ବିପଦ।",
+        "heavy_rain": "ସପ୍ତାହରେ {totalRain}mm ବର୍ଷା ଆଶା। ଜଳଜମା ଏବଂ ରୋଗ ବିପଦ ବଢ଼ିପାରେ।",
+        "fungal_risk": "ଉଚ୍ଚ ଆର୍ଦ୍ରତା ଏବଂ ମଧ୍ୟମ ତାପମାତ୍ରା। {crop} ପାଇଁ ଫଂଗାଲ ରୋଗ ବିପଦ।",
+        "crop_guidance": {
+          "rice": "ଚାଉଳ ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+          "wheat": "ଗହମ ପାଇଁ ସତର୍କତା ଆବଶ୍ୟକ",
+          "maize_corn": "ମକା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+          "cotton": "କପା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+          "sugarcane": "ଗନ୍ନା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ"
+        },
+        "drought_stress_alert": "କମ୍ ବର୍ଷା ({totalRain}mm) ଆଶା। {crop} ପାଇଁ ମୃଦା ଆର୍ଦ୍ରତା ରଖିବା ପାଇଁ ସିଞ୍ଚାଇ ଆବୃତ୍ତି ବଢାନ୍ତୁ।",
+        "fungal_disease_risk": "ଉଚ୍ଚ ଆର୍ଦ୍ରତା ({avgHumidity}%) {crop} ରେ ଫଂଗାଲ ରୋଗ ବିପଦ ବଢ଼ାଏ।",
+        "heavy_rainfall_risk": "7 ଦିନରେ {totalRain}mm ବର୍ଷା ଆଶା। ଉତ୍ତମ ଜଳ ନିଷ୍କାସନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ।",
+        "high_temp_alert": "ହାରାହାରି ତାପମାତ୍ରା {avgTemp}°C {crop} ପାଇଁ ଇଷ୍ଟତମ ଠାରୁ ଅଧିକ।",
+        "low_temp_warning": "ଠଣ୍ଡା ତାପମାତ୍ରା ({avgTemp}°C) {crop} ବୃଦ୍ଧିକୁ ଧୀର କରିପାରେ।"
+      },
+      "crop_guidance": {
+        "rice": "ଚାଉଳ ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+        "wheat": "ଗହମ ପାଇଁ ସତର୍କତା ଆବଶ୍ୟକ",
+        "cotton": "କପା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+        "maize_corn": "ମକା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ",
+        "sugarcane": "ଗନ୍ନା ପାଇଁ ବିଶେଷ ଯତ୍ନ ଆବଶ୍ୟକ"
+      }
+    },
+    "sustainability": {
+      "carbon_footprint": "କାର୍ବନ୍ ଫୁଟ୍ପ୍ରିଣ୍ଟ",
+      "water_usage": "ଜଳ ବ୍ୟବହାର",
+      "soil_health": "ମୃଦା ସ୍ୱାସ୍ଥ୍ୟ",
+      "biodiversity_score": "ଜୈବ ବିବିଧତା ସ୍କୋର",
+      "recommendations_title": "ଏଆଇ ସସ୍ତାୟୀତା ପରାମର୍ଶ:",
+      "header_title": "ପରିବେଶୀୟ ପ୍ରଭାବ ବିଶ୍ଲେଷଣ",
+      "header_badge": "ଏଆଇ-ହିସାବିତ",
+      "header_subtitle": "ଆପଣଙ୍କ ଫାର୍ମ ତଥ୍ୟ ଆଧାରିତ ସଜୀବ ସସ୍ତାୟୀତା ମାପକ",
+      "emission_reduction": "ନିସ୍ସରଣ କମାଇବା",
+      "awd_action": "ପାଳଟି ପାଳଟି ଭିଜେଇବା ଏବଂ ସୁକାଇବା (AWD) ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ ବ୍ୟବହାର କରନ୍ତୁ",
+      "methane_reduction": "ମିଥେନ୍ ନିର୍ଗମନ 30-50% କମାନ୍ତୁ",
+      "carbon_display": "{emission} ଟନ CO2/ହେକ୍ଟର",
+      "water_display": "{usage} ଲିଟର/କିଲୋ ଉତ୍ପାଦନ"
+    },
+    "soil_metrics": {
+      "ph_level": "pH ସ୍ତର",
+      "moisture": "ଆର୍ଦ୍ରତା",
+      "nitrogen_n": "ନାଇଟ୍ରୋଜେନ୍ (N)",
+      "phosphorus_p": "ଫସ୍ଫୋରାସ୍ (P)",
+      "potassium_k": "ପଟାସିୟମ୍ (K)",
+      "organic_matter": "ଜୈବିକ ପଦାର୍ଥ"
+    },
+    "fertility": {
+      "title": "ଏଆଇ ଉର୍ବରକ ସୁପାରିଶ",
+      "badge_for": "{month} ରେ {crop} ପାଇଁ ଏଆଇ-ଚାଲିତ",
+      "priority": {
+        "high": "ଉଚ୍ଚ ପ୍ରାଥମିକତା",
+        "medium": "ମଧ୍ୟମ ପ୍ରାଥମିକତା",
+        "low": "ନିମ୍ନ ପ୍ରାଥମିକତା"
+      },
+      "timing_label": "ସମୟ:",
+      "expected_result": "ଆଶାକରା ପରିଣାମ:",
+      "nutrient": {
+        "nitrogen": "ନାଇଟ୍ରୋଜେନ୍",
+        "phosphorus": "ଫସ୍ଫୋରାସ୍",
+        "potassium": "ପଟାସିୟମ୍",
+        "ph_correction": "pH ସଂଶୋଧନ",
+        "organic_matter": "ଜୈବିକ ପଦାର୍ଥ",
+        "weather_adaptive": "ମୌସୁମ-ଅନୁକୂଳ"
+      },
+      "action": {
+        "nitrogen": {
+          "deficient": "ତତ୍କ୍ଷଣାତ୍ 40-50kg/ହେକ୍ଟର ୟୁରିଆ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ ସ୍ତର ({value}%) {month} ରେ {crop} ପାଇଁ ଅତ୍ୟନ୍ତ କମ୍।",
+          "moderate": "20-25kg/ହେକ୍ଟର ୟୁରିଆ ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ ସ୍ତର ({value}%) ଉତ୍ତମ {crop} ବୃଦ୍ଧି ପାଇଁ ପରିପୂରକ ଆବଶ୍ୟକ।"
+        },
+        "phosphorus": {
+          "low": "30-40kg/ହେକ୍ଟର DAP ପ୍ରୟୋଗ କରନ୍ତୁ। ବର୍ତ୍ତମାନ P ସ୍ତର ({value}%) ମୂଳ ବିକାଶକୁ ସୀମିତ କରୁଛି।"
+        },
+        "potassium": {
+          "low": "25-30kg/ହେକ୍ଟର MOP ପ୍ରୟୋଗ କରନ୍ତୁ। କମ୍ K ({value}%) ରୋଗ ପ୍ରତିରୋଧ ଏବଂ ଗୁଣବତ୍ତାକୁ ପ୍ରଭାବିତ କରେ।"
+        },
+        "ph_correction": {
+          "acidic": "200-300kg/ହେକ୍ଟର ଚୂନ ପ୍ରୟୋଗ କରନ୍ତୁ। pH {value} ପୋଷକ ଉପଲବ୍ଧତାକୁ ସୀମିତ କରୁଛି।",
+          "alkaline": "15-20kg/ହେକ୍ଟର ଜିପସମ୍ ପ୍ରୟୋଗ କରନ୍ତୁ। ଉଚ୍ଚ pH {value} ସୂକ୍ଷ୍ମ ପୋଷକ ଅଭାବ ସୃଷ୍ଟି କରୁଛି।"
+        },
+        "organic_matter": {
+          "low": "2-3 ଟନ/ହେକ୍ଟର କମ୍ପୋଷ୍ଟ ମିଶାନ୍ତୁ। କମ୍ ଜୈବିକ ପଦାର୍ଥ ({value}%) ମୃଦା ସଂରଚନାକୁ ପ୍ରଭାବିତ କରୁଛି।"
+        },
+        "weather_adaptive": "{month} ମାସରେ ଆବହାବାନୀ ପରିସ୍ଥିତି ଅନୁଯାୟୀ ପୋଷକ ପ୍ରୟୋଗ ସମୟ ଠିକ୍ କରନ୍ତୁ।"
+      },
+      "timing": {
+        "nitrogen": {
+          "deficient": "2-3 ଦିନ ମଧ୍ୟରେ",
+          "moderate": "7-10 ଦିନ ମଧ୍ୟରେ"
+        },
+        "phosphorus": {
+          "low": "ବୁଆ ସମୟରେ କିମ୍ବା ତତ୍କାଳ"
+        },
+        "potassium": {
+          "low": "ଫୁଲ ଆସିବା ପୂର୍ବରୁ"
+        },
+        "ph_correction": {
+          "acidic": "ବୁଆର 2-3 ସପ୍ତାହ ପୂର୍ବରୁ",
+          "alkaline": "ବର୍ଷା ଆରମ୍ଭ ସହିତ"
+        },
+        "organic_matter": {
+          "low": "ଭୂମି ପ୍ରସ୍ତୁତି ସମୟରେ"
+        },
+        "weather_adaptive": "ଆବହାବାନୀ ଅନୁଯାୟୀ"
+      },
+      "timing_detail": {
+        "nitrogen": {
+          "deficient": "2 ଖୁରାକରେ ପ୍ରୟୋଗ କରନ୍ତୁ: 60% ବୁଆ ସମୟରେ, 40% ବୃଦ୍ଧି ଅବସ୍ଥାରେ।",
+          "moderate": "ସକ୍ରିୟ ବୃଦ୍ଧି ପର୍ଯ୍ୟାୟରେ ପ୍ରୟୋଗ କରନ୍ତୁ ସର୍ବାଧିକ ଅବଶୋଷଣ ପାଇଁ।"
+        },
+        "phosphorus": {
+          "low": "ମୃଦା ପ୍ରସ୍ତୁତି ପର୍ଯ୍ୟାୟରେ ପ୍ରୟୋଗ କରନ୍ତୁ ଉନ୍ନତ ମୂଳ ସ୍ଥାପନ ପାଇଁ।"
+        },
+        "potassium": {
+          "low": "ଫୁଲ ଆସିବା ସମୟରେ ପ୍ରୟୋଗ କରନ୍ତୁ ଉନ୍ନତ ଦାନା/ଫଳ ବିକାଶ ପାଇଁ।"
+        },
+        "ph_correction": {
+          "acidic": "ବୁଆର 2-3 ସପ୍ତାହ ପୂର୍ବରୁ ପ୍ରୟୋଗ କରନ୍ତୁ ଏବଂ ମୃଦାରେ ଭଲ ଭାବେ ମିଶାନ୍ତୁ।",
+          "alkaline": "ମୃଦା ପ୍ରସ୍ତୁତି ସମୟରେ ପ୍ରୟୋଗ କରନ୍ତୁ ଏବଂ ଭଲ ସିଞ୍ଚାଇ କରନ୍ତୁ।"
+        },
+        "organic_matter": {
+          "low": "ଭୂମି ପ୍ରସ୍ତୁତି ସମୟରେ ପ୍ରୟୋଗ କରନ୍ତୁ ଏବଂ ଭଲ ଭାବେ ମିଶାନ୍ତୁ।"
+        },
+        "weather_adaptive": "କୋଟେଡ୍ ୟୁରିଆ ବ୍ୟବହାର କରନ୍ତୁ ଏବଂ ସୂକ୍ଷ୍ମ ପୋଷକ ଫୋଲିଆର ସ୍ପ୍ରେ କରନ୍ତୁ।"
+      },
+      "expected": {
+        "nitrogen": {
+          "deficient": "15-25% ଉତ୍ପାଦନ ବୃଦ୍ଧି ସମ୍ଭାବନା",
+          "moderate": "8-12% ଉତ୍ପାଦନ ବୃଦ୍ଧି ସମ୍ଭାବନା"
+        },
+        "phosphorus": {
+          "low": "ଦୃଢ଼ ମୂଳ ତନ୍ତ୍ର, 10-15% ଉନ୍ନତ ପୋଷକ ଅବଶୋଷଣ"
+        },
+        "potassium": {
+          "low": "ଉନ୍ନତ ରୋଗ ପ୍ରତିରୋଧ, ଉଚ୍ଚ ଗୁଣବତ୍ତା ଉତ୍ପାଦନ"
+        },
+        "ph_correction": {
+          "acidic": "20-30% ଉନ୍ନତ ପୋଷକ ଉପଲବ୍ଧତା",
+          "alkaline": "ଉନ୍ନତ ସୂକ୍ଷ୍ମ ପୋଷକ ଉପଲବ୍ଧତା"
+        },
+        "organic_matter": {
+          "low": "ଉନ୍ନତ ମୃଦା ସଂରଚନା, ଜଳ ଓ ପୋଷକ ଧାରଣରେ ଉନ୍ନତି"
+        },
+        "weather_adaptive": "ପୋଷକ କ୍ଷତିରେ ହ୍ରାସ, ସ୍ଥାୟୀ ପୋଷଣ"
+      }
+    },
+    "market": {
+      "header_title": "ଏଆଇ ବଜାର ବୁଦ୍ଧିମତ୍ତା",
+      "badge": "ଆବହାଅ ଏବଂ ଗୁଣଗତତା ଅନୁଯାୟୀ",
+      "subtitle": "ପରିସ୍ଥିତି ଏବଂ ଗୁଣପୂର୍ବାନୁମାନ ଆଧାରିତ ଗତିଶୀଳ ଦର",
+      "current_price": "ବର୍ତ୍ତମାନ ବଜାର ଦର",
+      "from_seasonal_avg": "ମୌସୁମୀ ଉସତ୍ ଠାରୁ",
+      "demand_forecast": "ଏଆଇ ଚାହିଦା ପୂର୍ବାନୁମାନ",
+      "optimal_selling_period": "ଉତ୍ତମ ବିକ୍ରୟ ଅବଧି",
+      "profit_margin": "ଆଶାକରା ଲାଭ ମାର୍ଜିନ",
+      "profit_display": "{margin}% (₹{profit}/{unit} ଲାଭ)",
+      "insights_title": "ଏଆଇ ବଜାର ଅନ୍ତର୍ଦ୍ରଷ୍ଟି:",
+      "demand_levels": { "high": "ଉଚ୍ଚ", "medium": "ମଧ୍ୟମ", "low": "କମ୍" },
+      "schemes": {
+        "title": "ସରକାରୀ ଯୋଜନା ଓ ସହାୟତା",
+        "badge": "ସ୍ଥାନ ଓ ଫସଲ ନିର୍ଦ୍ଦିଷ୍ଟ",
+        "subtitle": "ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ ଆଧାରରେ ବ୍ୟକ୍ତିଗତ ଯୋଜନା ସୁପାରିଶ",
+        "eligibility": "ଯୋଗ୍ୟତା",
+        "status": { "active": "ସକ୍ରିୟ", "available": "ଉପଲବ୍ଧ", "upcoming": "ଆଗାମୀ", "apply_now": "ବର୍ତ୍ତମାନ ଆବେଦନ କରନ୍ତୁ" }
+      },
+      "action_label": "କାର୍ଯ୍ୟ",
+      "insights": {
+        "high_demand": "ଉଚ୍ଚ ଚାହିଦା - ତତ୍କାଳ ବିକ୍ରୟ କରନ୍ତୁ",
+        "price_drop_expected": "ଦର ହ୍ରାସ ଆଶା - ଶୀଘ୍ର ବିକ୍ରୟ କରନ୍ତୁ",
+        "price_increase_expected": "ଦର ବୃଦ୍ଧି ଆଶା - କିଛି ସମୟ ଅପେକ୍ଷା କରନ୍ତୁ",
+        "actions": {
+          "forward_or_contract": "ଫରୱାର୍ଡ କିମ୍ବା କଣ୍ଟ୍ରାକ୍ଟ ବିକ୍ରୟ ବିଚାରନ୍ତୁ"
+        },
+        "excess_rainfall_quality": "ଅତ୍ୟଧିକ ବର୍ଷା ଗୁଣବତ୍ତାକୁ ପ୍ରଭାବିତ କରିପାରେ",
+        "focus_post_harvest": "କଟାଇ ପରେ ଯତ୍ନ ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ",
+        "leverage_mandis": "ସ୍ଥାନୀୟ ମଣ୍ଡିର ସୁବିଧା ନିଅନ୍ତୁ",
+        "market_access_good": "ବଜାର ପ୍ରବେଶ ଭଲ ଅଛି",
+        "prices_above_avg": "ଦର ହାରାହାରି ଠାରୁ ଉପରେ ଅଛି"
+      }
+    },
+    "recommended": {
+      "header_title": "ଏଆଇ-ସଂଚାଳିତ ଫସଲ ସୁପାରିଶ",
+      "header_badge": "ବାସ୍ତବ ମାଟି ଏବଂ ମୌସୁମ ଡାଟା ଉପରେ ଆଧାରିତ",
+      "header_subtitle": "ଆପଣଙ୍କ ମାଟିର ସ୍ଥିତି, ମୌସୁମ ପ୍ୟାଟର୍ନ ଏବଂ ବଜାର ରୁଝାନଗୁଡ଼ିକର ବିଶ୍ଲେଷଣ କରି ବୁଦ୍ଧିମାନ ଫସଲ ସୁପାରିଶ",
+      "ai_match_score": "ଏଆଇ ମ୍ୟାଚ୍ ସ୍କୋର",
+      "duration_label": "ଅବଧି:",
+      "market_demand": "ବଜାର ଚାହିଦା",
+      "expected_yield": "ଆଶାକରା ଉତ୍ପାଦନ",
+      "analysis_title": "ଏଆଇ ବିଶ୍ଲେଷଣ - ଏହି ଫସଲ କାହିଁକି ସୁପାରିଶ:",
+      "reasons": {
+        "optimal_ph": "ମାଟିର pH ({ph}) {crop} ଚାଷ ପାଇଁ ଉପଯୁକ୍ତ",
+        "good_moisture": "ମାଟିର ଆର୍ଦ୍ରତା ({moisture}%) {crop} ପାଇଁ ଉତ୍ତମ",
+        "suitable_weather": "ଆଗାମୀ ମାସଗୁଡ଼ିକରେ ଆବହାବାନୀ {crop} ପାଇଁ ଅନୁକୂଳ",
+        "high_market_demand": "ବଜାରରେ {crop} ର ଉଚ୍ଚ ଚାହିଦା ଏବଂ ଭଲ ଦର",
+        "suitable_season": "{month} ମାସ {crop} ବୁଆ ପାଇଁ ଉପଯୁକ୍ତ ସମୟ",
+        "good_nutrients": "ମାଟିରେ ଉପଲବ୍ଧ ପୋଷକ ତତ୍ତ୍ୱ {crop} ପାଇଁ ଉପଯୁକ୍ତ",
+        "adequate_rainfall": "ଆବହାବାନୀ ଅନୁଯାୟୀ ପର୍ଯ୍ୟାପ୍ତ ବର୍ଷା ({rainfall}mm) ଆଶା",
+        "rainfall_irrigation": "ବର୍ଷା ({rainfall}mm) ସହ ସପ୍ଲିମେଣ୍ଟାରୀ ସିଞ୍ଚାଇର ଆବଶ୍ୟକତା ହୋଇପାରେ",
+        "excellent_nutrients": "ଉତ୍କୃଷ୍ଟ ପୋଷକ ସ୍ତର (NPK ହାରାହାରି: {nutrients}%) ଉଚ୍ଚ ଉତ୍ପାଦନକୁ ସମର୍ଥନ କରେ",
+        "moderate_nutrients": "ମଧ୍ୟମ ପୋଷକ ସ୍ତରକୁ ସାର ସହ ଉନ୍ନତ କରାଯାଇପାରେ",
+        "location_suited": "{crop} {location} ଅଞ୍ଚଳ ପାଇଁ ଉପଯୁକ୍ତ",
+        "optimal_season": "{month} {crop} ପାଇଁ ଆଦର୍ଶ ରୋପଣ ମୌସୁମ",
+        "favorable_temp": "ତାପମାତ୍ରା {crop} ପାଇଁ ଅନୁକୂଳ",
+        "moisture_irrigation": "ଆର୍ଦ୍ରତା ଏବଂ ସିଞ୍ଚାଇ ପରିସ୍ଥିତି ଉତ୍ତମ",
+        "ph_manageable": "pH ସ୍ତର ପରିଚାଳନା ଯୋଗ୍ୟ",
+        "temp_manageable": "ତାପମାତ୍ରା ପରିଚାଳନା ଯୋଗ୍ୟ"
+      }
+    },
+    "metrics": {
+      "predicted_yield_increase": "ଅନୁମାନିତ ଉତ୍ପାଦନ ବୃଦ୍ଧି",
+      "soil_health_score": "ମୃଦା ସ୍ୱାସ୍ଥ୍ୟ ସ୍କୋର",
+      "weather_risk": "ଆବହାବାନୀ ଝୁମ୍ପ",
+      "high_priority_tasks": "ଉଚ୍ଚ ପ୍ରାଥମିକତା କାର୍ଯ୍ୟ"
+    },
+    "values": {
+      "demand": { "high": "ଉଚ୍ଚ", "medium": "ମଧ୍ୟମ", "low": "କମ୍" },
+      "soil_health": {
+        "excellent": "ଉତ୍କୃଷ୍ଟ",
+        "good": "ଭଲ",
+        "fair": "ମଧ୍ୟମ",
+        "poor": "ଖରାପ",
+        "unknown": "ଅଜଣା"
+      }
+    },
+    "disease": {
+      "header_title": "ଏଆଇ ରୋଗ ଏବଂ କୀଟ ଝୁମ୍ପ ବିଶ୍ଲେଷଣ",
+      "risk_label": "ଝୁମ୍ପ",
+      "ai_confidence": "ଏଆଇ ଭରସା",
+      "risk_levels": { "low": "କମ୍", "medium": "ମଧ୍ୟମ", "high": "ଉଚ୍ଚ" },
+      "risk_factors_prefix": "ଝୁମ୍ପ କାରକ",
+      "factors": {
+        "optimal_temp": "ଇଷ୍ଟତମ ତାପମାତ୍ରା ({temp}°C)",
+        "high_humidity": "ଉଚ୍ଚ ଆର୍ଦ୍ରତା ({humidity}%)",
+        "adequate_rainfall": "ପର୍ଯ୍ୟାପ୍ତ ବର୍ଷା ({rain}mm)",
+        "suitable_soil_moisture": "ଉପଯୁକ୍ତ ମୃଦା ନମୀ",
+        "favorable_ph": "ଅନୁକୂଳ ମୃଦା pH",
+        "not_favorable": "ପରିସ୍ଥିତି ଅନୁକୂଳ ନୁହେଁ"
+      },
+      "loading": "ଡାଟା ଲୋଡ୍ ହେଉଛି",
+      "fetching": "ସଜୀବ ବିଶ୍ଲେଷଣ ପ୍ରାପ୍ତ କରାଯାଉଛି...",
+      "names": {
+        "fusarium_wilt": "ଫ୍ୟୁଜେରିଅମ୍ ୱିଲ୍ଟ",
+        "ascochyta_blight": "ଏସ୍କୋକାଇଟା ବ୍ଲାଇଟ୍",
+        "blast_disease": "ବ୍ଲାସ୍ଟ୍ ରୋଗ",
+        "bacterial_leaf_blight": "ବ୍ୟାକ୍ଟେରିଆଲ୍ ଲିଫ୍ ବ୍ଲାଇଟ୍"
+      },
+      "actions": {
+        "use_resistant_varieties_and_avoid_waterlogging": "ପ୍ରତିରୋଧୀ କିସମ ବ୍ୟବହାର କରନ୍ତୁ ଏବଂ ଜଳଜମା ଏଡ଼ାନ୍ତୁ",
+        "apply_mancozeb_or_chlorothalonil_fungicide": "ମେନକୋଜେବ୍ କିମ୍ବା କ୍ଲୋରୋଥାଲୋନିଲ୍ ଫଙ୍ଗିସାଇଡ୍ ବ୍ୟବହାର କରନ୍ତୁ",
+        "use_copper_based_bactericides_and_avoid_overhead_irrigation": "କପର-ଆଧାରିତ ଜୀବାଣୁନାଶକ ବ୍ୟବହାର କରନ୍ତୁ ଏବଂ ଓଭରହେଡ୍ ସିଞ୍ଚାଇ ଏଡ଼ାନ୍ତୁ"
+      }
+    },
+    "sensor": {
+      "title": "ସଜୀବ ସେନ୍ସର ତଥ୍ୟ",
+      "badge": "ଏଆଇ-ଉନ୍ନତ ଲାଇଭ୍ ଡାଟା",
+      "subtitle": "ଆବହାବାନୀ ଏବଂ ମୃଦା ଅବସ୍ଥା ଉପରେ ଆଧାରିତ ବୁଦ୍ଧିମାନ ନିରୀକ୍ଷଣ"
+    },
+    "iot": {
+      "soil_moisture": "ମୃଦା ଆର୍ଦ୍ରତା",
+      "real_soil_data": "ବାସ୍ତବିକ ମୃଦା ତଥ୍ୟ ଆଧାରିତ",
+      "temperature": "ତାପମାତ୍ରା",
+      "weather_api_enhanced": "ଆବହାବାନୀ API ଉନ୍ନତ",
+      "humidity": "ଆର୍ଦ୍ରତା",
+      "realtime_correlation": "ସଜୀବ ସମ୍ପର୍କ",
+      "light_intensity": "ଆଲୋକ ତୀବ୍ରତା",
+      "weather_condition_based": "ଆବହାବାନୀ ପରିସ୍ଥିତି ଆଧାରିତ",
+      "last_updated": "ଶେଷ ଅଦ୍ୟତନ",
+      "ai_enhanced": "ଏଆଇ-ଉନ୍ନତ ତଥ୍ୟ"
+    },
+    "alerts": {
+      "title": "ଏଆଇ-ଚାଲିତ ସେନ୍ସର ଆଲର୍ଟ",
+      "subtitle": "ଫସଲ ଆବଶ୍ୟକତା ଏବଂ ପରିସ୍ଥିତି ଉପରେ ଆଧାରିତ ସ୍ମାର୍ଟ ଆଲର୍ଟ",
+      "risk_assessment": "ଆବହାବାନୀ ଏବଂ ମୃଦା ଅବସ୍ଥା ଆଧାରିତ ଝୁମ୍ପ ମୂଲ୍ୟାୟନ",
+      "action_label": "କାର୍ଯ୍ୟ",
+      "messages": {
+        "low_moisture": "ମୃଦା ଆର୍ଦ୍ରତା ({moisture}%) {crop} ପାଇଁ ଇଷ୍ଟତମ ଠାରୁ କମ୍। ତତ୍କ୍ଷଣତ ସିଞ୍ଚାଇ କରନ୍ତୁ।",
+        "high_temp": "ତାପମାତ୍ରା ({temp}°C) {crop} ପାଇଁ ଇଷ୍ଟତମ ସୀମା ଠାରୁ ଅଧିକ। ତାପ ଚାପ ଝୁମ୍ପ।",
+        "high_humidity": "ଅଧିକ ଆର୍ଦ୍ରତା ({humidity}%) {crop} ପାଇଁ ରୋଗ ଝୁମ୍ପ ବଢ଼ାଏ।"
+      },
+      "actions": {
+        "start_irrigation": "2 ଘଣ୍ଟା ମଧ୍ୟରେ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ ଚାଲୁ କରନ୍ତୁ",
+        "provide_shade": "ଛାୟା ଜାଲ ବ୍ୟବସ୍ଥା କରନ୍ତୁ କିମ୍ବା ସିଞ୍ଚାଇ ଆବୃତ୍ତି ବଢାନ୍ତୁ",
+        "improve_ventilation": "ବାୟୁ ପରିଚଳନ ସୁଧାରନ୍ତୁ ଏବଂ ଫଂଗସ୍ ରୋଗ ନିରୀକ୍ଷଣ କରନ୍ତୁ"
+      }
+    },
+    "optimization": {
+      "irrigation": {
+        "flood": "ବାଢ଼ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ",
+        "sprinkler": "ସ୍ପ୍ରିଙ୍କଲର୍ ପ୍ରଣାଳୀ",
+        "drip": "ଡ୍ରିପ୍ ସିଞ୍ଚାଇ ପ୍ରଣାଳୀ",
+        "subtitle": "ସିଞ୍ଚାଇ • ସମଗ୍ର ବୃଦ୍ଧି ଋତୁରେ",
+        "description": "ବର୍ତ୍ତମାନ ମୃଦା ଆର୍ଦ୍ରତା {moisture}% ଆଧାରରେ {crop} ପାଇଁ ଜଳ ପରିଚାଳନା ରଣନୀତି",
+        "improvement": "ଅପେକ୍ଷିତ ସୁଧାର: {efficiency} ଜଳ କ୍ଷମତା"
+      },
+      "pest": {
+        "title": "ଏକୀକୃତ କୀଟ ପରିଚାଳନା",
+        "subtitle": "କୀଟ ନିୟନ୍ତ୍ରଣ • ସାପ୍ତାହିକ ନିରୀକ୍ଷଣ",
+        "description": "{crop} ପାଇଁ ପୂର୍ବ ନିରୋଧକ କୀଟ ନିୟନ୍ତ୍ରଣ ବ୍ୟବସ୍ଥା",
+        "improvement": "ଅପେକ୍ଷିତ ସୁଧାର: {risk} କ୍ଷତି ରୋକଥାମ"
+      }
+    },
+    "units": {
+      "days": "ଦିନ"
+    },
+    "locations": {
+      "cities": {
+        "ghaziabad": "ଘାଜିଆବାଦ"
+      },
+      "states": {
+        "uttar_pradesh": "ଉତ୍ତର ପ୍ରଦେଶ"
+      }
+    },
+    "dashboard": { "units": { "days": "ଦିନ" } },
+    "timeline": {
+      "title_for": "{crop} ପାଇଁ ଏଆଇ-ଚାଲିତ ଚାଷ ଟାଇମଲାଇନ୍",
+      "customized_for": "{location} ପାଇଁ ଅନୁକୁଳିତ",
+      "subtitle": "ଆବହାବାନୀ ପ୍ରଚଳନ ଏବଂ ମୃଦା ଅବସ୍ଥା ଆଧାରିତ ଗତିଶୀଳ ଟାଇମଲାଇନ୍",
+      "activities": "କାର୍ଯ୍ୟଗୁଡିକ:",
+      "critical_points": "ଗୁରୁତ୍ୱପୁର୍ଣ୍ଣ ବିନ୍ଦୁଗୁଡିକ:",
+      "weather_considerations": "ଆବହାବାନୀ ବିଚାର:",
+      "soil_based": "ମୃଦା-ଆଧାରିତ ସୁପାରିଶଗୁଡ଼ିକ:",
+      "phases": {
+        "rice": { "land_prep": "ଜମି ତିଆରି ଓ ନର୍ସରୀ", "transplanting": "ରୋପଣ" },
+        "wheat": {
+          "land_prep_sowing": "ଜମି ତିଆରି ଓ ବିଆ ଚାଷ",
+          "establishment": "ଅଂକୁରଣ ଓ ସ୍ଥାପନ",
+          "tillering": "ଟିଲରିଂ ଚର୍ଯ୍ୟା",
+          "stem_elongation": "ତଣ୍ଟି ଲମ୍ବା ହେବା",
+          "grain_filling_harvest": "ଦାନା ପୁରିବା ଓ କଟାଇ"
+        },
+        "chickpea": {
+          "land_prep_sowing": "ଜମି ତିଆରି ଓ ବିଆ ଚାଷ",
+          "establishment": "ଅଂକୁରଣ ଓ ପ୍ରାରମ୍ଭିକ ବୃଦ୍ଧି",
+          "flowering_pod": "ଫୁଲ ଓ ଫଳି ଗଠନ",
+          "pod_filling_harvest": "ଫଳି ପୁରିବା ଓ କଟାଇ"
+        },
+        "jowar": {
+          "land_prep_sowing": "ଜମି ପ୍ରସ୍ତୁତି ଓ ବିଆ ଚାଷ",
+          "establishment": "ଅଂକୁରଣ ଓ ସ୍ଥାପନ",
+          "vegetative": "ବନସ୍ପତିକ ବୃଦ୍ଧି",
+          "reproductive": "ପୁନଃଉତ୍ପାଦନ ପର୍ଯ୍ୟାୟ",
+          "maturation": "ପକ୍କା ଓ କଟାଇ"
+        },
+        "common": { "vegetative": "ଉଦ୍ଭିଦୀୟ ବୃଦ୍ଧି", "reproductive": "ପ୍ରଜନନ ଚର୍ଯ୍ୟା", "maturation": "ପକ୍କା ଓ କଟାଇ" }
+      },
+      "activities_list": {
+        "field_preparation": "ଖେତ ତିଆରି",
+        "seed_treatment": "ବିଆ ଚିକିତ୍ସା",
+        "nursery_bed_preparation": "ନର୍ସରୀ ବେଡ୍ ପ୍ରସ୍ତୁତି",
+        "seedling_transplantation": "ଚାରା ରୋପଣ",
+        "field_flooding": "ଖେତରେ ପାଣି ଭରାଇବା",
+        "initial_fertilizer": "ପ୍ରାରମ୍ଭିକ ସର ଦେବା",
+        "water_management": "ଜଳ ବ୍ୟବସ୍ଥାପନ",
+        "weed_control": "ନିରା ନିୟନ୍ତ୍ରଣ",
+        "nitrogen_application": "ନାଇଟ୍ରୋଜେନ୍ ପ୍ରୟୋଗ",
+        "panicle_initiation_care": "ପ୍ୟାନିକଲ୍ ଆରମ୍ଭ ଯତ୍ନ",
+        "pest_monitoring": "କୀଟ ନିରୀକ୍ଷଣ",
+        "potassium_application": "ପଟାସିୟମ୍ ପ୍ରୟୋଗ",
+        "gradual_water_reduction": "ଧୀରେ ଧୀରେ ପାଣି କମେଇବା",
+        "harvest_preparation": "କଟାଇ ପ୍ରସ୍ତୁତି",
+        "post_harvest_processing": "କଟାଇ ପରେ ପ୍ରକ୍ରିୟାକରଣ",
+        "sowing_operations": "ବିଆ ଚାଷ କାର୍ଯ୍ୟ",
+        "irrigation_scheduling": "ସିଞ୍ଚାଇ ସୂଚୀ",
+        "n_top_dressing": "ନାଇଟ୍ରୋଜେନ୍ ଟପ୍ ଡ୍ରେସିଂ",
+        "second_n_application": "ଦ୍ୱିତୀୟ ନାଇଟ୍ରୋଜେନ୍ ପ୍ରୟୋଗ",
+        "final_irrigation": "ଶେଷ ସିଞ୍ଚାଇ",
+        "harvest_timing": "କଟାଇ ସମୟ",
+        "post_harvest_handling": "କଟାଇ ପରେ ବ୍ୟବହାର",
+        "seed_treatment_rhizobium": "ରାଇଜୋବିଅମ୍ ସହ ବିଆ ଚିକିତ୍ସା",
+        "sowing": "ବିଆ ଚାଷ",
+        "weed_management": "ନିରା ବ୍ୟବସ୍ଥାପନ",
+        "thinning_if_required": "ଆବଶ୍ୟକ ହେଲେ ଥିନିଂ",
+        "light_irrigation": "ହ୍ଲକା ସିଞ୍ଚାଇ",
+        "critical_irrigation": "ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସିଞ୍ଚାଇ",
+        "pest_control": "କୀଟ ନିୟନ୍ତ୍ରଣ",
+        "micronutrient_spray": "ସୂକ୍ଷ୍ମ ପୋଷକ ଛିଟାଏବା",
+        "threshing": "ମଢ଼ାଇ",
+        "irrigation_management": "ସିଞ୍ଚାଇ ବ୍ୟବସ୍ଥାପନ",
+        "gap_filling": "ଖାଲି ସ୍ଥାନ ପୂରଣ",
+        "phosphorus_application": "ଫସ୍ଫୋରାସ୍ ପ୍ରୟୋଗ",
+        "pest_monitoring": "କୀଟ ପର୍ଯ୍ୟବେକ୍ଷଣ",
+        "irrigation_management": "ସିଞ୍ଚାଇ ପରିଚାଳନା"
+      },
+      "critical": {
+        "ensure_drainage": "ଯଥୋଚିତ ନିଷ୍କାସନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "maintain_nursery_moisture": "ନର୍ସରୀରେ ଆର୍ଦ୍ରତା ରଖନ୍ତୁ",
+        "monitor_seed_germination": "ବିଆ ଅଂକୁରଣ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "maintain_water_level": "{cm}ସେ.ମି. ଜଳ ସ୍ତର ରଖନ୍ତୁ",
+        "proper_spacing": "ଠିକ ଦୂରତାରେ ରୋପଣ କରନ୍ତୁ",
+        "apply_starter_fertilizer": "ଷ୍ଟାର୍ଟର ସର୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "monitor_water_levels": "ଜଳ ସ୍ତର ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "control_weeds_early": "ଆରମ୍ଭରୁ ନିରା ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ",
+        "apply_n_at_tillering": "ଟିଲରିଂ ଚର୍ଯ୍ୟାରେ ନାଇଟ୍ରୋଜେନ୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "ensure_adequate_water": "ପର୍ଯ୍ୟାପ୍ତ ପାଣି ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "monitor_stem_borer": "ତଣ୍ଟି ଛିଦ୍ରକ କୀଟ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "apply_potassium": "ପଟାସିୟମ୍ ସର୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "reduce_irrigation_gradually": "ସିଞ୍ଚାଇ ଧୀରେ ଧୀରେ କମାନ୍ତୁ",
+        "harvest_at_maturity": "{percent}% ପକ୍କା ପରେ କଟାଇ କରନ୍ତୁ",
+        "proper_drying_storage": "ଠିକ ଭାବେ ଶୁଖାଇ ଓ ସଂରକ୍ଷଣ କରନ୍ତୁ",
+        "ensure_soil_moisture": "ଯଥେଷ୍ଟ ମୃଦା ଆର୍ଦ୍ରତା ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "use_certified_seeds": "ପ୍ରମାଣିତ ବିଆ ବ୍ୟବହାର କରନ୍ତୁ",
+        "maintain_seed_rate": "ଠିକ ବିଆ ହାର ରଖନ୍ତୁ",
+        "provide_light_irrigation": "ହ୍ଲକା ସିଞ୍ଚାଇ କରନ୍ତୁ",
+        "control_early_weeds": "ଆରମ୍ଭିକ ନିରା ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ",
+        "ensure_uniform_stand": "ସମବିତ ଫସଲ ନିଶ୍ଚିତ କରନ୍ତୁ",
+        "apply_first_n_dose": "ପ୍ରଥମ ନାଇଟ୍ରୋଜେନ୍ ଡୋଜ୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "maintain_soil_moisture": "ମୃଦା ଆର୍ଦ୍ରତା ରଖନ୍ତୁ",
+        "monitor_aphids": "ଏଫିଡ୍ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "apply_remaining_n": "ଅବଶିଷ୍ଟ ନାଇଟ୍ରୋଜେନ୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "watch_for_rust": "ରଷ୍ଟ୍ ରୋଗ ଦେଖନ୍ତୁ",
+        "stop_irrigation_before_harvest": "କଟାଇ ପୂର୍ବରୁ ସିଞ୍ଚାଇ ବନ୍ଦ କରନ୍ତୁ",
+        "harvest_at_physiological_maturity": "ଶାରୀରିକ ପକ୍କାରେ କଟାଇ",
+        "proper_storage": "ଠିକ ସ୍ଟୋରେଜ୍",
+        "ensure_residual_moisture": "ଅବଶିଷ୍ଟ ଆର୍ଦ୍ରତା ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "treat_seeds_fungicide": "ବିଆକୁ ଫଙ୍ଗିସାଇଡ୍ ସହ ଚିକିତ୍ସା କରନ୍ତୁ",
+        "maintain_proper_depth": "ଠିକ ଗଭୀରତା ରଖନ୍ତୁ",
+        "monitor_germination_percentage": "ଅଂକୁରଣ ପ୍ରତିଶତ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "ensure_water_during_flowering": "ଫୁଲ ସମୟରେ ପାଣି ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "control_gram_pod_borer": "ଚଣା ଫଳି ଛିଦ୍ରକ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ",
+        "apply_boron_spray": "ବୋରନ୍ ସ୍ପ୍ରେ କରନ୍ତୁ",
+        "harvest_proper_moisture": "ଠିକ ଆର୍ଦ୍ରତାରେ କଟାଇ କରନ୍ତୁ",
+        "avoid_pod_shattering": "ଫଳି ଫାଟିବା ଏଡ଼ାନ୍ତୁ",
+        "dry_and_store_properly": "ଠିକ ଭାବେ ଶୁଖାଇ ଓ ସଂରକ୍ଷଣ କରନ୍ତୁ",
+        "drying_and_storage": "ଶୁଖାଇବା ଏବଂ ସଂରକ୍ଷଣ",
+        "avoid_waterlogging": "ଜଳଜମା ଏଢାନ୍ତୁ",
+        "stop_irrigation_before_maturity": "ପକ୍କା ପୂର୍ବରୁ ସିଞ୍ଚାଇ ବନ୍ଦ କରନ୍ତୁ",
+        "harvest_when_pods_rattle": "ଫଳି ଖରକୁଟି ହେଲେ କଟଣ କରନ୍ତୁ",
+        "proper_drying": "ଠିକ ଭାବେ ସୁକାନ୍ତୁ",
+        "apply_phosphorus_fertilizer": "ଫସ୍ଫୋରାସ୍ ସାର ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "monitor_pod_borer": "ଫଳି ଛେଦକ କୀଟ ନିରୀକ୍ଷଣ କରନ୍ତୁ",
+        "provide_irrigation_if_needed": "ଆବଶ୍ୟକ ହେଲେ ସିଞ୍ଚାଇ କରନ୍ତୁ"
+      },
+      "considerations": {
+        "high_temp": "ଉଚ୍ଚ ତାପମାତ୍ରା ({avg}°C ହାରାହାରି) - ତାପ ସୁରକ୍ଷା ବ୍ୟବସ୍ଥା ନିଅନ୍ତୁ",
+        "heavy_rain": "ଭାରି ବର୍ଷା ଆଶା ({rain}ମି.ମି.) - ଯଥୋଚିତ ନିଷ୍କାସନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ",
+        "low_rain": "କମ୍ ବର୍ଷା ({rain}ମି.ମି.) - ସିଞ୍ଚାଇ ଦରକାର ହୋଇପାରେ"
+      },
+      "soil_reco": {
+        "ph_acidic": "ମୃଦା pH ({ph}) ଅମ୍ଳୀୟ - ଚୁନଖଡ଼ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "ph_alkaline": "ମୃଦା pH ({ph}) କ୍ଷାରୀୟ - ଜିପସମ୍ ପ୍ରୟୋଗ କରନ୍ତୁ",
+        "low_n": "ନାଇଟ୍ରୋଜେନ୍ ତଳସ୍ଥର ({n}) - ନାଇଟ୍ରୋଜେନ୍ ସର୍ ବଢ଼ାନ୍ତୁ",
+        "low_moisture": "ମୃଦା ଆର୍ଦ୍ରତା କମ୍ ({moisture}%) - ସିଞ୍ଚାଇ ଆବଶ୍ୟକ"
+      }
+    }
+  }
+}

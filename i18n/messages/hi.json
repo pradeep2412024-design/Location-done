@@ -1,0 +1,709 @@
+{
+  "app": {
+    "name": "क्रॉपवाइज़ एआई",
+    "tagline": "स्मार्ट खेती समाधान"
+  },
+  "crop_categories": {
+    "cereals_grains": "अनाज",
+    "pulses": "दालें",
+    "cash_crops": "नकदी फसलें",
+    "oilseeds": "तिलहन",
+    "plantation_crops": "बागान फसलें",
+    "fruits": "फल",
+    "vegetables": "सब्ज़ियाँ",
+    "spices_herbs": "मसाले व जड़ी-बूटियाँ",
+    "medicinal_plants": "औषधीय पौधे"
+  },
+  "crops": {
+    "rice": "धान",
+    "wheat": "गेहूँ",
+    "maize_corn": "मक्का",
+    "barley": "जौ",
+    "jowar_sorghum": "ज्वार",
+    "bajra_pearl_millet": "बाजरा",
+    "ragi_finger_millet": "रागी",
+    "lentil": "मसूर",
+    "gram": "चना",
+    "arhar_tur": "अरहर/तूर",
+    "moong": "मूंग",
+    "urad": "उड़द",
+    "chickpea": "काबुली चना",
+    "chickpea_gram": "चना (ग्राम)",
+    "black_gram": "काला चना",
+    "sugarcane": "गन्ना",
+    "cotton": "कपास",
+    "jute": "जूट",
+    "tobacco": "तंबाकू",
+    "groundnut_peanut": "मूंगफली",
+    "soybean": "सोयाबीन",
+    "sunflower": "सूरजमुखी",
+    "mustard": "सरसों",
+    "safflower": "कुसुम",
+    "sesame": "तिल",
+    "tea": "चाय",
+    "coffee": "कॉफी",
+    "rubber": "रबर",
+    "coconut": "नारियल",
+    "arecanut": "सुपारी",
+    "cocoa": "कोको",
+    "mango": "आम",
+    "banana": "केला",
+    "apple": "सेब",
+    "orange": "संतरा",
+    "grapes": "अंगूर",
+    "pineapple": "अनानास",
+    "guava": "अमरूद",
+    "papaya": "पपीता",
+    "pomegranate": "अनार",
+    "litchi": "लीची",
+    "watermelon": "तरबूज",
+    "muskmelon": "खरबूजा",
+    "potato": "आलू",
+    "tomato": "टमाटर",
+    "onion": "प्याज",
+    "brinjal_eggplant": "बैंगन",
+    "cauliflower": "फूलगोभी",
+    "cabbage": "पत्ता गोभी",
+    "carrot": "गाजर",
+    "radish": "मूली",
+    "spinach": "पालक",
+    "okra_ladyfinger": "भिंडी",
+    "peas": "मटर",
+    "turmeric": "हल्दी",
+    "ginger": "अदरक",
+    "garlic": "लहसुन",
+    "chilli": "मिर्च",
+    "black_pepper": "काली मिर्च",
+    "cardamom": "इलायची",
+    "coriander": "धनिया",
+    "cumin": "जीरा",
+    "fennel": "सौंफ",
+    "fenugreek": "मेथी",
+    "aloe_vera": "एलोवेरा",
+    "tulsi_holy_basil": "तुलसी",
+    "ashwagandha": "अश्वगंधा",
+    "lemongrass": "लेमनग्रास",
+    "mint": "पुदीना",
+    "sarpagandha": "सर्पगंधा",
+    "isabgol": "इसबगोल",
+    "kalmegh": "कालमेघ",
+    "jowar": "ज्वार (सोरघम)"
+  },
+  "units": {
+    "tons_per_hectare": "टन/हेक्टेयर",
+    "quintal": "क्विंटल",
+    "tons_co2": "टन CO2",
+    "per_hectare": "प्रति हेक्टेयर",
+    "mm": "मिमी"
+  },
+  "home": {
+    "hero": {
+      "title": "खेती का भविष्य यहाँ है",
+      "subtitle": "एआई-संचालित फसल उपज भविष्यवाणी और व्यक्तिगत कृषि सिफारिशें प्राप्त करें जिससे आपकी उत्पादकता 15% तक बढ़ सकती है"
+    },
+    "stats": {
+      "yield_increase": "औसत उपज वृद्धि",
+      "farmers_helped": "मदद किए गए किसान",
+      "prediction_accuracy": "भविष्यवाणी सटीकता"
+    },
+    "form": {
+      "title": "हमें अपने खेत के बारे में बताएं",
+      "subtitle": "आपकी खेती की ज़रूरतों के लिए व्यक्तिगत सिफारिशें देने में हमारी मदद करें",
+      "name_label": "आपका नाम (वैकल्पिक)",
+      "name_placeholder": "अपना नाम लिखें",
+      "location_label": "खेत का स्थान *",
+      "location_placeholder": "अपना शहर, राज्य, देश लिखें...",
+      "location_help": "अपना स्थान मैन्युअली दर्ज करें, या अपना वर्तमान स्थान उपयोग करने के लिए बटन पर क्लिक करें",
+      "size_label": "खेत का आकार (हेक्टेयर) *",
+      "size_placeholder": "जैसे, 5 एकड़, 2 हेक्टेयर",
+      "prev_crop_label": "पिछली/वर्तमान फसल (वैकल्पिक)",
+      "prev_crop_placeholder": "पिछली फसल लिखें या चुनें",
+      "next_crop_label": "अगली फसल जिसे उगाना है *",
+      "next_crop_placeholder": "फसल लिखें या चुनें",
+      "month_label": "योजना बनाई गई बोआई महीना *",
+      "month_placeholder": "बोआई महीना चुनें",
+      "submit": "एआई प्रेडिक्शंस प्राप्त करें",
+      "processing": "प्रोसेस हो रहा है..."
+    },
+    "benefits": {
+      "title": "आपको क्या मिलेगा",
+      "yield": {
+        "title": "उपज प्रेडिक्शंस",
+        "desc": "आपकी विशेष फसल और स्थान के लिए एआई-आधारित पूर्वानुमान"
+      },
+      "recommendations": {
+        "title": "स्मार्ट सिफारिशें",
+        "desc": "सिंचाई, उर्वरक और कीट नियंत्रण के लिए व्यक्तिगत सलाह"
+      },
+      "weather": {
+        "title": "मौसम जानकारी",
+        "desc": "आपके खेत के लिए स्थानीय मौसम पैटर्न और जोखिम आकलन"
+      }
+    }
+  },
+  "months": {
+    "january": "जनवरी",
+    "february": "फरवरी",
+    "march": "मार्च",
+    "april": "अप्रैल",
+    "may": "मई",
+    "june": "जून",
+    "july": "जुलाई",
+    "august": "अगस्त",
+    "september": "सितंबर",
+    "october": "अक्टूबर",
+    "november": "नवंबर",
+    "december": "दिसंबर"
+  },
+  "actions": {
+    "use_current_location": "वर्तमान स्थान उपयोग करें",
+    "change_language": "भाषा बदलें"
+  },
+  "common": {
+    "not_available": "उपलब्ध नहीं",
+    "or": "या"
+  },
+  "dashboard": {
+    "common": {
+      "live_data": "लाइव डेटा",
+      "updated": "अपडेटेड:",
+      "realtime_analysis": "रीयल-टाइम विश्लेषण"
+    },
+    "farm_info": {
+      "title": "फार्म जानकारी",
+      "update": "फार्म डेटा अपडेट करें",
+      "current_location": "वर्तमान स्थान:",
+      "planning_to_cultivate": "उगाने की योजना:",
+      "farm_size": "फार्म का आकार:",
+      "predicted_yield": "अनुमानित उपज:"
+    },
+    "ai_reco": {
+      "title": "एआई सिफारिशें",
+      "irrigation": "सिंचाई",
+      "pest": "कीट प्रबंधन",
+      "fertilizer": "उर्वरक"
+    },
+    "weather": {
+      "title": "7-दिवसीय मौसम पूर्वानुमान",
+      "realtime_for": "रीयल-टाइम मौसम"
+    },
+    "soil": {
+      "title": "मृदा स्थिति विश्लेषण",
+      "realtime_from": "वास्तविक मृदा डेटा",
+      "coordinates": "निर्देशांक:"
+    },
+    "yield": {
+      "title": "फसल उपज पूर्वानुमान",
+      "subtitle": "आपकी चयनित फसल के लिए एआई आधारित पूर्वानुमान",
+      "confidence": "विश्वास",
+      "factors": "उपज को प्रभावित करने वाले कारक:",
+      "factor_keys": {
+        "optimal_ph": "खेती के लिए मृदा pH अनुकूल",
+        "acidic_soil": "अम्लीय मृदा पोषक उपलब्धता कम कर सकती है",
+        "alkaline_soil": "क्षारीय मृदा फॉस्फोरस अवशोषण सीमित कर सकती है",
+        "low_moisture": "कम मृदा नमी के लिए सिंचाई योजना आवश्यक",
+        "high_moisture": "अधिक मृदा नमी जड़ रोग उत्पन्न कर सकती है",
+        "good_moisture": "वृद्धि के लिए अच्छी मृदा नमी",
+        "excellent_nutrients": "उत्कृष्ट पोषक स्तर उच्च उपज का समर्थन करते हैं",
+        "low_nutrients": "कम पोषक स्तर के लिए उर्वरक आवश्यक",
+        "moderate_nutrients": "मध्यम पोषक स्तर—सुधार की गुंजाइश",
+        "excessive_rain": "अत्यधिक वर्षा फफूंद रोग बढ़ा सकती है",
+        "dry_weather": "शुष्क मौसम में सावधानीपूर्वक सिंचाई प्रबंधन आवश्यक",
+        "favorable_weather": "अनुकूल मौसम स्थितियाँ अपेक्षित"
+      }
+    },
+    "weather_impact": {
+      "title": "मौसम प्रभाव विश्लेषण",
+      "subtitle": "मौसम की स्थिति आपकी उपज को कैसे प्रभावित करती है",
+      "items": {
+        "monitor_drainage": "जलभराव रोकने के लिए निकास की निगरानी करें",
+        "apply_fungicide": "रोग नियंत्रण के लिए निवारक फफूंदनाशी लगाएँ",
+        "provide_shade": "अत्यधिक गर्मी में छाया उपलब्ध कराएँ",
+        "increase_irrigation": "गर्मी में सिंचाई आवृत्ति बढ़ाएँ",
+        "cold_stress": "फसलों में ठंड तनाव की निगरानी करें",
+        "ensure_air_circulation": "आर्द्रता घटाने के लिए अच्छा वायु संचार सुनिश्चित करें",
+        "watch_fungal": "फफूंद रोग विकास पर ध्यान दें",
+        "implement_drip": "जल संरक्षण के लिए ड्रिप सिंचाई लागू करें",
+        "prepare_drainage": "अधिक जल के लिए निकास प्रणाली तैयार करें",
+        "favorable_weather": "अनुकूल बढ़वार स्थितियाँ",
+        "regular_monitoring": "नियमित निगरानी पर्याप्त"
+      }
+    },
+    "weather_risk": {
+      "title": "मौसम जोखिम विश्लेषण और सावधानियां",
+      "badge": "एआई-संचालित विश्लेषण"
+    },
+    "risks": {
+      "types": {
+        "high_temp_alert": "उच्च तापमान चेतावनी",
+        "low_temp_warning": "निम्न तापमान चेतावनी",
+        "heavy_rainfall_risk": "अत्यधिक वर्षा जोखिम",
+        "drought_stress_alert": "सूखा तनाव चेतावनी",
+        "fungal_disease_risk": "फफूंद रोग जोखिम",
+        "crop_specific_guidance": "फसल-विशिष्ट मार्गदर्शन"
+      },
+      "messages": {
+        "high_temp_alert": "औसत तापमान {avgTemp}°C {crop} के लिए आदर्श से अधिक है। गर्मी तनाव से बचने के लिए सुबह (5-7 AM) या शाम (6-8 PM) में सिंचाई करें।",
+        "low_temp_warning": "कम तापमान ({avgTemp}°C) {crop} की वृद्धि को धीमा कर सकता है। ठंडी रातों में रो कवर या ग्रीनहाउस सुरक्षा पर विचार करें।",
+        "heavy_rainfall_risk": "7 दिनों में {totalRain}mm वर्षा अपेक्षित। उचित जल निकासी सुनिश्चित करें और पोषक तत्व के बहाव से बचने के लिए भारी बारिश से पहले उर्वरक न डालें।",
+        "drought_stress_alert": "कम वर्षा ({totalRain}mm) अपेक्षित। {crop} के लिए मिट्टी की नमी बनाए रखने हेतु सिंचाई की आवृत्ति बढ़ाएं और मल्च लगाएं।",
+        "fungal_disease_risk": "उच्च आर्द्रता ({avgHumidity}%) {crop} में फफूंद रोग का जोखिम बढ़ाती है। निवारक फफूंदनाशी लगाएं और अच्छी वायु संचलन सुनिश्चित करें।",
+        "crop_guidance": {
+          "rice": "2-5सेमी पानी बनाए रखें। उच्च आर्द्रता में ब्लास्ट रोग की निगरानी करें।",
+          "wheat": "जलभराव से बचें। आर्द्र मौसम में रस्ट रोग पर ध्यान दें।",
+          "maize_corn": "अच्छी निकासी सुनिश्चित करें। गर्म, आर्द्र मौसम में कॉर्न बोरर की निगरानी करें।",
+          "cotton": "जलभराव रोकें। गर्म मौसम में बॉलवर्म गतिविधि पर नज़र रखें।",
+          "sugarcane": "सतत नमी बनाए रखें। आर्द्र परिस्थितियों में रेड रॉट पर नज़र रखें।"
+        }
+      }
+      ,
+      "crop_guidance": {
+        "rice": "2-5सेमी पानी बनाए रखें। उच्च आर्द्रता में ब्लास्ट रोग की निगरानी करें।",
+        "wheat": "जलभराव से बचें। आर्द्र मौसम में रस्ट रोग पर ध्यान दें।",
+        "maize_corn": "अच्छी निकासी सुनिश्चित करें। गर्म, आर्द्र मौसम में कॉर्न बोरर की निगरानी करें।",
+        "cotton": "जलभराव रोकें। गर्म मौसम में बॉलवर्म गतिविधि पर नज़र रखें।",
+        "sugarcane": "सतत नमी बनाए रखें। आर्द्र परिस्थितियों में रेड रॉट पर नज़र रखें।"
+      }
+    },
+    "sensor": {
+      "title": "रीयल-टाइम सेंसर डेटा",
+      "badge": "एआई-संवर्द्धित लाइव डेटा",
+      "subtitle": "मौसम और मृदा स्थितियों पर आधारित बुद्धिमान निगरानी"
+    },
+    "iot": {
+      "soil_moisture": "मृदा नमी",
+      "real_soil_data": "वास्तविक मृदा डेटा पर आधारित",
+      "temperature": "तापमान",
+      "weather_api_enhanced": "मौसम API संवर्द्धित",
+      "humidity": "आर्द्रता",
+      "realtime_correlation": "रीयल-टाइम सहसंबंध",
+      "light_intensity": "प्रकाश तीव्रता",
+      "weather_condition_based": "मौसम स्थिति आधारित",
+      "last_updated": "अंतिम अपडेट",
+      "ai_enhanced": "एआई-संवर्द्धित डेटा"
+    },
+    "alerts": {
+      "title": "एआई-संचालित सेंसर अलर्ट",
+      "subtitle": "फसल आवश्यकताओं और परिस्थितियों पर आधारित बुद्धिमान अलर्ट",
+      "risk_assessment": "मौसम और मृदा स्थिति आधारित जोखिम मूल्यांकन",
+      "action_label": "कार्रवाई",
+      "messages": {
+        "low_moisture": "मृदा नमी ({moisture}%) {crop} के लिए इष्टतम से कम। तुरंत सिंचाई की सलाह।",
+        "high_temp": "तापमान ({temp}°C) {crop} के लिए इष्टतम सीमा से अधिक। हीट स्ट्रेस जोखिम।",
+        "high_humidity": "उच्च आर्द्रता ({humidity}%) {crop} में रोग जोखिम बढ़ाती है।"
+      },
+      "actions": {
+        "start_irrigation": "2 घंटे में सिंचाई प्रणाली चालू करें",
+        "provide_shade": "शेड नेट लगाएँ या सिंचाई आवृत्ति बढ़ाएँ",
+        "improve_ventilation": "वेंटिलेशन सुधारें और फफूंद रोग की निगरानी करें"
+      }
+    },
+    "optimization": {
+      "irrigation": {
+        "flood": "बाढ़ सिंचाई प्रणाली",
+        "sprinkler": "स्प्रिंकलर प्रणाली",
+        "drip": "ड्रिप सिंचाई प्रणाली",
+        "subtitle": "सिंचाई • पूरे बढ़वार मौसम में",
+        "description": "वर्तमान मृदा नमी {moisture}% के आधार पर {crop} के लिए जल प्रबंधन रणनीति",
+        "improvement": "अपेक्षित सुधार: {efficiency} जल दक्षता"
+      },
+      "pest": {
+        "title": "एकीकृत कीट प्रबंधन",
+        "subtitle": "कीट नियंत्रण • साप्ताहिक निगरानी",
+        "description": "{crop} के लिए निवारक कीट नियंत्रण उपाय",
+        "improvement": "अपेक्षित सुधार: {risk} हानि रोकथाम"
+      }
+    },
+    "timeline": {
+      "title_for": "{crop} के लिए एआई-संचालित खेती टाइमलाइन",
+      "customized_for": "{location} के लिए अनुकूलित",
+      "subtitle": "मौसम पैटर्न और मृदा स्थितियों के आधार पर डायनामिक टाइमलाइन",
+      "activities": "गतिविधियाँ:",
+      "critical_points": "महत्वपूर्ण बिंदु:",
+      "weather_considerations": "मौसम संबंधी विचार:",
+      "soil_based": "मृदा-आधारित सिफारिशें:",
+      "phases": {
+        "rice": { "land_prep": "भूमि तैयारी और नर्सरी", "transplanting": "रोपाई" },
+        "wheat": {
+          "land_prep_sowing": "भूमि तैयारी और बुवाई",
+          "establishment": "अंकुरण और स्थापना",
+          "tillering": "टिलरिंग चरण",
+          "stem_elongation": "तना लम्बाई",
+          "grain_filling_harvest": "दाना भरना और कटाई"
+        },
+        "chickpea": {
+          "land_prep_sowing": "भूमि तैयारी और बुवाई",
+          "establishment": "अंकुरण और प्रारंभिक वृद्धि",
+          "flowering_pod": "फूल और फली बनना",
+          "pod_filling_harvest": "फली भरना और कटाई"
+        },
+        "common": { "vegetative": "वनस्पतिक वृद्धि", "reproductive": "प्रजनन चरण", "maturation": "परिपक्वता और कटाई" },
+        "jowar": {
+          "land_prep_sowing": "भूमि तैयारी और बुवाई",
+          "establishment": "अंकुरण और स्थापना",
+          "vegetative": "वनस्पतिक वृद्धि",
+          "reproductive": "प्रजनन चरण",
+          "maturation": "परिपक्वता और कटाई"
+        }
+      },
+      "activities_list": {
+        "field_preparation": "खेत की तैयारी",
+        "seed_treatment": "बीज उपचार",
+        "nursery_bed_preparation": "नर्सरी बेड की तैयारी",
+        "seedling_transplantation": "रोपाई",
+        "field_flooding": "खेत में पानी भरना",
+        "initial_fertilizer": "प्रारंभिक उर्वरक आवेदन",
+        "water_management": "पानी प्रबंधन",
+        "weed_control": "निंदाई",
+        "nitrogen_application": "नाइट्रोजन का प्रयोग",
+        "panicle_initiation_care": "पैनिकल प्रारंभ देखभाल",
+        "pest_monitoring": "कीट निगरानी",
+        "potassium_application": "पोटाश का प्रयोग",
+        "gradual_water_reduction": "धीरे-धीरे पानी कम करना",
+        "harvest_preparation": "कटाई की तैयारी",
+        "post_harvest_processing": "कटाई उपरांत प्रसंस्करण",
+        "sowing_operations": "बुवाई कार्य",
+        "irrigation_scheduling": "सिंचाई अनुसूची",
+        "n_top_dressing": "नाइट्रोजन टॉप ड्रेसिंग",
+        "second_n_application": "दूसरी नाइट्रोजन का प्रयोग",
+        "final_irrigation": "अंतिम सिंचाई",
+        "harvest_timing": "कटाई का समय",
+        "post_harvest_handling": "कटाई उपरांत प्रबंधन",
+        "seed_treatment_rhizobium": "राइजोबियम से बीज उपचार",
+        "sowing": "बुवाई",
+        "weed_management": "निंदाई प्रबंधन",
+        "thinning_if_required": "जरूरत हो तो थिनिंग",
+        "light_irrigation": "हल्की सिंचाई",
+        "critical_irrigation": "महत्वपूर्ण सिंचाई",
+        "pest_control": "कीट नियंत्रण",
+        "micronutrient_spray": "सूक्ष्म पोषक छिड़काव",
+        "threshing": "मड़ाई",
+        "irrigation_management": "सिंचाई प्रबंधन",
+        "gap_filling": "गैप भरना",
+        "phosphorus_application": "फॉस्फोरस का प्रयोग"
+      },
+      "critical": {
+        "ensure_drainage": "उचित निकास सुनिश्चित करें",
+        "maintain_nursery_moisture": "नर्सरी में नमी बनाए रखें",
+        "monitor_seed_germination": "बीज अंकुरण की निगरानी करें",
+        "maintain_water_level": "{cm}सेमी जल स्तर बनाए रखें",
+        "proper_spacing": "उचित दूरी पर पौध लगाएँ",
+        "apply_starter_fertilizer": "स्टार्टर उर्वरक डालें",
+        "monitor_water_levels": "पानी के स्तर की निगरानी करें",
+        "control_weeds_early": "शुरुआत में ही खरपतवार नियंत्रित करें",
+        "apply_n_at_tillering": "टिलरिंग चरण में नाइट्रोजन डालें",
+        "ensure_adequate_water": "पर्याप्त पानी सुनिश्चित करें",
+        "monitor_stem_borer": "तना छेदक कीट की निगरानी करें",
+        "apply_potassium": "पोटाश उर्वरक डालें",
+        "reduce_irrigation_gradually": "सिंचाई धीरे-धीरे कम करें",
+        "harvest_at_maturity": "{percent}% परिपक्वता पर कटाई करें",
+        "proper_drying_storage": "उचित सुखाना और भंडारण",
+        "ensure_soil_moisture": "उचित मृदा नमी सुनिश्चित करें",
+        "use_certified_seeds": "प्रमाणित बीजों का प्रयोग करें",
+        "maintain_seed_rate": "उचित बीज दर बनाए रखें",
+        "provide_light_irrigation": "हल्की सिंचाई करें",
+        "control_early_weeds": "शुरुआती खरपतवार नियंत्रण करें",
+        "ensure_uniform_stand": "एकसमान पौध खड़ी सुनिश्चित करें",
+        "apply_first_n_dose": "पहली नाइट्रोजन खुराक दें",
+        "maintain_soil_moisture": "मृदा नमी बनाए रखें",
+        "monitor_aphids": "एफिड की निगरानी करें",
+        "apply_remaining_n": "शेष नाइट्रोजन डालें",
+        "watch_for_rust": "रस्ट रोग पर नज़र रखें",
+        "stop_irrigation_before_harvest": "कटाई से पहले सिंचाई रोकें",
+        "harvest_at_physiological_maturity": "फिजियोलॉजिकल परिपक्वता पर कटाई",
+        "proper_storage": "उचित भंडारण",
+        "ensure_residual_moisture": "अवशिष्ट नमी सुनिश्चित करें",
+        "treat_seeds_fungicide": "बीजों का फफूंदनाशी से उपचार करें",
+        "maintain_proper_depth": "उचित गहराई बनाए रखें",
+        "monitor_germination_percentage": "अंकुरण प्रतिशत की निगरानी करें",
+        "ensure_water_during_flowering": "फूल आने के समय पानी सुनिश्चित करें",
+        "control_gram_pod_borer": "चना फली छेदक का नियंत्रण करें",
+        "apply_boron_spray": "बोरॉन स्प्रे करें",
+        "harvest_proper_moisture": "उचित नमी पर कटाई करें",
+        "avoid_pod_shattering": "फली के फटने से बचाएँ",
+        "dry_and_store_properly": "ठीक से सुखाएँ और संग्रह करें",
+        "drying_and_storage": "सुखाना और भंडारण",
+        "avoid_waterlogging": "जलभराव से बचें",
+        "stop_irrigation_before_maturity": "परिपक्वता से पहले सिंचाई रोकें",
+        "harvest_when_pods_rattle": "जब फली खड़खड़ाए तब कटाई करें",
+        "proper_drying": "समुचित सुखाना",
+        "apply_phosphorus_fertilizer": "फॉस्फोरस उर्वरक लगाएं",
+        "monitor_pod_borer": "फली छेदक कीट की निगरानी करें",
+        "provide_irrigation_if_needed": "आवश्यक हो तो सिंचाई करें"
+      },
+      "considerations": {
+        "high_temp": "उच्च तापमान ({avg}°C औसत) - गर्मी से सुरक्षा उपाय करें",
+        "heavy_rain": "भारी वर्षा अपेक्षित ({rain}mm) - उचित निकास सुनिश्चित करें",
+        "low_rain": "कम वर्षा ({rain}mm) - सिंचाई की आवश्यकता हो सकती है"
+      },
+      "soil_reco": {
+        "ph_acidic": "मृदा pH ({ph}) अम्लीय है - चुना डालने पर विचार करें",
+        "ph_alkaline": "मृदा pH ({ph}) क्षारीय है - जिप्सम डालने पर विचार करें",
+        "low_n": "नाइट्रोजन स्तर कम ({n}) - नाइट्रोजन उर्वरक बढ़ाएँ",
+        "low_moisture": "मृदा नमी कम ({moisture}%) - सिंचाई आवश्यक"
+      }
+    }
+  ,
+    "tabs": {
+      "dashboard": "डैशबोर्ड",
+      "yield_prediction": "उपज पूर्वानुमान",
+      "optimization": "अनुकूलन",
+      "iot_sensors": "IoT सेंसर",
+      "timeline": "समयरेखा",
+      "sustainability": "स्थिरता",
+      "market_analysis": "बाज़ार विश्लेषण",
+      "recommended_crops": "अनुशंसित फसलें"
+    }
+  ,
+    "sustainability": {
+      "carbon_footprint": "कार्बन फुटप्रिंट",
+      "water_usage": "जल उपयोग",
+      "soil_health": "मृदा स्वास्थ्य",
+      "biodiversity_score": "जैव विविधता स्कोर",
+      "recommendations_title": "एआई स्थिरता सिफारिशें:",
+      "header_title": "पर्यावरणीय प्रभाव विश्लेषण",
+      "header_badge": "एआई-गणना",
+      "header_subtitle": "आपके फार्म डेटा के आधार पर रियल-टाइम सस्टेनेबिलिटी मेट्रिक्स",
+      "emission_reduction": "उत्सर्जन में कमी",
+      "awd_action": "बारी-बारी से गीला और सूखा (AWD) सिंचाई विधि अपनाएँ",
+      "methane_reduction": "मीथेन उत्सर्जन 30-50% तक कम करें",
+      "carbon_display": "{total} {unit} ({per} {perUnit})",
+      "water_display": "{total}{mm} {rainfall}{mm} वर्षा से, सिंचाई आवश्यक"
+    },
+    "market": {
+      "header_title": "एआई बाजार इंटेलिजेंस",
+      "badge": "मौसम और गुणवत्ता समायोजित",
+      "subtitle": "परिस्थितियों और गुणवत्ता पूर्वानुमान के आधार पर डायनामिक कीमत",
+      "current_price": "वर्तमान बाजार मूल्य",
+      "from_seasonal_avg": "मौसमी औसत से",
+      "demand_forecast": "एआई मांग पूर्वानुमान",
+      "optimal_selling_period": "उत्तम बिक्री अवधि",
+      "profit_margin": "अपेक्षित लाभ मार्जिन",
+      "profit_display": "{margin}% (₹{profit}/{unit} लाभ)",
+      "insights_title": "एआई बाजार अंतर्दृष्टि:",
+      "demand_levels": { "high": "उच्च", "medium": "मध्यम", "low": "कम" },
+      "schemes": {
+        "title": "सरकारी योजनाएँ और सहायता",
+        "badge": "स्थान और फसल-विशेष",
+        "subtitle": "आपकी प्रोफ़ाइल के आधार पर निजीकरण योजनाएँ",
+        "eligibility": "पात्रता",
+        "status": { "active": "सक्रिय", "available": "उपलब्ध", "upcoming": "आगामी", "apply_now": "अभी आवेदन करें" }
+      },
+      "action_label": "कार्रवाई",
+      "insights": {
+        "prices_above_avg": "कीमतें मौसमी औसत से {percent}% अधिक हैं",
+        "excess_rainfall_quality": "अत्यधिक वर्षा फसल की गुणवत्ता और बाजार कीमतों को प्रभावित कर सकती है",
+        "market_access_good": "प्रमुख कृषि पट्टी में स्थित, अच्छा बाजार पहुँच",
+        "focus_post_harvest": "कटाई उपरांत हैंडलिंग और भंडारण पर ध्यान दें",
+        "leverage_mandis": "मंडी और प्रोसेसिंग यूनिट्स की निकटता का लाभ लें",
+        "actions": {
+          "forward_or_contract": "फॉरवर्ड सेलिंग या कॉन्ट्रैक्ट फार्मिंग पर विचार करें"
+        }
+      }
+    },
+    "recommended": {
+      "header_title": "एआई-संचालित फसल सुझाव",
+      "header_badge": "वास्तविक मिट्टी और मौसम डेटा पर आधारित",
+      "header_subtitle": "आपकी मिट्टी की स्थिति, मौसम पैटर्न और बाजार के रुझानों का विश्लेषण करते हुए बुद्धिमान फसल सुझाव",
+      "ai_match_score": "एआई मैच स्कोर",
+      "duration_label": "अवधि:",
+      "market_demand": "बाजार मांग",
+      "expected_yield": "अपेक्षित उपज",
+      "analysis_title": "एआई विश्लेषण - यह फसल क्यों सुझाई गई:",
+      "reasons": {
+        "optimal_ph": "मिट्टी का pH ({ph}) {crop} की खेती के लिए आदर्श है",
+        "ph_manageable": "मिट्टी का pH ({ph}) {crop} के लिए प्रबंधित किया जा सकता है",
+        "good_moisture": "अच्छी मिट्टी की नमी ({moisture}%) वृद्धि का समर्थन करती है",
+        "moisture_irrigation": "मिट्टी की नमी ({moisture}%) को सिंचाई सहायता की आवश्यकता हो सकती है",
+        "favorable_temp": "अनुकूल तापमान स्थिति ({temp}°C औसत)",
+        "temp_manageable": "तापमान ({temp}°C) उचित प्रथाओं के साथ प्रबंधनीय",
+        "adequate_rainfall": "मौसम के लिए पर्याप्त वर्षा ({rainfall}mm) की अपेक्षा",
+        "rainfall_irrigation": "वर्षा ({rainfall}mm) को पूरक सिंचाई की आवश्यकता हो सकती है",
+        "excellent_nutrients": "उत्कृष्ट पोषक तत्व स्तर (NPK औसत: {nutrients}%) उच्च उपज का समर्थन करते हैं",
+        "moderate_nutrients": "मध्यम पोषक तत्व स्तर को उर्वरक के साथ बेहतर बनाया जा सकता है",
+        "location_suited": "{crop} {location} क्षेत्र के लिए उपयुक्त है",
+        "optimal_season": "{month} {crop} के लिए आदर्श रोपण मौसम है"
+      }
+    },
+    "disease": {
+      "header_title": "एआई रोग और कीट जोखिम विश्लेषण",
+      "risk_label": "जोखिम",
+      "ai_confidence": "एआई विश्वास",
+      "risk_levels": { "low": "कम", "medium": "मध्यम", "high": "उच्च" },
+      "risk_factors_prefix": "जोखिम कारक",
+      "factors": {
+        "optimal_temp": "इष्टतम तापमान ({temp}°C)",
+        "high_humidity": "उच्च आर्द्रता ({humidity}%)",
+        "adequate_rainfall": "पर्याप्त वर्षा ({rain}mm)",
+        "suitable_soil_moisture": "उपयुक्त मृदा नमी",
+        "favorable_ph": "अनुकूल मृदा pH",
+        "not_favorable": "परिस्थितियाँ अनुकूल नहीं"
+      },
+      "loading": "डेटा लोड हो रहा है",
+      "fetching": "रीयल-टाइम विश्लेषण प्राप्त किया जा रहा है...",
+      "names": {
+        "fusarium_wilt": "फ्यूजेरियम विल्ट",
+        "ascochyta_blight": "एस्कोकाइटा ब्लाइट",
+        "blast_disease": "ब्लास्ट रोग",
+        "bacterial_leaf_blight": "बैक्टीरियल लीफ ब्लाइट"
+      },
+      "actions": {
+        "use_resistant_varieties_and_avoid_waterlogging": "प्रतिरोधी किस्में उपयोग करें और जलभराव से बचें",
+        "apply_mancozeb_or_chlorothalonil_fungicide": "मेंकोज़ेब या क्लोरोथालोनिल फफूंदनाशी का उपयोग करें",
+        "use_copper_based_bactericides_and_avoid_overhead_irrigation": "कॉपर-आधारित जीवाणुनाशकों का उपयोग करें और ओवरहेड सिंचाई से बचें"
+      }
+    },
+    "soil_metrics": {
+      "ph_level": "पीएच स्तर",
+      "moisture": "नमी",
+      "nitrogen_n": "नाइट्रोजन (N)",
+      "phosphorus_p": "फॉस्फोरस (P)",
+      "potassium_k": "पोटैशियम (K)",
+      "organic_matter": "जैविक पदार्थ"
+    },
+    "fertility": {
+      "title": "एआई उर्वरता सिफारिशें",
+      "badge_for": "{month} में {crop} के लिए एआई-संचालित",
+      "priority": {
+        "high": "उच्च प्राथमिकता",
+        "medium": "मध्यम प्राथमिकता",
+        "low": "निम्न प्राथमिकता"
+      },
+      "timing_label": "समय:",
+      "expected_result": "अपेक्षित परिणाम:",
+      "nutrient": {
+        "nitrogen": "नाइट्रोजन",
+        "phosphorus": "फॉस्फोरस",
+        "potassium": "पोटैशियम",
+        "ph_correction": "pH सुधार",
+        "organic_matter": "जैविक पदार्थ",
+        "weather_adaptive": "मौसम-अनुकूल"
+      },
+      "action": {
+        "nitrogen": {
+          "deficient": "तुरंत 40-50 किग्रा/हेक्टेयर यूरिया डालें। वर्तमान स्तर ({value}%) {month} में {crop} के लिए अत्यधिक कम है।",
+          "moderate": "20-25 किग्रा/हेक्टेयर यूरिया डालें। वर्तमान स्तर ({value}%) इष्टतम {crop} वृद्धि के लिए पूरकता की आवश्यकता है।"
+        },
+        "phosphorus": {
+          "low": "30-40 किग्रा/हेक्टेयर डीएपी डालें। वर्तमान P स्तर ({value}%) जड़ विकास को सीमित कर रहा है।"
+        },
+        "potassium": {
+          "low": "25-30 किग्रा/हेक्टेयर एमओपी डालें। कम K ({value}%) रोग प्रतिरोध और गुणवत्ता को प्रभावित करता है।"
+        },
+        "ph_correction": {
+          "acidic": "2-3 टन/हेक्टेयर कृषि चूना डालें। वर्तमान pH ({value}) {crop} के पोषक अवशोषण के लिए बहुत अम्लीय है।",
+          "alkaline": "1-2 टन/हेक्टेयर जिप्सम डालें। उच्च pH ({value}) सूक्ष्म पोषक तत्व कमी का कारण बन सकता है।"
+        },
+        "organic_matter": {
+          "low": "3-4 टन/हेक्टेयर अच्छी सड़ी कम्पोस्ट डालें। कम जैविक पदार्थ ({value}%) मिट्टी संरचना और जल धारण को प्रभावित करता है।"
+        },
+        "weather_adaptive": "अधिक वर्षा और आर्द्रता मिली। न्यूट्रिएंट लीचिंग रोकने को स्लो-रिलीज उर्वरक का उपयोग करें।"
+      },
+      "timing": {
+        "nitrogen": {
+          "deficient": "2 खुराक में डालें: 60% बुवाई पर, 40% वृद्धि अवस्था में।",
+          "moderate": "सक्रिय वृद्धि चरण में डालें अधिकतम अवशोषण हेतु।"
+        },
+        "phosphorus": {
+          "low": "मिट्टी तैयारी चरण में डालें बेहतर जड़ स्थापना के लिए।"
+        },
+        "potassium": {
+          "low": "फूल आने के समय डालें बेहतर दाना/फल विकास हेतु।"
+        },
+        "ph_correction": {
+          "acidic": "बुवाई से 2-3 सप्ताह पहले डालें और मिट्टी में मिलाएं।",
+          "alkaline": "मिट्टी तैयारी के समय डालें और अच्छी सिंचाई करें।"
+        },
+        "organic_matter": {
+          "low": "भूमि तैयारी के दौरान डालें और अच्छी तरह मिलाएं।"
+        },
+        "weather_adaptive": "कोटेड यूरिया अपनाएं और सूक्ष्म पोषक फोलियर स्प्रे करें।"
+      },
+      "timing_detail": {
+        "nitrogen": {
+          "deficient": "2 खुराक में डालें: 60% बुवाई पर, 40% वृद्धि अवस्था में।",
+          "moderate": "सक्रिय वृद्धि चरण में डालें अधिकतम अवशोषण हेतु।"
+        },
+        "phosphorus": {
+          "low": "मिट्टी तैयारी चरण में डालें बेहतर जड़ स्थापना के लिए।"
+        },
+        "potassium": {
+          "low": "फूल आने के समय डालें बेहतर दाना/फल विकास हेतु।"
+        },
+        "ph_correction": {
+          "acidic": "बुवाई से 2-3 सप्ताह पहले डालें और मिट्टी में मिलाएं।",
+          "alkaline": "मिट्टी तैयारी के समय डालें और अच्छी सिंचाई करें।"
+        },
+        "organic_matter": {
+          "low": "भूमि तैयारी के दौरान डालें और अच्छी तरह मिलाएं।"
+        },
+        "weather_adaptive": "कोटेड यूरिया अपनाएं और सूक्ष्म पोषक फोलियर स्प्रे करें।"
+      },
+      "expected": {
+        "nitrogen": {
+          "deficient": "15-25% उपज वृद्धि संभावित",
+          "moderate": "8-12% उपज वृद्धि संभावित"
+        },
+        "phosphorus": {
+          "low": "मजबूत जड़ तंत्र, 10-15% बेहतर पोषक अवशोषण"
+        },
+        "potassium": {
+          "low": "बेहतर रोग प्रतिरोध, उच्च गुणवत्ता उत्पादन"
+        },
+        "ph_correction": {
+          "acidic": "20-30% बेहतर पोषक उपलब्धता",
+          "alkaline": "बेहतर सूक्ष्म पोषक उपलब्धता"
+        },
+        "organic_matter": {
+          "low": "बेहतर मिट्टी संरचना, जल और पोषक धारण में सुधार"
+        },
+        "weather_adaptive": "पोषक हानि में कमी, सतत पोषण"
+      }
+    },
+    "metrics": {
+      "predicted_yield_increase": "अनुमानित उपज वृद्धि",
+      "soil_health_score": "मृदा स्वास्थ्य स्कोर",
+      "weather_risk": "मौसम जोखिम",
+      "high_priority_tasks": "उच्च प्राथमिकता कार्य"
+    },
+    "values": {
+      "soil_health": {
+        "excellent": "उत्कृष्ट",
+        "good": "अच्छा",
+        "fair": "औसत",
+        "poor": "कमजोर",
+        "unknown": "अज्ञात"
+      },
+      "demand": { "high": "उच्च", "medium": "मध्यम", "low": "कम" }
+    },
+    "units": { "days": "दिन" },
+    "dashboard": { "units": { "days": "दिन" } },
+    "locations": {
+      "cities": { "ghaziabad": "गाज़ियाबाद" },
+      "states": { "uttar_pradesh": "उत्तर प्रदेश" }
+    }
+  }
+  ,
+  "weather": {
+    "weekdays": {
+      "mon": "सोम",
+      "tue": "मंगल",
+      "wed": "बुध",
+      "thu": "गुरु",
+      "fri": "शुक्र",
+      "sat": "शनि",
+      "sun": "रवि"
+    },
+    "conditions": {
+      "sunny": "धूप",
+      "cloudy": "बादल",
+      "partly_cloudy": "आंशिक बादल",
+      "light_rain": "हल्की बारिश",
+      "moderate_rain": "मध्यम बारिश",
+      "heavy_rain": "भारी बारिश",
+      "patchy_rain_nearby": "आस-पास छिटपुट बारिश"
+    }
+  }
+}
+
+

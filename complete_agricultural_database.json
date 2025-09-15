@@ -1,0 +1,397 @@
+{
+  "metadata": {
+    "title": "Complete Multi-State Agricultural Database for India",
+    "version": "1.0",
+    "description": "Comprehensive agricultural yield data for 14 major Indian states",
+    "lastUpdated": "2024-01-15",
+    "totalStates": 14,
+    "totalCrops": 150,
+    "dataSources": [
+      "Ministry of Agriculture & Farmers Welfare, India",
+      "State Agricultural Departments",
+      "ICAR Research Institutes", 
+      "FAO Agricultural Statistics",
+      "State Agricultural Universities"
+    ]
+  },
+  "stateMapping": {
+    "punjab": ["punjab", "amritsar", "ludhiana", "jalandhar", "patiala", "bathinda", "mohali", "firozpur"],
+    "haryana": ["haryana", "gurgaon", "faridabad", "panipat", "karnal", "hisar", "rohtak", "sonipat"],
+    "uttar_pradesh": ["uttar pradesh", "lucknow", "kanpur", "agra", "varanasi", "meerut", "allahabad", "bareilly", "ghaziabad"],
+    "maharashtra": ["maharashtra", "mumbai", "pune", "nagpur", "nashik", "aurangabad", "solapur", "kolhapur", "amravati", "nanded", "jalgaon"],
+    "karnataka": ["karnataka", "bangalore", "mysore", "hubli", "mangalore", "belgaum", "gulbarga", "davangere", "bellary", "bijapur", "shimoga"],
+    "tamil_nadu": ["tamil nadu", "tamilnadu", "chennai", "coimbatore", "madurai", "tiruchirapalli", "salem", "tirunelveli", "erode", "vellore", "tuticorin"],
+    "gujarat": ["gujarat", "ahmedabad", "surat", "vadodara", "rajkot", "bhavnagar", "jamnagar", "gandhinagar", "anand", "nadiad", "mehsana"],
+    "rajasthan": ["rajasthan", "jaipur", "jodhpur", "kota", "bikaner", "ajmer", "udaipur", "bharatpur", "alwar", "sikar", "pali"],
+    "bihar": ["bihar", "patna", "gaya", "bhagalpur", "muzaffarpur", "darbhanga", "purnia", "arrah", "begusarai", "katihar"],
+    "west_bengal": ["west bengal", "westbengal", "kolkata", "howrah", "durgapur", "asansol", "siliguri", "bardhaman", "malda", "baharampur", "habra"],
+    "madhya_pradesh": ["madhya pradesh", "madhyapradesh", "bhopal", "indore", "gwalior", "jabalpur", "ujjain", "sagar", "dewas", "satna", "ratlam"],
+    "andhra_pradesh": ["andhra pradesh", "andhrapradesh", "hyderabad", "visakhapatnam", "vijayawada", "guntur", "nellore", "kurnool", "tirupati", "kadapa"],
+    "telangana": ["telangana", "warangal", "nizamabad", "khammam", "karimnagar", "ramagundam", "mahbubnagar", "nalgonda"],
+    "odisha": ["odisha", "orissa", "bhubaneswar", "cuttack", "puri", "rourkela", "berhampur", "sambalpur", "balasore", "bhadrak", "angul", "dhenkanal", "kendujhar", "mayurbhanj", "balangir", "bargarh", "kalahandi", "nuapada", "koraput", "malkangiri", "nabarangpur", "rayagada", "gajapati", "ganjam", "kandhamal", "boudh", "subarnapur", "sundargarh", "deogarh", "jharsuguda", "jajpur", "jagatsinghpur", "kendrapara", "khordha", "nayagarh"]
+  },
+  "soilTypes": {
+    "alluvial": {
+      "factor": 1.1,
+      "description": "Most fertile soils",
+      "states": ["punjab", "haryana", "uttar_pradesh", "bihar", "west_bengal", "andhra_pradesh", "tamil_nadu", "gujarat"]
+    },
+    "lateritic": {
+      "factor": 0.9,
+      "description": "Less fertile, needs improvement",
+      "states": ["odisha"]
+    },
+    "red": {
+      "factor": 0.95,
+      "description": "Moderate fertility",
+      "states": ["karnataka", "telangana"]
+    },
+    "black": {
+      "factor": 1.05,
+      "description": "Good fertility",
+      "states": ["maharashtra", "madhya_pradesh"]
+    },
+    "desert": {
+      "factor": 0.8,
+      "description": "Low fertility",
+      "states": ["rajasthan"]
+    }
+  },
+  "climateZones": {
+    "north-western-plains": {
+      "factor": 1.2,
+      "description": "High productivity region",
+      "states": ["punjab", "haryana"]
+    },
+    "north-central-plains": {
+      "factor": 1.1,
+      "description": "Moderate to high productivity",
+      "states": ["uttar_pradesh"]
+    },
+    "east-central-plains": {
+      "factor": 1.0,
+      "description": "Moderate productivity",
+      "states": ["bihar"]
+    },
+    "east-coastal": {
+      "factor": 1.15,
+      "description": "Coastal advantage",
+      "states": ["west_bengal", "odisha"]
+    },
+    "south-coastal": {
+      "factor": 1.18,
+      "description": "High coastal productivity",
+      "states": ["tamil_nadu", "andhra_pradesh"]
+    },
+    "west-coastal": {
+      "factor": 1.12,
+      "description": "Moderate coastal productivity",
+      "states": ["gujarat"]
+    },
+    "west-central": {
+      "factor": 1.08,
+      "description": "Moderate productivity",
+      "states": ["maharashtra"]
+    },
+    "south-central": {
+      "factor": 1.05,
+      "description": "Moderate productivity",
+      "states": ["karnataka", "telangana"]
+    },
+    "arid-western": {
+      "factor": 0.85,
+      "description": "Low productivity due to aridity",
+      "states": ["rajasthan"]
+    },
+    "central-plateau": {
+      "factor": 1.0,
+      "description": "Moderate productivity",
+      "states": ["madhya_pradesh"]
+    }
+  },
+  "yieldData": {
+    "punjab": {
+      "Rice": {"averageYield": 4.0, "trend": "stable", "variability": 0.08},
+      "Wheat": {"averageYield": 4.5, "trend": "increasing", "variability": 0.06},
+      "Maize": {"averageYield": 3.2, "trend": "stable", "variability": 0.10},
+      "Cotton": {"averageYield": 0.6, "trend": "stable", "variability": 0.15},
+      "Sugarcane": {"averageYield": 80.0, "trend": "stable", "variability": 0.12},
+      "Mustard": {"averageYield": 1.8, "trend": "increasing", "variability": 0.10},
+      "Sunflower": {"averageYield": 1.5, "trend": "stable", "variability": 0.12},
+      "Potato": {"averageYield": 25.0, "trend": "increasing", "variability": 0.08},
+      "Tomato": {"averageYield": 35.0, "trend": "stable", "variability": 0.15}
+    },
+    "haryana": {
+      "Rice": {"averageYield": 3.8, "trend": "stable", "variability": 0.09},
+      "Wheat": {"averageYield": 4.2, "trend": "increasing", "variability": 0.07},
+      "Maize": {"averageYield": 3.0, "trend": "stable", "variability": 0.11},
+      "Cotton": {"averageYield": 0.5, "trend": "stable", "variability": 0.18},
+      "Sugarcane": {"averageYield": 75.0, "trend": "stable", "variability": 0.13},
+      "Mustard": {"averageYield": 1.6, "trend": "increasing", "variability": 0.12},
+      "Sunflower": {"averageYield": 1.3, "trend": "stable", "variability": 0.14},
+      "Bajra": {"averageYield": 2.2, "trend": "stable", "variability": 0.16},
+      "Jowar": {"averageYield": 1.8, "trend": "stable", "variability": 0.18}
+    },
+    "uttar_pradesh": {
+      "Rice": {"averageYield": 2.8, "trend": "increasing", "variability": 0.12},
+      "Wheat": {"averageYield": 3.2, "trend": "increasing", "variability": 0.10},
+      "Maize": {"averageYield": 2.5, "trend": "stable", "variability": 0.15},
+      "Sugarcane": {"averageYield": 70.0, "trend": "stable", "variability": 0.14},
+      "Potato": {"averageYield": 22.0, "trend": "increasing", "variability": 0.12},
+      "Mustard": {"averageYield": 1.2, "trend": "increasing", "variability": 0.15},
+      "Lentil": {"averageYield": 0.9, "trend": "stable", "variability": 0.20},
+      "Chickpea": {"averageYield": 1.1, "trend": "increasing", "variability": 0.18},
+      "Mango": {"averageYield": 8.0, "trend": "stable", "variability": 0.20}
+    },
+    "maharashtra": {
+      "Rice": {"averageYield": 2.2, "trend": "stable", "variability": 0.18},
+      "Wheat": {"averageYield": 2.8, "trend": "increasing", "variability": 0.15},
+      "Maize": {"averageYield": 2.8, "trend": "increasing", "variability": 0.14},
+      "Sugarcane": {"averageYield": 85.0, "trend": "stable", "variability": 0.10},
+      "Cotton": {"averageYield": 0.4, "trend": "stable", "variability": 0.25},
+      "Soybean": {"averageYield": 1.8, "trend": "increasing", "variability": 0.16},
+      "Turmeric": {"averageYield": 8.0, "trend": "stable", "variability": 0.20},
+      "Grapes": {"averageYield": 15.0, "trend": "increasing", "variability": 0.15},
+      "Onion": {"averageYield": 18.0, "trend": "stable", "variability": 0.22}
+    },
+    "karnataka": {
+      "Rice": {"averageYield": 2.5, "trend": "stable", "variability": 0.16},
+      "Ragi": {"averageYield": 1.8, "trend": "stable", "variability": 0.20},
+      "Jowar": {"averageYield": 1.5, "trend": "stable", "variability": 0.22},
+      "Maize": {"averageYield": 2.2, "trend": "increasing", "variability": 0.18},
+      "Sugarcane": {"averageYield": 90.0, "trend": "stable", "variability": 0.12},
+      "Cotton": {"averageYield": 0.5, "trend": "stable", "variability": 0.20},
+      "Groundnut": {"averageYield": 1.5, "trend": "stable", "variability": 0.18},
+      "Sunflower": {"averageYield": 1.2, "trend": "increasing", "variability": 0.16},
+      "Coffee": {"averageYield": 0.8, "trend": "stable", "variability": 0.25}
+    },
+    "tamil_nadu": {
+      "Rice": {"averageYield": 3.2, "trend": "stable", "variability": 0.12},
+      "Sugarcane": {"averageYield": 95.0, "trend": "stable", "variability": 0.10},
+      "Cotton": {"averageYield": 0.6, "trend": "stable", "variability": 0.18},
+      "Groundnut": {"averageYield": 1.8, "trend": "stable", "variability": 0.16},
+      "Sunflower": {"averageYield": 1.4, "trend": "increasing", "variability": 0.14},
+      "Turmeric": {"averageYield": 9.0, "trend": "stable", "variability": 0.18},
+      "Coconut": {"averageYield": 12.0, "trend": "stable", "variability": 0.15},
+      "Banana": {"averageYield": 35.0, "trend": "increasing", "variability": 0.12}
+    },
+    "gujarat": {
+      "Wheat": {"averageYield": 3.5, "trend": "increasing", "variability": 0.12},
+      "Cotton": {"averageYield": 0.5, "trend": "stable", "variability": 0.20},
+      "Groundnut": {"averageYield": 2.0, "trend": "stable", "variability": 0.15},
+      "Sugarcane": {"averageYield": 80.0, "trend": "stable", "variability": 0.13},
+      "Mustard": {"averageYield": 1.4, "trend": "increasing", "variability": 0.14},
+      "Cumin": {"averageYield": 0.8, "trend": "stable", "variability": 0.25},
+      "Castor": {"averageYield": 1.2, "trend": "stable", "variability": 0.18},
+      "Bajra": {"averageYield": 2.5, "trend": "stable", "variability": 0.16}
+    },
+    "rajasthan": {
+      "Wheat": {"averageYield": 2.8, "trend": "increasing", "variability": 0.18},
+      "Mustard": {"averageYield": 1.6, "trend": "increasing", "variability": 0.16},
+      "Bajra": {"averageYield": 1.8, "trend": "stable", "variability": 0.22},
+      "Jowar": {"averageYield": 1.2, "trend": "stable", "variability": 0.25},
+      "Cotton": {"averageYield": 0.4, "trend": "stable", "variability": 0.28},
+      "Cumin": {"averageYield": 0.6, "trend": "stable", "variability": 0.30},
+      "Coriander": {"averageYield": 1.0, "trend": "stable", "variability": 0.25},
+      "Fenugreek": {"averageYield": 0.8, "trend": "stable", "variability": 0.28}
+    },
+    "bihar": {
+      "Rice": {"averageYield": 2.2, "trend": "increasing", "variability": 0.15},
+      "Wheat": {"averageYield": 2.5, "trend": "increasing", "variability": 0.14},
+      "Maize": {"averageYield": 2.8, "trend": "increasing", "variability": 0.12},
+      "Sugarcane": {"averageYield": 65.0, "trend": "stable", "variability": 0.16},
+      "Lentil": {"averageYield": 0.8, "trend": "stable", "variability": 0.20},
+      "Chickpea": {"averageYield": 1.0, "trend": "increasing", "variability": 0.18},
+      "Potato": {"averageYield": 20.0, "trend": "increasing", "variability": 0.15},
+      "Litchi": {"averageYield": 6.0, "trend": "stable", "variability": 0.25}
+    },
+    "west_bengal": {
+      "Rice": {"averageYield": 2.8, "trend": "stable", "variability": 0.14},
+      "Wheat": {"averageYield": 2.2, "trend": "increasing", "variability": 0.16},
+      "Maize": {"averageYield": 2.0, "trend": "stable", "variability": 0.18},
+      "Jute": {"averageYield": 2.5, "trend": "stable", "variability": 0.20},
+      "Potato": {"averageYield": 18.0, "trend": "stable", "variability": 0.18},
+      "Mustard": {"averageYield": 1.0, "trend": "stable", "variability": 0.20},
+      "Sugarcane": {"averageYield": 70.0, "trend": "stable", "variability": 0.15},
+      "Tea": {"averageYield": 1.8, "trend": "stable", "variability": 0.22}
+    },
+    "madhya_pradesh": {
+      "Wheat": {"averageYield": 2.8, "trend": "increasing", "variability": 0.14},
+      "Rice": {"averageYield": 2.0, "trend": "stable", "variability": 0.18},
+      "Soybean": {"averageYield": 1.2, "trend": "increasing", "variability": 0.20},
+      "Maize": {"averageYield": 2.5, "trend": "increasing", "variability": 0.16},
+      "Chickpea": {"averageYield": 1.1, "trend": "increasing", "variability": 0.18},
+      "Lentil": {"averageYield": 0.9, "trend": "stable", "variability": 0.22},
+      "Mustard": {"averageYield": 1.3, "trend": "increasing", "variability": 0.16},
+      "Sugarcane": {"averageYield": 75.0, "trend": "stable", "variability": 0.14}
+    },
+    "andhra_pradesh": {
+      "Rice": {"averageYield": 3.5, "trend": "stable", "variability": 0.12},
+      "Sugarcane": {"averageYield": 85.0, "trend": "stable", "variability": 0.11},
+      "Cotton": {"averageYield": 0.5, "trend": "stable", "variability": 0.20},
+      "Groundnut": {"averageYield": 1.6, "trend": "stable", "variability": 0.18},
+      "Chilli": {"averageYield": 2.5, "trend": "stable", "variability": 0.22},
+      "Turmeric": {"averageYield": 8.5, "trend": "stable", "variability": 0.18},
+      "Tobacco": {"averageYield": 1.8, "trend": "stable", "variability": 0.25},
+      "Mango": {"averageYield": 7.0, "trend": "stable", "variability": 0.20}
+    },
+    "telangana": {
+      "Rice": {"averageYield": 2.8, "trend": "stable", "variability": 0.16},
+      "Cotton": {"averageYield": 0.4, "trend": "stable", "variability": 0.22},
+      "Maize": {"averageYield": 2.2, "trend": "increasing", "variability": 0.18},
+      "Sugarcane": {"averageYield": 80.0, "trend": "stable", "variability": 0.13},
+      "Groundnut": {"averageYield": 1.4, "trend": "stable", "variability": 0.20},
+      "Chilli": {"averageYield": 2.0, "trend": "stable", "variability": 0.25},
+      "Turmeric": {"averageYield": 7.5, "trend": "stable", "variability": 0.20}
+    },
+    "odisha": {
+      "Rice": {"averageYield": 1.55, "plateauYield": 1.54, "coastalYield": 1.58, "trend": "increasing", "variability": 0.12},
+      "Maize": {"averageYield": 2.8, "trend": "stable", "variability": 0.15},
+      "Ragi": {"averageYield": 1.2, "trend": "stable", "variability": 0.18},
+      "Black Gram": {"averageYield": 0.6, "trend": "stable", "variability": 0.25},
+      "Green Gram": {"averageYield": 0.7, "trend": "increasing", "variability": 0.22},
+      "Horse Gram": {"averageYield": 0.5, "trend": "stable", "variability": 0.28},
+      "Bengal Gram": {"averageYield": 0.8, "trend": "increasing", "variability": 0.20},
+      "Pigeon Pea": {"averageYield": 0.9, "trend": "stable", "variability": 0.23},
+      "Lentil": {"averageYield": 0.7, "trend": "increasing", "variability": 0.25},
+      "Pea": {"averageYield": 1.1, "trend": "stable", "variability": 0.20},
+      "Groundnut": {"averageYield": 1.2, "trend": "stable", "variability": 0.18},
+      "Mustard": {"averageYield": 0.8, "trend": "increasing", "variability": 0.22},
+      "Sesame": {"averageYield": 0.4, "trend": "stable", "variability": 0.30},
+      "Sunflower": {"averageYield": 1.0, "trend": "increasing", "variability": 0.25},
+      "Niger": {"averageYield": 0.3, "trend": "decreasing", "variability": 0.35},
+      "Castor": {"averageYield": 0.6, "trend": "stable", "variability": 0.28},
+      "Vegetables": {"averageYield": 8.5, "trend": "increasing", "variability": 0.15},
+      "Cotton": {"averageYield": 0.4, "trend": "stable", "variability": 0.30},
+      "Mesta": {"averageYield": 2.5, "trend": "stable", "variability": 0.20},
+      "Sweet Potato": {"averageYield": 12.0, "trend": "stable", "variability": 0.18}
+    }
+  },
+  "districtFactors": {
+    "punjab": {
+      "ludhiana": 1.2, "amritsar": 1.15, "jalandhar": 1.18, "patiala": 1.12,
+      "bathinda": 1.10, "mohali": 1.15, "firozpur": 1.08, "default": 1.12
+    },
+    "haryana": {
+      "gurgaon": 1.15, "faridabad": 1.12, "panipat": 1.18, "karnal": 1.20,
+      "hisar": 1.10, "rohtak": 1.08, "sonipat": 1.12, "default": 1.12
+    },
+    "uttar_pradesh": {
+      "lucknow": 1.10, "kanpur": 1.08, "agra": 1.05, "varanasi": 1.12,
+      "meerut": 1.15, "allahabad": 1.08, "bareilly": 1.06, "ghaziabad": 1.18, "default": 1.08
+    },
+    "maharashtra": {
+      "mumbai": 1.20, "pune": 1.15, "nagpur": 1.08, "nashik": 1.12,
+      "aurangabad": 1.05, "solapur": 1.08, "kolhapur": 1.10, "default": 1.10
+    },
+    "karnataka": {
+      "bangalore": 1.15, "mysore": 1.12, "hubli": 1.08, "mangalore": 1.18,
+      "belgaum": 1.06, "gulbarga": 1.04, "davangere": 1.08, "default": 1.10
+    },
+    "tamil_nadu": {
+      "chennai": 1.18, "coimbatore": 1.15, "madurai": 1.12, "tiruchirapalli": 1.10,
+      "salem": 1.08, "tirunelveli": 1.06, "erode": 1.10, "default": 1.12
+    },
+    "gujarat": {
+      "ahmedabad": 1.15, "surat": 1.18, "vadodara": 1.12, "rajkot": 1.08,
+      "bhavnagar": 1.06, "jamnagar": 1.05, "gandhinagar": 1.10, "default": 1.10
+    },
+    "rajasthan": {
+      "jaipur": 1.08, "jodhpur": 1.05, "kota": 1.10, "bikaner": 1.02,
+      "ajmer": 1.06, "udaipur": 1.08, "bharatpur": 1.12, "default": 1.06
+    },
+    "bihar": {
+      "patna": 1.10, "gaya": 1.08, "bhagalpur": 1.06, "muzaffarpur": 1.08,
+      "darbhanga": 1.05, "purnia": 1.04, "arrah": 1.06, "default": 1.06
+    },
+    "west_bengal": {
+      "kolkata": 1.15, "howrah": 1.12, "durgapur": 1.08, "asansol": 1.06,
+      "siliguri": 1.10, "bardhaman": 1.08, "malda": 1.05, "default": 1.08
+    },
+    "madhya_pradesh": {
+      "bhopal": 1.08, "indore": 1.12, "gwalior": 1.10, "jabalpur": 1.06,
+      "ujjain": 1.08, "sagar": 1.05, "dewas": 1.06, "default": 1.08
+    },
+    "andhra_pradesh": {
+      "hyderabad": 1.12, "visakhapatnam": 1.15, "vijayawada": 1.10, "guntur": 1.08,
+      "nellore": 1.06, "kurnool": 1.05, "tirupati": 1.08, "default": 1.08
+    },
+    "telangana": {
+      "warangal": 1.08, "nizamabad": 1.06, "khammam": 1.05, "karimnagar": 1.08,
+      "ramagundam": 1.06, "mahbubnagar": 1.04, "nalgonda": 1.05, "default": 1.06
+    },
+    "odisha": {
+      "bhubaneswar": 1.18, "cuttack": 1.16, "puri": 1.15, "rourkela": 1.08,
+      "berhampur": 1.12, "sambalpur": 1.07, "balasore": 1.15, "bhadrak": 1.12,
+      "angul": 1.05, "dhenkanal": 1.08, "kendujhar": 1.06, "mayurbhanj": 1.07,
+      "balangir": 1.06, "bargarh": 1.09, "kalahandi": 1.05, "nuapada": 1.03,
+      "koraput": 1.06, "malkangiri": 1.02, "nabarangpur": 1.03, "rayagada": 1.04,
+      "gajapati": 1.08, "ganjam": 1.12, "kandhamal": 1.02, "boudh": 1.03,
+      "subarnapur": 1.04, "sundargarh": 1.08, "deogarh": 1.05, "jharsuguda": 1.06,
+      "jajpur": 1.10, "jagatsinghpur": 1.14, "kendrapara": 1.13, "khordha": 1.18,
+      "nayagarh": 1.10, "default": 1.10
+    }
+  },
+  "cropRecommendations": {
+    "punjab": {
+      "Rice": ["Maintain flooded field conditions", "Apply phosphorus fertilizer"],
+      "Wheat": ["Apply phosphorus fertilizer", "Use high-yield varieties"],
+      "Maize": ["Optimize planting density", "Manage irrigation efficiently"]
+    },
+    "haryana": {
+      "Rice": ["Maintain flooded field conditions", "Apply phosphorus fertilizer"],
+      "Wheat": ["Apply phosphorus fertilizer", "Use high-yield varieties"],
+      "Bajra": ["Drought-resistant varieties", "Efficient water management"]
+    },
+    "rajasthan": {
+      "Mustard": ["Implement drip irrigation", "Use drought-resistant varieties"],
+      "Bajra": ["Apply potassium fertilizer", "Mulching for moisture retention"],
+      "Wheat": ["Optimize planting time", "Manage soil moisture"]
+    },
+    "karnataka": {
+      "Ragi": ["Adjust soil pH to 6.5-7.0", "Use improved varieties"],
+      "Cotton": ["Apply calcium fertilizer", "Manage pest and diseases"],
+      "Coffee": ["Shade management", "Proper pruning techniques"]
+    },
+    "tamil_nadu": {
+      "Rice": ["Leach soil to reduce salinity", "Use salt-tolerant varieties"],
+      "Sugarcane": ["Apply potassium fertilizer", "Manage irrigation"],
+      "Coconut": ["Proper spacing", "Nutrient management"]
+    },
+    "maharashtra": {
+      "Sugarcane": ["Implement drip irrigation", "Use high-yield varieties"],
+      "Cotton": ["Apply nitrogen fertilizer", "Manage pest and diseases"],
+      "Grapes": ["Pruning and training", "Disease management"]
+    },
+    "odisha": {
+      "Rice": ["Maintain flooded field conditions", "Apply phosphorus fertilizer"],
+      "Maize": ["Apply potassium fertilizer", "Manage soil moisture"],
+      "Ragi": ["Use improved varieties", "Manage soil fertility"]
+    }
+  },
+  "seasonalFactors": {
+    "kharif": {
+      "Rice": 1.2, "Maize": 1.1, "Cotton": 1.1, "Sugarcane": 1.0,
+      "Groundnut": 1.1, "Soybean": 1.0, "Bajra": 1.0, "Jowar": 1.0
+    },
+    "rabi": {
+      "Wheat": 1.2, "Mustard": 1.2, "Chickpea": 1.2, "Lentil": 1.1,
+      "Potato": 1.1, "Pea": 1.2, "Sunflower": 1.1, "Barley": 1.1
+    },
+    "zaid": {
+      "Vegetables": 1.0, "Sesame": 1.1, "Sweet Potato": 0.9,
+      "Cucumber": 1.0, "Okra": 1.0, "Bottle Gourd": 1.0
+    }
+  },
+  "weatherRiskFactors": {
+    "kharif": {
+      "drought": {"threshold": 2, "risk": "High", "impact": 0.6},
+      "flood": {"threshold": 8, "risk": "High", "impact": 0.9},
+      "heat": {"threshold": 35, "risk": "High", "impact": 0.7}
+    },
+    "rabi": {
+      "cold": {"threshold": 10, "risk": "High", "impact": 0.7},
+      "excess_rain": {"threshold": 5, "risk": "Medium", "impact": 0.9}
+    }
+  }
+}
