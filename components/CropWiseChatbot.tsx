@@ -919,7 +919,7 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: "I apologize, but I'm having trouble processing your request right now. Please try again or rephrase your question.",
+        content: `I apologize, but I'm having trouble processing your request right now. This might be due to:\n\n• Network connectivity issues\n• API service temporarily unavailable\n• Missing configuration\n\n**What I can still help you with:**\n• General farming advice and tips\n• Crop selection guidance\n• Soil management recommendations\n• Weather-based farming strategies\n\nPlease try asking a specific farming question, and I'll do my best to provide helpful guidance!`,
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
@@ -940,7 +940,10 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
     "Give me yield increasing methods",
     "What are my priority tasks and alerts?",
     "Analyze my crop rotation strategy",
-    "What's the weather impact on my crops?"
+    "What's the weather impact on my crops?",
+    "Suggest crops for Odisha",
+    "Compare Rice vs Maize in Odisha",
+    "Best month to plant Ragi in Odisha"
   ]
 
   const handleQuickQuestion = (question: string) => {
@@ -970,7 +973,7 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: "I apologize, but I'm having trouble processing your request right now. Please try again or rephrase your question.",
+        content: `I'm experiencing some technical difficulties, but I can still provide farming guidance!\n\n**Quick Farming Tips:**\n• Test your soil regularly for optimal crop growth\n• Plan irrigation based on weather forecasts\n• Use crop rotation to maintain soil health\n• Monitor for pests and diseases early\n• Choose crops suitable for your climate\n\nFeel free to ask me specific questions about farming practices!`,
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])

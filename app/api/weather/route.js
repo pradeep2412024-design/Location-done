@@ -2,7 +2,9 @@ import { NextResponse } from "next/server"
 
 export async function POST(request) {
   try {
-    const { location, month } = await request.json()
+    const body = await request.json()
+    const location = body.location || "Odisha"
+    const month = body.month || "October"
 
     if (!location) {
       return NextResponse.json({ error: "Location is required" }, { status: 400 })
@@ -52,8 +54,9 @@ export async function POST(request) {
   } catch (error) {
     console.error("[v0] Weather API error:", error)
 
-    const { location, month } = await request.json()
-    const fallbackWeatherData = generateEnhancedLocationBasedWeather(location, month)
+    const fallbackLocation = "Odisha"
+    const fallbackMonth = "October"
+    const fallbackWeatherData = generateEnhancedLocationBasedWeather(fallbackLocation, fallbackMonth)
 
     return NextResponse.json({
       weatherData: fallbackWeatherData,
@@ -139,23 +142,33 @@ async function fetchOpenMeteoData(location, month) {
 }
 
 async function fetchWeatherAPIData(location, month) {
-  const apiKey = "438568b7e3024c8380b202749251009"
-
+  const apiKey = "70742a3e6f8048538c290100251609"
   if (!apiKey) {
-    throw new Error("WeatherAPI.com key not configured")
+    throw new Error("WeatherAPI.com key not configured (WEATHERAPI_KEY)")
   }
 
-  const weatherResponse = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(location)}&days=7&aqi=no&alerts=no`,
-    { timeout: 5000 },
-  )
+  // WeatherAPI needs a resolvable query; if just a state name, append country
+  const query = location && location.includes(',') ? location : `${location}, India`
 
-  if (!weatherResponse.ok) {
-    throw new Error(`WeatherAPI.com failed: ${weatherResponse.status}`)
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 6000)
+  try {
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=7&aqi=no&alerts=no`
+    const weatherResponse = await fetch(url, {
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' }
+    })
+
+    if (!weatherResponse.ok) {
+      const errTxt = await weatherResponse.text().catch(() => '')
+      throw new Error(`WeatherAPI.com failed: ${weatherResponse.status} ${errTxt}`)
+    }
+
+    const weatherData = await weatherResponse.json()
+    return processWeatherAPIData(weatherData)
+  } finally {
+    clearTimeout(timer)
   }
-
-  const weatherData = await weatherResponse.json()
-  return processWeatherAPIData(weatherData)
 }
 
 function processOpenWeatherMapData(apiResponse) {

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useLocationAutocomplete } from "@/hooks/useLocationAutocomplete"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,7 +24,7 @@ export default function HomePage() {
   }
   const [formData, setFormData] = useState({
     name: "",
-    location: "",
+    location: "Odisha",
     farmSize: "",
     previousCrop: "",
     nextCrop: "",
@@ -33,8 +34,57 @@ export default function HomePage() {
   const [isGettingLocation, setIsGettingLocation] = useState(false)
   const [showPreviousCropDropdown, setShowPreviousCropDropdown] = useState(false)
   const [showNextCropDropdown, setShowNextCropDropdown] = useState(false)
+  const prevDropdownRef = useRef(null)
+  const nextDropdownRef = useRef(null)
+  const locationInputRef = useRef(null)
+  const locationSuggestionsRef = useRef(null)
+  const loc = useLocationAutocomplete("")
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (showPreviousCropDropdown && prevDropdownRef.current && !prevDropdownRef.current.contains(e.target)) {
+        setShowPreviousCropDropdown(false)
+      }
+      if (showNextCropDropdown && nextDropdownRef.current && !nextDropdownRef.current.contains(e.target)) {
+        setShowNextCropDropdown(false)
+      }
+      if (loc.open) {
+        const insideSuggestions = locationSuggestionsRef.current && locationSuggestionsRef.current.contains(e.target)
+        const insideInput = locationInputRef.current && locationInputRef.current.contains(e.target)
+        if (!insideSuggestions && !insideInput) {
+          loc.setOpen(false)
+        }
+      }
+    }
+    document.addEventListener("click", handleClickOutside)
+    return () => document.removeEventListener("click", handleClickOutside)
+  }, [showPreviousCropDropdown, showNextCropDropdown, loc.open])
+
+  const odishaPriority = [
+    "Rice",
+    "Maize",
+    "Ragi",
+    "Black Gram",
+    "Green Gram",
+    "Horse Gram",
+    "Bengal Gram",
+    "Pigeon Pea",
+    "Lentil",
+    "Pea",
+    "Groundnut",
+    "Mustard",
+    "Sesame",
+    "Sunflower",
+    "Niger",
+    "Castor",
+    "Vegetables",
+    "Cotton",
+    "Mesta",
+    "Sweet Potato",
+  ]
 
   const cropCategories = {
+    "Odisha Priority": odishaPriority,
     "Cereals & Grains": [
       "Rice",
       "Wheat",
@@ -100,6 +150,7 @@ export default function HomePage() {
   }
 
   const allCrops = Object.values(cropCategories).flat()
+  const prioritizedAllCrops = Array.from(new Set([...odishaPriority, ...allCrops]))
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -107,11 +158,14 @@ export default function HomePage() {
 
   const handleCropSelect = (crop, field) => {
     handleInputChange(field, crop)
-    if (field === "previousCrop") {
-      setShowPreviousCropDropdown(false)
-    } else if (field === "nextCrop") {
-      setShowNextCropDropdown(false)
-    }
+    // Close only after state set, and prevent outside-click handler from firing first
+    requestAnimationFrame(() => {
+      if (field === "previousCrop") {
+        setShowPreviousCropDropdown(false)
+      } else if (field === "nextCrop") {
+        setShowNextCropDropdown(false)
+      }
+    })
   }
 
   const getCurrentLocation = () => {
@@ -285,14 +339,30 @@ export default function HomePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.location_label")}</label>
-                <div className="relative">
+                <div className="relative" ref={prevDropdownRef}>
                   <Input
+                    ref={locationInputRef}
                     placeholder={t("home.form.location_placeholder")}
                     value={formData.location}
-                    onChange={(e) => handleInputChange("location", e.target.value)}
+                    onChange={(e) => { handleInputChange("location", e.target.value); loc.setQuery(e.target.value) }}
                     required
                     className="bg-white pr-12"
+                    autoComplete="off"
                   />
+                  {loc.open && loc.suggestions.length > 0 && (
+                    <div ref={locationSuggestionsRef} className="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-20">
+                      {loc.suggestions.map((s, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => { handleInputChange("location", s.displayName); loc.setOpen(false) }}
+                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-orange-50"
+                        >
+                          {s.displayName}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                   <button
                     type="button"
                     onClick={getCurrentLocation}
@@ -318,7 +388,7 @@ export default function HomePage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.prev_crop_label")}</label>
-                <div className="relative">
+                <div className="relative" ref={nextDropdownRef}>
                   <Input
                     placeholder={t("home.form.prev_crop_placeholder")}
                     value={formData.previousCrop}
@@ -336,7 +406,7 @@ export default function HomePage() {
                   </button>
 
                   {showPreviousCropDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                       {Object.entries(cropCategories).map(([category, crops]) => (
                         <div key={category}>
                           <div className="px-3 py-2 text-sm font-semibold text-gray-700 bg-gray-50 border-b">
@@ -380,7 +450,7 @@ export default function HomePage() {
                   </button>
 
                   {showNextCropDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                       {Object.entries(cropCategories).map(([category, crops]) => (
                         <div key={category}>
                           <div className="px-3 py-2 text-sm font-semibold text-gray-700 bg-gray-50 border-b">
