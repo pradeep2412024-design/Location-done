@@ -882,7 +882,10 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
     "Give me yield increasing methods",
     "What are my priority tasks and alerts?",
     "Analyze my crop rotation strategy",
-    "What's the weather impact on my crops?"
+    "What's the weather impact on my crops?",
+    "Suggest crops for Odisha",
+    "Compare Rice vs Maize in Odisha",
+    "Best month to plant Ragi in Odisha"
   ]
 
   const handleQuickQuestion = (question: string) => {

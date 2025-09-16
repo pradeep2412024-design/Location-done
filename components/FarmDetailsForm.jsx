@@ -1,7 +1,12 @@
 import { useI18n } from "@/i18n"
+import { useEffect, useRef } from "react"
+import { useLocationAutocomplete } from "@/hooks/useLocationAutocomplete"
 
 export default function FarmDetailsForm({ userInputData, setUserInputData, onSubmit, onCancel, isLoading, error }) {
   const { t } = useI18n()
+  const locationInputRef = useRef(null)
+  const locationSuggestionsRef = useRef(null)
+  const loc = useLocationAutocomplete("")
   
   const handleInputChange = (field, value) => {
     setUserInputData(prev => ({
@@ -10,11 +15,49 @@ export default function FarmDetailsForm({ userInputData, setUserInputData, onSub
     }))
   }
 
+  const odishaPriority = [
+    "Rice",
+    "Maize",
+    "Ragi",
+    "Black Gram",
+    "Green Gram",
+    "Horse Gram",
+    "Bengal Gram",
+    "Pigeon Pea",
+    "Lentil",
+    "Pea",
+    "Groundnut",
+    "Mustard",
+    "Sesame",
+    "Sunflower",
+    "Niger",
+    "Castor",
+    "Vegetables",
+    "Cotton",
+    "Mesta",
+    "Sweet Potato",
+  ]
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("[FarmDetailsForm] Form submitted with data:", userInputData)
     onSubmit(e)
   }
+
+  // Close location suggestions on outside click
+  useEffect(() => {
+    const handleOutside = (e) => {
+      if (loc.open) {
+        const insideSuggestions = locationSuggestionsRef.current && locationSuggestionsRef.current.contains(e.target)
+        const insideInput = locationInputRef.current && locationInputRef.current.contains(e.target)
+        if (!insideSuggestions && !insideInput) {
+          loc.setOpen(false)
+        }
+      }
+    }
+    document.addEventListener("click", handleOutside)
+    return () => document.removeEventListener("click", handleOutside)
+  }, [loc.open])
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -23,14 +66,32 @@ export default function FarmDetailsForm({ userInputData, setUserInputData, onSub
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Location *
         </label>
-        <input
-          type="text"
-          value={userInputData.location}
-          onChange={(e) => handleInputChange('location', e.target.value)}
-          placeholder="Enter your location (e.g., Hyderabad, Telangana)"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          required
-        />
+        <div className="relative">
+          <input
+            ref={locationInputRef}
+            type="text"
+            value={userInputData.location || "Odisha"}
+            onChange={(e) => { handleInputChange('location', e.target.value); loc.setQuery(e.target.value) }}
+            placeholder="Enter your location (default: Odisha)"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            required
+            autoComplete="off"
+          />
+          {loc.open && loc.suggestions.length > 0 && (
+            <div ref={locationSuggestionsRef} className="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-20">
+              {loc.suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => { handleInputChange('location', s.displayName); loc.setOpen(false) }}
+                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-blue-50"
+                >
+                  {s.displayName}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Crop */}
@@ -45,6 +106,11 @@ export default function FarmDetailsForm({ userInputData, setUserInputData, onSub
           required
         >
           <option value="">Select a crop</option>
+          <optgroup label="Odisha Priority">
+            {odishaPriority.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </optgroup>
           <option value="Rice">Rice</option>
           <option value="Wheat">Wheat</option>
           <option value="Maize">Maize</option>

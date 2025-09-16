@@ -1,6 +1,10 @@
 export async function POST(request) {
   try {
-    const { location, crop, month, hectare } = await request.json()
+    const body = await request.json()
+    const location = body.location || "Odisha"
+    const crop = body.crop || body.nextCrop || "Rice"
+    const month = body.month || body.cultivationMonth || "October"
+    const hectare = body.hectare || body.farmSize || "5"
 
     console.log(`[v0] Fetching soil data for location: ${location}, crop: ${crop}, month: ${month}`)
 

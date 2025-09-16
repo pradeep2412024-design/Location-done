@@ -1641,6 +1641,140 @@ const generateOptimizationRecommendations = (soilData, weatherData, cropType = "
   return recommendations
 }
 
+// Generate dynamic, step-by-step plan to achieve predicted yield increase
+const generateYieldIncreasePlan = (soilData, weatherData, predictions, cropType = "Crop") => {
+  const steps = []
+  const crop = (cropType || "").toLowerCase()
+  const targetIncrease = Math.max(5, predictions?.improvementPercent || predictions?.improvement || 15)
+
+  // Base allocations (will adjust with conditions)
+  let irrigationPct = 4
+  let fertilityPct = 5
+  let varietyPct = 3
+  let managementPct = Math.max(0, targetIncrease - (irrigationPct + fertilityPct + varietyPct))
+
+  // Adjust based on soil moisture
+  if (soilData?.moisture !== undefined) {
+    if (soilData.moisture < 40) irrigationPct += 4
+    if (soilData.moisture > 70) managementPct += 2
+  }
+
+  // Adjust based on soil pH
+  if (soilData?.ph !== undefined) {
+    if (soilData.ph < 6.0) fertilityPct += 4
+    else if (soilData.ph > 7.8) fertilityPct += 3
+  }
+
+  // Adjust based on NPK
+  if (soilData?.nitrogen !== undefined && soilData.nitrogen < 50) fertilityPct += 2
+  if (soilData?.phosphorus !== undefined && soilData.phosphorus < 30) fertilityPct += 2
+  if (soilData?.potassium !== undefined && soilData.potassium < 100) fertilityPct += 2
+
+  // Weather based adjustments
+  if (Array.isArray(weatherData) && weatherData.length > 0) {
+    const avgTemp = weatherData.reduce((s, d) => s + (d.tempValue || 0), 0) / weatherData.length
+    const rainyDays = weatherData.filter(d => (d.rainValue || 0) > 0).length
+    if (avgTemp > 35) irrigationPct += 3
+    if (rainyDays > 4) managementPct += 2
+  }
+
+  // Crop-specific tweaks
+  if (crop.includes("rice")) irrigationPct += 2
+  if (crop.includes("wheat") || crop.includes("maize")) fertilityPct += 1
+
+  // Normalize to targetIncrease with minimum 2% per non-zero bucket
+  const buckets = [
+    { name: 'irrigation', val: irrigationPct },
+    { name: 'fertility', val: fertilityPct },
+    { name: 'variety', val: varietyPct },
+    { name: 'management', val: managementPct },
+  ]
+  const active = buckets.filter(b => b.val > 0)
+  const minPer = 2
+  let remaining = targetIncrease - active.length * minPer
+  const sum = active.reduce((s,b)=>s+b.val,0) || 1
+  active.forEach(b => { b.val = minPer + Math.max(0, Math.round((b.val / sum) * remaining)) })
+  // Adjust rounding error
+  const adjSum = active.reduce((s,b)=>s+b.val,0)
+  const diff = targetIncrease - adjSum
+  if (diff !== 0 && active.length > 0) active[0].val += diff
+  irrigationPct = active.find(b=>b.name==='irrigation')?.val || 0
+  fertilityPct = active.find(b=>b.name==='fertility')?.val || 0
+  varietyPct = active.find(b=>b.name==='variety')?.val || 0
+  managementPct = active.find(b=>b.name==='management')?.val || 0
+
+  // Build steps
+  if (irrigationPct > 0) {
+    const items = []
+    if (soilData?.moisture !== undefined && soilData.moisture < 40) items.push("Immediate irrigation: apply 5–7 cm water; re-check moisture in 24h")
+    if (Array.isArray(weatherData)) {
+      const avgTemp = weatherData.reduce((s, d) => s + (d.tempValue || 0), 0) / weatherData.length
+      const rainy = weatherData.filter(d => (d.rainValue || 0) > 0).length
+      if (avgTemp > 35) items.push("Increase irrigation frequency during heat (>35°C); irrigate early morning/evening")
+      if (rainy > 4) items.push("Reduce irrigation during wet weeks; focus on drainage inspection")
+    }
+    items.push(crop.includes("rice") ? "Maintain 5–10 cm standing water; use AWD where suitable" : "Adopt drip/sprinkler and irrigate at crop-critical stages")
+    steps.push({
+      title: "Optimize Irrigation",
+      action: crop.includes("rice") ? "Maintain 5-10cm standing water; use alternate wetting/drying if feasible" : "Adopt drip/sprinkler; irrigate at crop-critical stages",
+      details: soilData?.moisture !== undefined ? `Current soil moisture: ${soilData.moisture}%` : undefined,
+      impact: `${irrigationPct}%`,
+      items
+    })
+  }
+  if (fertilityPct > 0) {
+    const items = []
+    items.push("Split-apply N (basal + 2 splits) matched to crop stages")
+    if (soilData?.nitrogen !== undefined && soilData.nitrogen < 50) items.push("Apply 50–75 kg N/ha additionally (urea/ammonium sources)")
+    if (soilData?.phosphorus !== undefined && soilData.phosphorus < 30) items.push("Apply 25–40 kg P₂O₅/ha at sowing (DAP/SSP)")
+    if (soilData?.potassium !== undefined && soilData.potassium < 100) items.push("Apply 40–60 kg K₂O/ha (MOP/SOP)")
+    if (soilData?.ph !== undefined) {
+      if (soilData.ph < 6.5) items.push("Correct pH with agricultural lime; re-test in 2–3 weeks")
+      if (soilData.ph > 7.5) items.push("Apply gypsum/sulfur to adjust alkaline soils; add organic matter")
+    }
+    steps.push({
+      title: "Improve Fertility & pH",
+      action: `Apply recommended NPK splits${soilData?.ph !== undefined ? soilData.ph < 6.5 ? "; add lime to correct pH" : soilData.ph > 7.5 ? "; add sulfur/gypsum to adjust pH" : "" : ""}`,
+      details: soilData ? `N:${soilData.nitrogen ?? "?"}, P:${soilData.phosphorus ?? "?"}, K:${soilData.potassium ?? "?"}, pH:${soilData.ph ?? "?"}` : undefined,
+      impact: `${fertilityPct}%`,
+      items
+    })
+  }
+  if (varietyPct > 0) {
+    const items = []
+    items.push("Use certified seeds; maintain recommended seed rate and spacing")
+    items.push("Choose high-yielding, locally recommended variety for the state")
+    steps.push({
+      title: "Use High-Yield Variety/Seed",
+      action: "Use certified seeds and recommended seed rate; consider HYV suited to state",
+      details: crop ? `Crop: ${cropType}` : undefined,
+      impact: `${varietyPct}%`,
+      items
+    })
+  }
+  if (managementPct > 0) {
+    const items = []
+    items.push("Weed control at 20–30 DAS (pre/post-emergence as needed)")
+    items.push("Weekly scouting for pests/diseases; apply IPM as thresholds are reached")
+    items.push("Mulching/residue management to conserve moisture and suppress weeds")
+    if (Array.isArray(weatherData)) items.push("Plan field operations around forecasted rain/heat days")
+    steps.push({
+      title: "Crop & Field Management",
+      action: "Weed control at 25-30 DAS; timely pest-disease monitoring; proper spacing",
+      details: Array.isArray(weatherData) ? "Adjust operations around rainy/heat days" : undefined,
+      impact: `${managementPct}%`,
+      items
+    })
+  }
+
+  // Ensure at least 3 actionable steps
+  while (steps.length < 3) {
+    steps.push({ title: "Best Practices", action: "Mulching, residue management, and timely interculture", impact: "2%", items: ["Adopt mulching", "Maintain residues", "Interculture on time"] })
+  }
+
+  return steps
+}
+
 const marketData = {
   currentPrice: "₹4,850/quintal",
   priceChange: "+2.3%",
@@ -3175,7 +3309,7 @@ export default function Dashboard() {
   const [showSoilHealthPanel, setShowSoilHealthPanel] = useState(false)
   const [showWeatherRiskPanel, setShowWeatherRiskPanel] = useState(false)
   const [userInputData, setUserInputData] = useState({
-    location: "",
+    location: "Odisha",
     crop: "",
     month: "",
     hectare: "",
@@ -3737,6 +3871,12 @@ export default function Dashboard() {
         confidence: `${farmData.predictions.confidence}%`,
         factors: generateDynamicYieldFactors(farmData),
         weatherImpact: generateDynamicWeatherImpact(farmData),
+        steps: generateYieldIncreasePlan(
+          currentSoilData,
+          currentWeatherData,
+          { improvementPercent: farmData.predictions?.improvementPercent || farmData.predictions?.expectedIncrease || 15 },
+          farmData.userInfo?.nextCrop || userInputData.crop
+        ),
       }
     : calculateYieldPrediction(
         currentSoilData,
@@ -5158,14 +5298,40 @@ export default function Dashboard() {
               </button>
             </div>
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
-              {farmData?.predictions?.yieldIncreaseDetails ? (
-                <YieldIncreasePanel data={farmData.predictions.yieldIncreaseDetails} />
-              ) : (
-                <div className="text-center py-8">
-                  <TrendingUp className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">No yield increase data available</p>
-                </div>
-              )}
+              {(() => {
+                const inferredIncrease = farmData?.predictions?.improvementPercent || farmData?.predictions?.expectedIncrease || 15
+                const steps = generateYieldIncreasePlan(
+                  currentSoilData,
+                  currentWeatherData,
+                  { improvementPercent: inferredIncrease },
+                  farmData?.userInfo?.nextCrop || userInputData.crop
+                )
+                const base = farmData?.predictions?.yieldIncreaseDetails || {}
+                const baseRecs = Array.isArray(base.recommendations) ? base.recommendations : []
+                const normalizedRecommendations = baseRecs.length > 0
+                  ? baseRecs.map((r) => {
+                      if (typeof r === 'string') return r
+                      if (r && typeof r === 'object') {
+                        const title = r.title || r.key || 'Recommendation'
+                        const impact = r.impact ? ` (+${r.impact})` : ''
+                        const desc = r.description || r.solution || r.action || ''
+                        return `${title}${impact}${desc ? ` — ${desc}` : ''}`
+                      }
+                      try { return JSON.stringify(r) } catch { return String(r) }
+                    })
+                  : steps.map(s => s.action)
+
+                const merged = {
+                  display: base.display || farmData?.predictions?.displayIncrease || undefined,
+                  percentage: base.percentage ?? inferredIncrease,
+                  confidence: base.confidence ?? (farmData?.predictions?.confidence || 85),
+                  breakdown: base.breakdown || farmData?.predictions?.breakdown || undefined,
+                  factors: base.factors || yieldPredictionData?.factors || undefined,
+                  steps: (Array.isArray(base.steps) && base.steps.length > 0) ? base.steps : steps,
+                  recommendations: normalizedRecommendations
+                }
+                return <YieldIncreasePanel data={merged} />
+              })()}
             </div>
           </div>
         </div>
@@ -5449,7 +5615,7 @@ function YieldIncreasePanel({ data }) {
             <div className="text-sm text-orange-700">Confidence</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-orange-600">{data.recommendations?.length || 0}</div>
+            <div className="text-2xl font-bold text-orange-600">{data.recommendations?.length || data.steps?.length || 0}</div>
             <div className="text-sm text-orange-700">Recommendations</div>
           </div>
         </div>
@@ -5460,29 +5626,56 @@ function YieldIncreasePanel({ data }) {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Increase Breakdown</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Object.entries(data.breakdown).map(([factor, value]) => (
-              <div key={factor} className="bg-gray-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-gray-700 capitalize">{factor.replace(/([A-Z])/g, ' $1').trim()}</span>
-                  <span className="text-orange-600 font-semibold">+{value}%</span>
+            {Object.entries(data.breakdown).map(([factor, value]) => {
+              const valNum = typeof value === 'number' ? value : (value && typeof value === 'object' ? (value.impact ?? 0) : 0)
+              const desc = (value && typeof value === 'object') ? (value.description || value.key || '') : ''
+              return (
+                <div key={factor} className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-gray-700 capitalize">{factor.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span className="text-orange-600 font-semibold">+{valNum}%</span>
+                  </div>
+                  {desc && (
+                    <div className="text-xs text-gray-600 mt-1">{desc}</div>
+                  )}
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
 
 
-      {/* Factors */}
-      {data.factors && (
+      {/* Factors removed per request */}
+
+      {/* Dynamic Step-by-step Recommendations to Achieve Increase */}
+      {data.steps && data.steps.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Contributing Factors</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Object.entries(data.factors).map(([factor, value]) => (
-              <div key={factor} className="bg-blue-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-gray-700 capitalize">{factor.replace(/([A-Z])/g, ' $1').trim()}</span>
-                  <span className="text-blue-600 font-semibold">{typeof value === 'number' ? value.toFixed(2) : value}</span>
+          <h3 className="text-lg font-semibold text-gray-900">Action Plan</h3>
+          <div className="space-y-3">
+            {data.steps.map((step, idx) => (
+              <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium text-green-800">{step.title}</p>
+                      {step.impact && (
+                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">~{step.impact} of increase</span>
+                      )}
+                    </div>
+                    <p className="text-sm text-green-700 mt-1">{step.action}</p>
+                    {step.details && (
+                      <p className="text-xs text-green-700 mt-1">{step.details}</p>
+                    )}
+                    {Array.isArray(step.items) && step.items.length > 0 && (
+                      <ul className="mt-2 list-disc pl-5 text-xs text-green-800 space-y-1">
+                        {step.items.map((it, i) => (
+                          <li key={i}>{typeof it === 'string' ? it : (it?.text || String(it))}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -5591,16 +5784,21 @@ function SoilHealthPanel({ data }) {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Recommendations</h3>
           <div className="space-y-3">
-            {recommendations.map((rec, index) => (
+            {recommendations.map((rec, index) => {
+              const recStr = (typeof rec === 'string') ? rec : (rec && typeof rec === 'object')
+                ? `${rec.title || rec.key || 'Recommendation'}${rec.impact ? ` (+${rec.impact})` : ''}${rec.description ? ` — ${rec.description}` : rec.solution ? ` — ${rec.solution}` : rec.action ? ` — ${rec.action}` : ''}`
+                : String(rec)
+              return (
               <div key={index} className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                   <div>
-                    <p className="font-medium text-blue-800">{rec}</p>
+                    <p className="font-medium text-blue-800">{recStr}</p>
                   </div>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
