@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button"
 import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle } from "lucide-react"
 import { useI18n } from "@/i18n"
 import LanguageSwitch from "@/components/LanguageSwitch"
-import CropWiseChatbot from "@/components/CropWiseChatbot"
+import EnhancedCropWiseChatbot from "@/components/EnhancedCropWiseChatbot"
+import { useAppContext } from "@/contexts/AppContext"
 import FarmDetailsForm from "@/components/FarmDetailsForm"
 import EnhancedCropRecommendations from "@/components/EnhancedCropRecommendations"
 
@@ -3160,6 +3161,7 @@ const generateGovernmentSchemes = (crop, location, farmSize) => {
 export default function Dashboard() {
   const router = useRouter()
   const { t } = useI18n()
+  const { setUserData, setAnalysisData } = useAppContext()
   const [farmData, setFarmData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -3380,6 +3382,31 @@ export default function Dashboard() {
         setFarmData(data)
         localStorage.setItem("farmData", JSON.stringify(data))
         setShowUserInputForm(false) // Close the form modal
+        
+        // Update context for chatbot
+        if (data.userInfo) {
+          setUserData({
+            location: data.userInfo.location || '',
+            crop: data.userInfo.nextCrop || data.userInfo.crop || '',
+            month: data.userInfo.cultivationMonth || '',
+            hectare: data.userInfo.farmSize || '',
+            previousCrop: data.userInfo.previousCrop || '',
+            nextCrop: data.userInfo.nextCrop || ''
+          })
+        }
+        
+        if (data.predictions || data.soilData || data.weatherData || data.marketAnalysis) {
+          setAnalysisData({
+            predictions: data.predictions,
+            soilData: data.soilData,
+            weatherData: data.weatherData,
+            marketAnalysis: data.marketAnalysis,
+            recommendations: data.recommendations,
+            locationData: data.locationData,
+            userInfo: data.userInfo
+          })
+        }
+        
         console.log("[v0] Form closed and dashboard updated with new data")
       } else {
         console.log("[v0] API response not ok:", response.status)
@@ -3519,6 +3546,30 @@ export default function Dashboard() {
         const parsedData = JSON.parse(storedData)
         console.log("[v0] Enhanced farm data loaded:", parsedData)
         setFarmData(parsedData)
+
+        // Update context for chatbot
+        if (parsedData.userInfo) {
+          setUserData({
+            location: parsedData.userInfo.location || '',
+            crop: parsedData.userInfo.nextCrop || parsedData.userInfo.crop || '',
+            month: parsedData.userInfo.cultivationMonth || '',
+            hectare: parsedData.userInfo.farmSize || '',
+            previousCrop: parsedData.userInfo.previousCrop || '',
+            nextCrop: parsedData.userInfo.nextCrop || ''
+          })
+        }
+        
+        if (parsedData.predictions || parsedData.soilData || parsedData.weatherData || parsedData.marketAnalysis) {
+          setAnalysisData({
+            predictions: parsedData.predictions,
+            soilData: parsedData.soilData,
+            weatherData: parsedData.weatherData,
+            marketAnalysis: parsedData.marketAnalysis,
+            recommendations: parsedData.recommendations,
+            locationData: parsedData.locationData,
+            userInfo: parsedData.userInfo
+          })
+        }
 
         // Set user input data from stored farm data for dynamic updates
         if (parsedData.userInfo) {
@@ -5257,7 +5308,8 @@ export default function Dashboard() {
       )}
 
       {/* CropWiseAI Chatbot */}
-      <CropWiseChatbot />
+      <EnhancedCropWiseChatbot />
+      
     </div>
   )
 }

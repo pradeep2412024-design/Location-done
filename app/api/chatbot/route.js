@@ -5,6 +5,7 @@ export async function POST(request) {
     console.log("[Chatbot] Processing message:", message)
     console.log("[Chatbot] User data:", userData)
     console.log("[Chatbot] Analysis data available:", !!analysisData)
+    console.log("[Chatbot] GROQ_API_KEY available:", !!process.env.GROQ_API_KEY)
 
     // Simple intent recognition
     const intent = recognizeIntent(message)
@@ -226,7 +227,7 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
         'Authorization': `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'llama-3.1-70b-versatile',
         messages: [
           {
             role: 'system',
@@ -248,6 +249,16 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
     }
   } catch (error) {
     console.error('Error calling Groq AI:', error)
+    // Return a more helpful error message
+    return {
+      content: `I'm having trouble connecting to the AI service right now. Let me provide you with some helpful farming advice based on your question: "${message}"\n\nI can help you with:\n• Crop recommendations and planning\n• Soil analysis and improvement\n• Weather information and farming impact\n• Irrigation and water management\n• Fertilizer and nutrient advice\n• Yield predictions and optimization\n• Pest and disease management\n\nPlease try asking a specific question about farming, and I'll do my best to help!`,
+      suggestions: [
+        "What crops should I grow in my area?",
+        "How to improve soil health?",
+        "What's the best irrigation method?",
+        "How to increase crop yield?"
+      ]
+    }
   }
 
   // Use AI response if available, otherwise fallback to dynamic functions
@@ -689,7 +700,7 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
         'Authorization': `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'llama-3.1-70b-versatile',
         messages: [
           {
             role: 'system',
@@ -718,6 +729,16 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
     }
   } catch (error) {
     console.error('Error calling Groq AI for fallback:', error)
+    // Return a helpful fallback response
+    return {
+      content: `I'm experiencing some technical difficulties with the AI service, but I can still help you with farming advice!\n\nBased on your question about "${message}", here are some general recommendations:\n\n🌱 **General Farming Tips:**\n• Always test your soil before planting\n• Choose crops suitable for your climate and soil type\n• Plan your irrigation schedule based on weather forecasts\n• Use organic fertilizers to improve soil health\n• Monitor crops regularly for pests and diseases\n\nWould you like more specific advice about any particular aspect of farming?`,
+      suggestions: [
+        "Tell me about soil preparation",
+        "What irrigation system should I use?",
+        "How to control pests naturally?",
+        "What's the best time to plant?"
+      ]
+    }
   }
 
   const responses = {

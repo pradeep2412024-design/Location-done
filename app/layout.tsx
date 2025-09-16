@@ -6,6 +6,7 @@ import { GeistMono } from "geist/font/mono"
 import { Suspense } from "react"
 import "./globals.css"
 import { I18nProvider } from "@/i18n"
+import { AppProvider } from "@/contexts/AppContext"
 
 export const metadata: Metadata = {
   title: "CropWise AI - Smart Farming Solutions",
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <I18nProvider>
-          <Suspense fallback={null}>{children}</Suspense>
+          <AppProvider>
+            <Suspense fallback={null}>{children}</Suspense>
+          </AppProvider>
         </I18nProvider>
         {/* <Analytics /> */}
       </body>
