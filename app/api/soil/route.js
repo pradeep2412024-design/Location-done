@@ -58,6 +58,10 @@ export async function POST(request) {
   }
 }
 
+export async function GET() {
+  return Response.json({ ok: true, route: 'soil' })
+}
+
 async function fetchRealSoilData(coordinates, location, crop, month) {
   try {
     console.log(`[v0] Fetching real soil data from SoilGrids API for coordinates:`, coordinates)

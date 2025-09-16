@@ -1,6 +1,6 @@
 export async function POST(request) {
   try {
-    const { message, userData, analysisData } = await request.json()
+    const { message, userData, analysisData, locale } = await request.json()
 
     console.log("[Chatbot] Processing message:", message)
     console.log("[Chatbot] User data:", userData)
@@ -10,7 +10,8 @@ export async function POST(request) {
     const intent = recognizeIntent(message)
     
     // Generate AI-enhanced response with real data
-    const response = await generateAIEnhancedResponse(intent, message, userData, analysisData)
+    const { origin } = new URL(request.url)
+    const response = await generateAIEnhancedResponse(intent, message, userData, analysisData, origin, locale)
 
     return Response.json({
       success: true,
@@ -26,6 +27,10 @@ export async function POST(request) {
       error: "Failed to process chatbot request" 
     }, { status: 500 })
   }
+}
+
+export async function GET() {
+  return Response.json({ ok: true, route: 'chatbot' })
 }
 
 function recognizeIntent(message) {
@@ -74,17 +79,80 @@ function recognizeIntent(message) {
   return 'general_inquiry'
 }
 
-async function generateAIEnhancedResponse(intent, message, userData, analysisData) {
+async function generateAIEnhancedResponse(intent, message, userData, analysisData, baseUrl, locale = 'en') {
   // Use real data if available
   if (analysisData) {
-    return await generateDynamicDataDrivenResponse(intent, message, userData, analysisData)
+    return await generateDynamicDataDrivenResponse(intent, message, userData, analysisData, locale)
   }
-  
-  // Fallback to basic responses
-  return await generateChatbotResponse(intent, message, userData)
+
+  // Try to fetch soil and weather dynamically if we have a location
+  try {
+    if (userData?.location && baseUrl) {
+      const month = (userData.month || new Date().toLocaleDateString('en-US', { month: 'long' })).toLowerCase()
+      const available = await getAvailableDataForLocationServer(userData.location, month, baseUrl)
+      const constructed = {
+        predictions: null,
+        soilData: available.soilData || null,
+        weatherData: available.weatherData || null,
+        marketAnalysis: null,
+        recommendations: null
+      }
+      if (constructed.soilData || constructed.weatherData) {
+        return await generateDynamicDataDrivenResponse(intent, message, userData, constructed, locale)
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to build dynamic data:', e?.message || e)
+  }
+
+  // Last resort: attempt Groq-only answer, else ask for minimal info
+  return await generateChatbotResponse(intent, message, userData, baseUrl, locale)
 }
 
-async function generateDynamicDataDrivenResponse(intent, message, userData, analysisData) {
+// Server-side helper to fetch soil and weather from sibling routes
+async function getAvailableDataForLocationServer(location, month, baseUrl) {
+  const headers = { 'Content-Type': 'application/json' }
+  let weatherData = null
+  let soilData = null
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 7000)
+  const weatherPromise = fetch(`${baseUrl}/api/weather`, { method: 'POST', headers, body: JSON.stringify({ location, month }), signal: controller.signal })
+  const soilPromise = fetch(`${baseUrl}/api/soil`, { method: 'POST', headers, body: JSON.stringify({ location, month }), signal: controller.signal })
+
+  const [weatherRes, soilRes] = await Promise.allSettled([weatherPromise, soilPromise]).finally(() => clearTimeout(timeout))
+
+  if (weatherRes.status === 'fulfilled') {
+    try {
+      if (weatherRes.value.ok) {
+        const w = await weatherRes.value.json()
+        weatherData = w.weatherData || null
+      } else {
+        const t = await weatherRes.value.text().catch(() => '<no body>')
+        console.warn('Weather API non-OK:', weatherRes.value.status, t)
+      }
+    } catch (e) { console.warn('Weather parse error:', e?.message || e) }
+  } else {
+    console.warn('Weather fetch failed:', weatherRes.reason?.message || weatherRes.reason)
+  }
+
+  if (soilRes.status === 'fulfilled') {
+    try {
+      if (soilRes.value.ok) {
+        const s = await soilRes.value.json()
+        soilData = s.data || null
+      } else {
+        const t = await soilRes.value.text().catch(() => '<no body>')
+        console.warn('Soil API non-OK:', soilRes.value.status, t)
+      }
+    } catch (e) { console.warn('Soil parse error:', e?.message || e) }
+  } else {
+    console.warn('Soil fetch failed:', soilRes.reason?.message || soilRes.reason)
+  }
+
+  return { location, month, weatherData, soilData }
+}
+
+async function generateDynamicDataDrivenResponse(intent, message, userData, analysisData, locale = 'en') {
   const { predictions, soilData, weatherData, marketAnalysis, recommendations } = analysisData
   const dataUsed = []
   
@@ -103,6 +171,20 @@ async function generateDynamicDataDrivenResponse(intent, message, userData, anal
   const soilPh = soilData?.ph || 7.0
   const soilMoisture = soilData?.moisture || 50
   const expectedYield = predictions?.predictedYield || 3.0
+
+  // Derive region/country if available
+  const region = analysisData.locationData?.region || analysisData.locationData?.state || ''
+  const country = analysisData.locationData?.country || ''
+
+  // Derive climate from avgTemp & rainyDays
+  const climate = avgTemp >= 30 ? 'warm' : avgTemp <= 15 ? 'cool' : 'temperate'
+
+  // Derive soil type roughly from texture or moisture if present
+  const soilType = soilData?.texture?.sand ? (soilData.texture.sand > 50 ? 'sandy' : soilData.texture.clay > 35 ? 'clay' : 'loamy') : 'loamy'
+
+  // Current season
+  const monthIdx = currentDate.getMonth() + 1
+  const season = monthIdx >= 3 && monthIdx <= 5 ? 'spring' : monthIdx >= 6 && monthIdx <= 8 ? 'summer' : monthIdx >= 9 && monthIdx <= 11 ? 'autumn' : 'winter'
   
   // Generate dynamic alerts based on current conditions
   let alerts = []
@@ -186,7 +268,7 @@ async function generateDynamicDataDrivenResponse(intent, message, userData, anal
   // Try to get AI response from Groq first
   let aiResponse = null
   try {
-    const systemPrompt = `You are CropWiseAI, an intelligent farming assistant. You help farmers with:
+    const systemPrompt = `You are CropWiseAI, an intelligent farming assistant. Answer in ${locale} language. You help farmers with:
 
 1. Crop recommendations and planning
 2. Soil analysis and improvement
@@ -198,7 +280,11 @@ async function generateDynamicDataDrivenResponse(intent, message, userData, anal
 8. Market insights and pricing
 
 Current context:
-- Location: ${userData.location || 'Not specified'}
+- Location: ${userData.location || 'Not specified'}${region || country ? ` (${[region, country].filter(Boolean).join(', ')})` : ''}
+- Climate: ${climate}
+- Soil Type: ${soilType}
+- Current Season: ${season}
+- Previous Crop: ${userData.previousCrop || 'Not specified'}
 - Crop: ${userData.crop || 'Not specified'}
 - Farm Size: ${userData.hectare || 'Not specified'} hectares
 - Month: ${userData.month || 'Not specified'}
@@ -213,12 +299,16 @@ Available data:
 - Weather Risk: ${analysisData.predictions?.weatherRisk || 'N/A'}
 ` : ''}
 
-Provide detailed, practical, and actionable farming advice. Use simple language that farmers can understand. Include specific recommendations, quantities, and timing. Be encouraging and supportive.`
+Provide detailed, practical, and actionable farming advice. Use simple language that farmers can understand. Include specific recommendations, quantities, and timing. Be encouraging and supportive.
+
+If essential details are missing, ask 1–2 concise follow-up questions tailored to the user's goal. Prefer inferring from context; only ask for information that is truly required to give a precise answer. Avoid generic checklists.`
 
     const groqApiKey = process.env.GROQ_API_KEY
     if (!groqApiKey) {
       throw new Error('GROQ_API_KEY is not set')
     }
+    const groqController = new AbortController()
+    const groqTimeout = setTimeout(() => groqController.abort(), 8000)
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -226,7 +316,7 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
         'Authorization': `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'llama-3.1-8b-instant',
         messages: [
           {
             role: 'system',
@@ -237,14 +327,18 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
             content: message
           }
         ],
-        max_tokens: 1000,
+        max_tokens: 600,
         temperature: 0.7
-      })
-    })
+      }),
+      signal: groqController.signal
+    }).finally(() => clearTimeout(groqTimeout))
 
     if (groqResponse.ok) {
       const groqData = await groqResponse.json()
       aiResponse = groqData.choices[0].message.content
+    } else {
+      const errorText = await groqResponse.text().catch(() => '<no body>')
+      console.warn('Groq AI non-OK response:', groqResponse.status, errorText)
     }
   } catch (error) {
     console.error('Error calling Groq AI:', error)
@@ -656,10 +750,10 @@ function getNutrientStatus(value, nutrient) {
   return "Optimal"
 }
 
-async function generateChatbotResponse(intent, message, userData) {
+async function generateChatbotResponse(intent, message, userData, baseUrl, locale = 'en') {
   // Try to get AI response from Groq first
   try {
-    const systemPrompt = `You are CropWiseAI, an intelligent farming assistant. You help farmers with:
+    const systemPrompt = `You are CropWiseAI, an intelligent farming assistant. Answer in ${locale} language. You help farmers with:
 
 1. Crop recommendations and planning
 2. Soil analysis and improvement
@@ -682,6 +776,8 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
     if (!groqApiKey) {
       throw new Error('GROQ_API_KEY is not set')
     }
+    const groqController = new AbortController()
+    const groqTimeout = setTimeout(() => groqController.abort(), 8000)
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -689,7 +785,7 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
         'Authorization': `Bearer ${groqApiKey}`
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
+        model: 'llama-3.1-8b-instant',
         messages: [
           {
             role: 'system',
@@ -700,10 +796,11 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
             content: message
           }
         ],
-        max_tokens: 1000,
+        max_tokens: 600,
         temperature: 0.7
-      })
-    })
+      }),
+      signal: groqController.signal
+    }).finally(() => clearTimeout(groqTimeout))
 
     if (groqResponse.ok) {
       const groqData = await groqResponse.json()
@@ -715,96 +812,41 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
           "How can I improve my farming?"
         ]
       }
+    } else {
+      const errorText = await groqResponse.text().catch(() => '<no body>')
+      console.warn('Groq AI fallback non-OK:', groqResponse.status, errorText)
     }
   } catch (error) {
     console.error('Error calling Groq AI for fallback:', error)
   }
 
-  const responses = {
-    crop_recommendation: {
-      content: "I can help you choose the best crops for your farm! To give you personalized recommendations, I need to know:\n\n• Your farm location\n• Soil type or previous crops\n• Planting season\n• Farm size\n\nOnce you provide these details, I'll suggest crops that are most suitable for your specific conditions.",
-      suggestions: [
-        "What crops grow well in my area?",
-        "Which crop should I plant this season?",
-        "What's the best crop for my soil type?"
-      ]
-    },
-    
-    soil_analysis: {
-      content: "Soil health is crucial for successful farming! I can help you understand:\n\n• Soil pH levels and how to adjust them\n• Nutrient deficiencies and solutions\n• Soil moisture management\n• Organic matter improvement\n\nShare your location and I'll provide specific soil recommendations for your area.",
-      suggestions: [
-        "How to improve my soil pH?",
-        "What nutrients does my soil need?",
-        "How to increase soil organic matter?"
-      ]
-    },
-    
-    weather_info: {
-      content: "Weather plays a vital role in farming success! I can provide:\n\n• Current weather conditions\n• 7-day weather forecast\n• Seasonal weather patterns\n• Weather-based farming advice\n\nLet me know your location and I'll give you detailed weather information for your farm.",
-      suggestions: [
-        "What's the weather forecast for my area?",
-        "Is it a good time to plant?",
-        "How will rain affect my crops?"
-      ]
-    },
-    
-    irrigation_advice: {
-      content: "Proper irrigation is key to healthy crops! I can help with:\n\n• Water requirement calculations\n• Irrigation system recommendations\n• Water conservation techniques\n• Timing and frequency of watering\n\nShare your crop type and location for personalized irrigation advice.",
-      suggestions: [
-        "How much water do my crops need?",
-        "What irrigation system should I use?",
-        "How often should I water my plants?"
-      ]
-    },
-    
-    fertilizer_advice: {
-      content: "Fertilizers provide essential nutrients for crop growth! I can guide you on:\n\n• NPK requirements for different crops\n• Organic vs chemical fertilizers\n• Application timing and methods\n• Cost-effective fertilizer strategies\n\nTell me about your crop and soil conditions for specific fertilizer recommendations.",
-      suggestions: [
-        "What fertilizer should I use for my crops?",
-        "When should I apply fertilizers?",
-        "How much fertilizer do I need?"
-      ]
-    },
-    
-    yield_prediction: {
-      content: "Yield prediction helps in planning and marketing! I can help estimate:\n\n• Expected crop yield based on conditions\n• Factors affecting yield potential\n• Ways to improve yield\n• Market timing for harvest\n\nProvide your crop details and location for accurate yield predictions.",
-      suggestions: [
-        "What yield can I expect from my crops?",
-        "How to increase my crop yield?",
-        "When should I harvest for best yield?"
-      ]
-    },
-    
-    pest_management: {
-      content: "Pest management protects your crops and investment! I can help with:\n\n• Common pests in your area\n• Organic pest control methods\n• Early pest detection\n• Integrated pest management strategies\n\nShare your crop type and location for specific pest management advice.",
-      suggestions: [
-        "How to control pests naturally?",
-        "What pests affect my crops?",
-        "How to prevent crop diseases?"
-      ]
-    },
-    
-    general_advice: {
-      content: "I'm here to help with all your farming questions! I can assist with:\n\n• Crop selection and planning\n• Soil health and management\n• Weather monitoring\n• Irrigation and water management\n• Fertilizer and nutrient management\n• Pest and disease control\n• Yield optimization\n• Market information\n\nWhat specific farming challenge can I help you with today?",
-      suggestions: [
-        "I'm new to farming, where do I start?",
-        "How to plan my farming season?",
-        "What are the latest farming techniques?"
-      ]
-    },
-    
-    general_inquiry: {
-      content: "Hello! I'm CropWiseAI, your intelligent farming assistant. I can help you with various farming topics:\n\n🌱 Crop recommendations and planning\n🌍 Soil analysis and improvement\n🌤️ Weather information and forecasts\n💧 Irrigation and water management\n🌿 Fertilizer and nutrient advice\n📈 Yield predictions and optimization\n🐛 Pest and disease management\n💰 Market insights and pricing\n\nWhat would you like to know about farming? Feel free to ask me anything!",
-      suggestions: [
-        "What crops should I grow?",
-        "How to improve my soil?",
-        "What's the weather forecast?",
-        "How much water do my crops need?"
-      ]
+  // Strictly dynamic fallback: try internal APIs based on provided context
+  try {
+    if (userData?.location && baseUrl) {
+      const month = (userData.month || new Date().toLocaleDateString('en-US', { month: 'long' })).toLowerCase()
+      const available = await getAvailableDataForLocationServer(userData.location, month, baseUrl)
+      const constructed = {
+        predictions: null,
+        soilData: available.soilData || null,
+        weatherData: available.weatherData || null,
+        marketAnalysis: null,
+        recommendations: null
+      }
+      if (constructed.soilData || constructed.weatherData) {
+        return await generateDynamicDataDrivenResponse(intent, message, userData, constructed)
+      }
     }
+  } catch (e) {
+    console.warn('Dynamic fallback error:', e?.message || e)
   }
-  
-  return responses[intent] || responses.general_inquiry
+
+  // If still no data, request minimal info to proceed dynamically
+  const missing = []
+  if (!userData?.location) missing.push('farm location')
+  if (!userData?.crop) missing.push('crop type')
+  if (!userData?.month) missing.push('planting month/season')
+  const prompt = missing.length ? `Please share your ${missing.join(', ')}.` : 'Please add more farm details.'
+  return { content: `I could not reach the AI service right now. ${prompt}`, suggestions: [] }
 }
 
 // Dynamic response functions

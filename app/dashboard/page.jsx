@@ -10,6 +10,7 @@ import LanguageSwitch from "@/components/LanguageSwitch"
 import CropWiseChatbot from "@/components/CropWiseChatbot"
 import FarmDetailsForm from "@/components/FarmDetailsForm"
 import EnhancedCropRecommendations from "@/components/EnhancedCropRecommendations"
+import AdvancedMarketAnalysis from "@/components/AdvancedMarketAnalysis"
 
 const formatLocation = (location, t) => {
 	if (!location || typeof location !== "string") return location || ""
@@ -32,6 +33,52 @@ const formatDays = (duration, t) => {
 	const label2 = t("units.days")
 	const resolved = label1 && !label1.includes(".") ? label1 : label2 && !label2.includes(".") ? label2 : "days"
 	return String(duration).replace(/\bdays\b/i, resolved)
+}
+
+// Get state from location string
+const getStateFromLocation = (location) => {
+  if (!location) return 'odisha'
+  
+  const locationLower = location.toLowerCase()
+  
+  // Check for Odisha first (most specific)
+  if (locationLower.includes('odisha') || locationLower.includes('orissa') || 
+      locationLower.includes('bhubaneswar') || locationLower.includes('cuttack') ||
+      locationLower.includes('puri') || locationLower.includes('rourkela') ||
+      locationLower.includes('berhampur') || locationLower.includes('sambalpur') ||
+      locationLower.includes('balasore') || locationLower.includes('bhadrak') ||
+      locationLower.includes('angul') || locationLower.includes('dhenkanal') ||
+      locationLower.includes('kendujhar') || locationLower.includes('mayurbhanj') ||
+      locationLower.includes('balangir') || locationLower.includes('bargarh') ||
+      locationLower.includes('kalahandi') || locationLower.includes('nuapada') ||
+      locationLower.includes('koraput') || locationLower.includes('malkangiri') ||
+      locationLower.includes('nabarangpur') || locationLower.includes('rayagada') ||
+      locationLower.includes('gajapati') || locationLower.includes('ganjam') ||
+      locationLower.includes('kandhamal') || locationLower.includes('boudh') ||
+      locationLower.includes('subarnapur') || locationLower.includes('sundargarh') ||
+      locationLower.includes('deogarh') || locationLower.includes('jharsuguda') ||
+      locationLower.includes('jajpur') || locationLower.includes('jagatsinghpur') ||
+      locationLower.includes('kendrapara') || locationLower.includes('khordha') ||
+      locationLower.includes('nayagarh')) {
+    return 'odisha'
+  }
+  
+  // Check other states
+  if (locationLower.includes('punjab') || locationLower.includes('amritsar') || locationLower.includes('ludhiana')) return 'punjab'
+  if (locationLower.includes('haryana') || locationLower.includes('gurgaon') || locationLower.includes('faridabad')) return 'haryana'
+  if (locationLower.includes('uttar pradesh') || locationLower.includes('lucknow') || locationLower.includes('kanpur') || locationLower.includes('ghaziabad')) return 'uttar_pradesh'
+  if (locationLower.includes('maharashtra') || locationLower.includes('mumbai') || locationLower.includes('pune')) return 'maharashtra'
+  if (locationLower.includes('karnataka') || locationLower.includes('bangalore') || locationLower.includes('mysore')) return 'karnataka'
+  if (locationLower.includes('tamil nadu') || locationLower.includes('chennai') || locationLower.includes('coimbatore')) return 'tamil_nadu'
+  if (locationLower.includes('gujarat') || locationLower.includes('ahmedabad') || locationLower.includes('surat')) return 'gujarat'
+  if (locationLower.includes('rajasthan') || locationLower.includes('jaipur') || locationLower.includes('jodhpur')) return 'rajasthan'
+  if (locationLower.includes('bihar') || locationLower.includes('patna') || locationLower.includes('gaya')) return 'bihar'
+  if (locationLower.includes('west bengal') || locationLower.includes('kolkata') || locationLower.includes('howrah')) return 'west_bengal'
+  if (locationLower.includes('madhya pradesh') || locationLower.includes('bhopal') || locationLower.includes('indore')) return 'madhya_pradesh'
+  if (locationLower.includes('andhra pradesh') || locationLower.includes('hyderabad') || locationLower.includes('visakhapatnam')) return 'andhra_pradesh'
+  if (locationLower.includes('telangana') || locationLower.includes('warangal') || locationLower.includes('nizamabad')) return 'telangana'
+  
+  return 'odisha' // Default to Odisha
 }
 
 const recommendedCrops = [
@@ -4745,92 +4792,18 @@ export default function Dashboard() {
 
       case "market":
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-purple-50 border-purple-200">
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold flex items-center">
-                  {t("dashboard.market.header_title")} 
-                  <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                    {t("dashboard.market.badge")}
-                  </span>
-                </CardTitle>
-                <p className="text-sm text-gray-600">{t("dashboard.market.subtitle")}</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="text-center p-4 bg-white rounded-lg">
-                    <div className="text-3xl font-bold text-purple-600">{dynamicMarketAnalysis.currentPrice}</div>
-                    <div className="text-sm text-gray-600">{t("dashboard.market.current_price")}</div>
-                    <div
-                      className={`text-sm font-medium ${
-                        dynamicMarketAnalysis.priceChange.startsWith("+") ? "text-green-600" : "text-red-600"
-                      }`}
-                    >
-                      {dynamicMarketAnalysis.priceChange} {t("dashboard.market.from_seasonal_avg")}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-3 bg-white rounded-lg">
-                      <div className="text-lg font-bold text-gray-900">
-                        {t(`dashboard.market.demand_levels.${(dynamicMarketAnalysis.demandForecast || "medium").toLowerCase()}`)}
-                      </div>
-                      <div className="text-xs text-gray-600">{t("dashboard.market.demand_forecast")}</div>
-                    </div>
-                    <div className="text-center p-3 bg-white rounded-lg">
-                      <div className="text-lg font-bold text-gray-900">{dynamicMarketAnalysis.bestSellingTime}</div>
-                      <div className="text-xs text-gray-600">{t("dashboard.market.optimal_selling_period")}</div>
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">{dynamicMarketAnalysis.profitMargin}</div>
-                    <div className="text-sm text-gray-600">{t("dashboard.market.profit_margin")}</div>
-                  </div>
-                </div>
-
-                {dynamicMarketAnalysis.marketInsights && dynamicMarketAnalysis.marketInsights.length > 0 && (
-                  <div className="mt-6">
-                    <h4 className="font-medium text-gray-900 mb-3">{t("dashboard.market.insights_title")}</h4>
-                    <div className="space-y-3">
-                      {dynamicMarketAnalysis.marketInsights.map((insight, index) => (
-                        <div
-                          key={index}
-                          className={`p-3 rounded-lg border ${
-                            insight.type === "opportunity"
-                              ? "bg-green-50 border-green-200"
-                              : insight.type === "risk"
-                                ? "bg-red-50 border-red-200"
-                                : "bg-blue-50 border-blue-200"
-                          }`}
-                        >
-                          <p
-                            className={`text-sm font-medium mb-1 ${
-                              insight.type === "opportunity"
-                                ? "text-green-800"
-                                : insight.type === "risk"
-                                  ? "text-red-800"
-                                  : "text-blue-800"
-                            }`}
-                          >
-                            {insight.messageKey ? t(insight.messageKey, insight.params || {}) : insight.message}
-                          </p>
-                          <p
-                            className={`text-xs ${
-                              insight.type === "opportunity"
-                                ? "text-green-600"
-                                : insight.type === "risk"
-                                  ? "text-red-600"
-                                  : "text-blue-600"
-                            }`}
-                          >
-                            {t("dashboard.market.action_label")}: {insight.actionKey ? t(insight.actionKey) : insight.action}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+          <div className="space-y-6">
+            {/* Advanced Market Analysis Component */}
+            <AdvancedMarketAnalysis
+              crop={farmData?.userInfo?.nextCrop || userInputData.crop || "Chickpea"}
+              location={farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha"}
+              state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha")}
+              month={farmData?.userInfo?.cultivationMonth || userInputData.month || "6"}
+              onAnalysisUpdate={(data) => {
+                // Update any parent state if needed
+                console.log("Market analysis updated:", data)
+              }}
+            />
 
             <Card className="bg-purple-50 border-purple-200">
               <CardHeader>

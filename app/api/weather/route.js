@@ -61,6 +61,10 @@ export async function POST(request) {
   }
 }
 
+export async function GET() {
+  return NextResponse.json({ ok: true, route: 'weather' })
+}
+
 async function fetchOpenWeatherMapData(location, month) {
   const apiKey = process.env.OPENWEATHER_API_KEY || process.env.WEATHER_API_KEY
 

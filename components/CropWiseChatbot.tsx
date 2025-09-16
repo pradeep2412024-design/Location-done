@@ -36,14 +36,14 @@ interface ChatbotProps {
 }
 
 export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'bot',
-      content: 'Namaste! I am CropWiseAI, your intelligent farming assistant. I automatically fetch real-time data from your farm location to provide personalized advice:\n\n🌱 **Crop Recommendations** - Based on your soil and weather\n🌍 **Soil Analysis** - Real-time pH, moisture, and nutrients\n🌤️ **Weather Information** - 7-day forecasts and farming impact\n💧 **Irrigation Planning** - Smart water management\n🌿 **Fertilizer Advice** - Precision nutrient recommendations\n📈 **Yield Predictions** - AI-enhanced forecasting\n🐛 **Pest Management** - Weather-based risk assessment\n\nAsk me anything about your farming - I\'ll use live data to give you the best advice!',
+      content: 'Namaste! I am CropWiseAI, your intelligent farming assistant. I use your farm\'s soil and weather data with AI to give personalized advice. Ask anything to get started.',
       timestamp: new Date()
     }
   ])
@@ -59,6 +59,7 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
   const [previousCrop, setPreviousCrop] = useState("")
   const [nextCrop, setNextCrop] = useState("")
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const autoAnalyzeRef = useRef<boolean>(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -67,6 +68,48 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Load defaults from "Tell Us About Your Farm" (dashboardData.userInfo)
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('dashboardData') || sessionStorage.getItem('dashboardData')
+        if (stored) {
+          const data = JSON.parse(stored)
+          const u = data?.userInfo || {}
+          setUserData(prev => ({
+            location: u.location || prev.location || "",
+            crop: u.nextCrop || u.crop || prev.crop || "",
+            month: u.cultivationMonth || prev.month || "",
+            hectare: u.farmSize || prev.hectare || ""
+          }))
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load dashboardData for chatbot:', e)
+    }
+  }, [])
+
+  // Auto-run a comprehensive analysis on open if we have user location or stored dashboard data
+  useEffect(() => {
+    if (isOpen && !autoAnalyzeRef.current) {
+      try {
+        let hasContext = false
+        if (userData.location) hasContext = true
+        if (typeof window !== 'undefined') {
+          const stored = localStorage.getItem('dashboardData') || sessionStorage.getItem('dashboardData')
+          if (stored) {
+            const data = JSON.parse(stored)
+            if (data?.userInfo?.location) hasContext = true
+          }
+        }
+        if (hasContext) {
+          autoAnalyzeRef.current = true
+          analyzeMessage('Analyze my current farm conditions')
+        }
+      } catch {}
+    }
+  }, [isOpen, userData.location])
 
   const extractUserData = (message: string) => {
     const locationMatch = message.match(/(?:location|place|area|farm|village|city|district|state)[\s:]*([^.!?]+)/i)
@@ -125,41 +168,51 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
     if (!extractedData.month) missingInfo.push("planting month/season")
     if (!extractedData.hectare) missingInfo.push("farm size (hectares)")
 
-    // If we have enough data, make comprehensive API calls
+    // If we have enough data, make comprehensive API calls; otherwise still try enhanced (AI can ask concise follow-ups)
     if (missingInfo.length === 0) {
       return await getComprehensiveAnalysis(extractedData, message, locationData)
-    } else {
-      // Even with missing data, try to provide helpful response with available data
-      if (extractedData.location || locationData) {
-        return await getEnhancedResponse(extractedData, message, locationData, missingInfo)
-      } else {
-        return generateMissingInfoResponse(missingInfo, message)
-      }
     }
+    return await getEnhancedResponse(extractedData, message, locationData, missingInfo)
   }
 
   const fetchComprehensiveDataFromAPI = async () => {
     try {
-      // Try to get data from the dashboard's existing API calls
-      // This will use the same data that's already loaded in the dashboard
+      // Use user-provided dashboard data if available; do NOT fallback to Ghaziabad
+      let dashboardDefaults: any = null
+      if (typeof window !== 'undefined') {
+        try {
+          const stored = localStorage.getItem('dashboardData') || sessionStorage.getItem('dashboardData')
+          if (stored) {
+            dashboardDefaults = JSON.parse(stored)
+          }
+        } catch {}
+      }
+
+      if (!dashboardDefaults?.userInfo) {
+        // Without user context, skip auto-fetch to avoid wrong defaults
+        return null
+      }
+
+      const body = {
+        location: dashboardDefaults.userInfo.location || '',
+        crop: dashboardDefaults.userInfo.nextCrop || dashboardDefaults.userInfo.crop || '',
+        month: dashboardDefaults.userInfo.cultivationMonth || '',
+        hectare: dashboardDefaults.userInfo.farmSize || ''
+      }
+
       const response = await fetch('/api/crop-analysis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          location: "Ghaziabad, Uttar Pradesh", // Default location from dashboard
-          crop: "Wheat", // Default crop from dashboard
-          month: "october", // Current month
-          hectare: "5" // Default farm size
-        })
+        body: JSON.stringify(body)
       })
 
       if (response.ok) {
         const data = await response.json()
         return {
-          location: data.userInfo?.location || "Ghaziabad, Uttar Pradesh",
-          crop: data.userInfo?.nextCrop || "Wheat",
-          month: data.userInfo?.cultivationMonth || "october",
-          hectare: data.userInfo?.farmSize || "5",
+          location: data.userInfo?.location || dashboardDefaults.userInfo.location || '',
+          crop: data.userInfo?.nextCrop || dashboardDefaults.userInfo.nextCrop || dashboardDefaults.userInfo.crop || '',
+          month: data.userInfo?.cultivationMonth || dashboardDefaults.userInfo.cultivationMonth || '',
+          hectare: data.userInfo?.farmSize || dashboardDefaults.userInfo.farmSize || '',
           locationData: data.locationData,
           predictions: data.predictions,
           soilData: data.soilData,
@@ -188,7 +241,11 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
             setPreviousCrop(data.userInfo.previousCrop || "")
             setNextCrop(data.userInfo.nextCrop || "")
           }
-          return data
+          // Ensure we do not fallback to Ghaziabad anywhere
+          if (data.userInfo && data.userInfo.location) {
+            return data
+          }
+          return null
         }
       }
     } catch (error) {
@@ -603,8 +660,9 @@ export default function CropWiseChatbot({ className = "" }: ChatbotProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: question,
-          userData: userData,
-          analysisData: analysisData
+          userData: { ...userData, previousCrop },
+          analysisData: analysisData,
+          locale: locale
         })
       })
 
