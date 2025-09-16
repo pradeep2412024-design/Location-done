@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'
+
 export async function POST(request) {
   try {
     const { message, userData, analysisData, locale } = await request.json()
@@ -267,6 +269,7 @@ async function generateDynamicDataDrivenResponse(intent, message, userData, anal
   
   // Try to get AI response from Groq first
   let aiResponse = null
+  let aiErrorReason = null
   try {
     const systemPrompt = `You are CropWiseAI, an intelligent farming assistant. Answer in ${locale} language. You help farmers with:
 
@@ -303,48 +306,13 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
 
 If essential details are missing, ask 1–2 concise follow-up questions tailored to the user's goal. Prefer inferring from context; only ask for information that is truly required to give a precise answer. Avoid generic checklists.`
 
-    const groqApiKey = process.env.GROQ_API_KEY
-    if (!groqApiKey) {
-      throw new Error('GROQ_API_KEY is not set')
-    }
-    const groqController = new AbortController()
-    const groqTimeout = setTimeout(() => groqController.abort(), 8000)
-    const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${groqApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt
-          },
-          {
-            role: 'user',
-            content: message
-          }
-        ],
-        max_tokens: 600,
-        temperature: 0.7
-      }),
-      signal: groqController.signal
-    }).finally(() => clearTimeout(groqTimeout))
-
-    if (groqResponse.ok) {
-      const groqData = await groqResponse.json()
-      aiResponse = groqData.choices[0].message.content
-    } else {
-      const errorText = await groqResponse.text().catch(() => '<no body>')
-      console.warn('Groq AI non-OK response:', groqResponse.status, errorText)
-    }
+    aiResponse = await callGroqWithFallback(systemPrompt, message)
   } catch (error) {
     console.error('Error calling Groq AI:', error)
+    aiErrorReason = error?.message || 'unknown error'
   }
 
-  // Use AI response if available, otherwise fallback to dynamic functions
+  // Use AI response if available; otherwise avoid rule-based fallbacks
   if (aiResponse) {
     response += aiResponse
     response += `\n\n📊 **Real-Time Analysis (${currentMonth} ${currentDate.getDate()}, ${currentHour.toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}):**\n`
@@ -354,31 +322,9 @@ If essential details are missing, ask 1–2 concise follow-up questions tailored
     response += `• Soil Moisture: ${soilMoisture}%\n`
     response += `• Expected Yield: ${expectedYield}t/ha\n`
   } else {
-    // Fallback to dynamic response functions
-    switch (intent) {
-      case 'crop_recommendation':
-        response += generateDynamicCropRecommendation(userData, analysisData, currentMonth, avgTemp, rainyDays, dataUsed)
-        break
-      case 'soil_analysis':
-        response += generateDynamicSoilAnalysis(soilData, weatherData, alerts, dataUsed)
-        break
-      case 'weather_info':
-        response += generateDynamicWeatherInfo(weatherData, predictions, currentHour, avgTemp, rainyDays, dataUsed)
-        break
-      case 'irrigation_advice':
-        response += generateDynamicIrrigationAdvice(soilData, weatherData, recommendations, soilMoisture, avgTemp, dataUsed)
-        break
-      case 'fertilizer_advice':
-        response += generateDynamicFertilizerAdvice(soilData, recommendations, soilPh, dataUsed)
-        break
-      case 'yield_prediction':
-        response += generateDynamicYieldPrediction(predictions, soilData, weatherData, yieldMethods, expectedYield, dataUsed)
-        break
-      case 'pest_management':
-        response += generateDynamicPestManagement(weatherData, soilData, predictions, avgTemp, rainyDays, dataUsed)
-        break
-      default:
-        response += generateDynamicGeneralAdvice(analysisData, message, alerts, yieldMethods, dataUsed)
+    response += `I couldn't reach the AI service right now. Please try again shortly.`
+    if (aiErrorReason) {
+      response += `\n(debug: ${aiErrorReason})`
     }
   }
   
@@ -400,7 +346,8 @@ If essential details are missing, ask 1–2 concise follow-up questions tailored
       expectedYield,
       currentMonth,
       currentHour
-    }
+    },
+    aiErrorReason
   }
 }
 
@@ -772,72 +719,19 @@ Current context:
 
 Provide detailed, practical, and actionable farming advice. Use simple language that farmers can understand. Include specific recommendations, quantities, and timing. Be encouraging and supportive.`
 
-    const groqApiKey = process.env.GROQ_API_KEY
-    if (!groqApiKey) {
-      throw new Error('GROQ_API_KEY is not set')
-    }
-    const groqController = new AbortController()
-    const groqTimeout = setTimeout(() => groqController.abort(), 8000)
-    const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${groqApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt
-          },
-          {
-            role: 'user',
-            content: message
-          }
-        ],
-        max_tokens: 600,
-        temperature: 0.7
-      }),
-      signal: groqController.signal
-    }).finally(() => clearTimeout(groqTimeout))
-
-    if (groqResponse.ok) {
-      const groqData = await groqResponse.json()
-      return {
-        content: groqData.choices[0].message.content,
-        suggestions: [
-          "Tell me more about this topic",
-          "What are the best practices?",
-          "How can I improve my farming?"
-        ]
-      }
-    } else {
-      const errorText = await groqResponse.text().catch(() => '<no body>')
-      console.warn('Groq AI fallback non-OK:', groqResponse.status, errorText)
+    const content = await callGroqWithFallback(systemPrompt, message)
+    return {
+      content,
+      suggestions: [
+        "Tell me more about this topic",
+        "What are the best practices?",
+        "How can I improve my farming?"
+      ]
     }
   } catch (error) {
     console.error('Error calling Groq AI for fallback:', error)
-  }
-
-  // Strictly dynamic fallback: try internal APIs based on provided context
-  try {
-    if (userData?.location && baseUrl) {
-      const month = (userData.month || new Date().toLocaleDateString('en-US', { month: 'long' })).toLowerCase()
-      const available = await getAvailableDataForLocationServer(userData.location, month, baseUrl)
-      const constructed = {
-        predictions: null,
-        soilData: available.soilData || null,
-        weatherData: available.weatherData || null,
-        marketAnalysis: null,
-        recommendations: null
-      }
-      if (constructed.soilData || constructed.weatherData) {
-        return await generateDynamicDataDrivenResponse(intent, message, userData, constructed)
-      }
-    }
-  } catch (e) {
-    console.warn('Dynamic fallback error:', e?.message || e)
+    const reason = error?.message || 'unknown error'
+    return { content: `I could not reach the AI service right now. Please try again shortly.`, suggestions: [], aiErrorReason: reason }
   }
 
   // If still no data, request minimal info to proceed dynamically
@@ -847,6 +741,56 @@ Provide detailed, practical, and actionable farming advice. Use simple language 
   if (!userData?.month) missing.push('planting month/season')
   const prompt = missing.length ? `Please share your ${missing.join(', ')}.` : 'Please add more farm details.'
   return { content: `I could not reach the AI service right now. ${prompt}`, suggestions: [] }
+}
+
+// Helper: try multiple Groq models in order until one succeeds
+async function callGroqWithFallback(systemPrompt, userMessage) {
+  const groqApiKey = process.env.GROQ_API_KEY
+  if (!groqApiKey) throw new Error('GROQ_API_KEY is not set')
+
+  const models = [
+    'meta-llama/llama-4-scout-17b-16e-instruct',
+    'llama-3.1-70b-versatile',
+    'llama-3.1-8b-instant'
+  ]
+
+  let lastError = null
+  for (const model of models) {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 15000)
+    try {
+      const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqApiKey}`
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userMessage }
+          ],
+          max_tokens: 700,
+          temperature: 0.7
+        }),
+        signal: controller.signal
+      }).finally(() => clearTimeout(timeout))
+
+      if (!resp.ok) {
+        const body = await resp.text().catch(() => '<no body>')
+        console.warn('Groq model failed:', model, resp.status, body)
+        lastError = new Error(`HTTP ${resp.status} for model ${model}`)
+        continue
+      }
+      const data = await resp.json()
+      return data?.choices?.[0]?.message?.content || ''
+    } catch (err) {
+      lastError = err
+      console.warn('Groq call error for model', model, err?.message || err)
+    }
+  }
+  throw lastError || new Error('All Groq models failed')
 }
 
 // Dynamic response functions
