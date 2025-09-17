@@ -12,6 +12,7 @@ import { useAppContext } from "@/contexts/AppContext"
 import FarmDetailsForm from "@/components/FarmDetailsForm"
 import EnhancedCropRecommendations from "@/components/EnhancedCropRecommendations"
 import AdvancedMarketAnalysis from "@/components/AdvancedMarketAnalysis"
+import GovernmentSchemes from "@/components/GovernmentSchemes"
 
 const formatLocation = (location, t) => {
 	if (!location || typeof location !== "string") return location || ""
@@ -3984,6 +3985,7 @@ export default function Dashboard() {
     { id: "sustainability", label: t("dashboard.tabs.sustainability") },
     { id: "market", label: t("dashboard.tabs.market_analysis") },
     { id: "recommended", label: t("dashboard.tabs.recommended_crops") },
+    { id: "schemes", label: "Government Schemes" },
   ]
 
   const externalMenuItems = ["Disease Detection", "Community", "AI Chatbot"]
@@ -4996,42 +4998,6 @@ export default function Dashboard() {
               }}
             />
 
-            <Card className="bg-purple-50 border-purple-200">
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold flex items-center">
-                  {t("dashboard.market.schemes.title")}
-                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-                    {t("dashboard.market.schemes.badge")}
-                  </span>
-                </CardTitle>
-                <p className="text-sm text-gray-600">{t("dashboard.market.schemes.subtitle")}</p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {dynamicGovernmentSchemes.map((scheme, index) => (
-                    <div key={index} className="p-3 bg-white rounded-lg border">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="font-medium text-gray-900">{scheme.name}</span>
-                        <span
-                          className={`text-xs px-2 py-1 rounded-full ${
-                            scheme.status === "Active"
-                              ? "bg-green-100 text-green-800"
-                              : scheme.status === "Available"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-orange-100 text-orange-800"
-                          }`}
-                        >
-                          {t(`dashboard.market.schemes.status.${(scheme.status || "available").toLowerCase().replace(/\s+/g, "_")}`)}
-                        </span>
-                      </div>
-                      <div className="text-sm text-gray-600 mb-1">{t("dashboard.market.schemes.eligibility")}: {scheme.eligibility}</div>
-                      <div className="text-sm font-medium text-purple-600 mb-2">{scheme.amount}</div>
-                      <div className="text-xs text-gray-500">{scheme.description}</div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
           </div>
         )
 
@@ -5044,6 +5010,16 @@ export default function Dashboard() {
             weatherData={currentWeatherData}
             previousCrop={farmData?.userInfo?.previousCrop}
             t={t}
+          />
+        )
+
+      case "schemes":
+        return (
+          <GovernmentSchemes 
+            crop={farmData?.userInfo?.crop || userInputData.crop || ""}
+            location={farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha"}
+            state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha")}
+            farmSize={farmData?.userInfo?.hectare || userInputData.hectare || "2"}
           />
         )
 

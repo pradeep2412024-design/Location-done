@@ -25,7 +25,6 @@ import {
 } from "lucide-react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from "recharts"
 import { useI18n } from "@/i18n"
-import PriceTrackingChart from "./PriceTrackingChart"
 
 const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate }) => {
   const { t } = useI18n()
@@ -249,10 +248,9 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
       
       <CardContent>
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="pricing">Pricing</TabsTrigger>
-            <TabsTrigger value="tracking">Price Tracking</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
             <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
           </TabsList>
@@ -434,17 +432,6 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
             </div>
           </TabsContent>
 
-          {/* Price Tracking Tab */}
-          <TabsContent value="tracking" className="space-y-4">
-            <PriceTrackingChart
-              crop={crop}
-              location={location}
-              marketData={marketData}
-              onDataUpdate={(data) => {
-                console.log("Price tracking data updated:", data)
-              }}
-            />
-          </TabsContent>
 
           {/* AI Insights Tab */}
           <TabsContent value="insights" className="space-y-4">
