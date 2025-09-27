@@ -1,5 +1,43 @@
 import { generateDynamicTimeline } from '../../../lib/dynamicTimeline.js'
 
+// Simple in-memory cache for crop analysis
+const analysisCache = new Map()
+const CACHE_TIMEOUT = 5 * 60 * 1000 // 5 minutes
+const MAX_CACHE_SIZE = 20
+
+function getCacheKey(location, crop, month, hectare) {
+  return `${location}-${crop}-${month}-${hectare}`.toLowerCase()
+}
+
+function getCachedAnalysis(location, crop, month, hectare) {
+  const key = getCacheKey(location, crop, month, hectare)
+  const cached = analysisCache.get(key)
+
+  if (cached && Date.now() - cached.timestamp < CACHE_TIMEOUT) {
+    return cached.data
+  }
+
+  if (cached) {
+    analysisCache.delete(key)
+  }
+
+  return null
+}
+
+function setCachedAnalysis(location, crop, month, hectare, data) {
+  const key = getCacheKey(location, crop, month, hectare)
+
+  if (analysisCache.size >= MAX_CACHE_SIZE) {
+    const oldestKey = analysisCache.keys().next().value
+    analysisCache.delete(oldestKey)
+  }
+
+  analysisCache.set(key, {
+    data,
+    timestamp: Date.now()
+  })
+}
+
 export async function POST(request) {
   try {
     const body = await request.json()
@@ -10,28 +48,39 @@ export async function POST(request) {
 
     console.log("[v0] Crop analysis requested for:", { location, crop, month, hectare })
 
+    // Check cache first
+    const cachedResult = getCachedAnalysis(location, crop, month, hectare)
+    if (cachedResult) {
+      console.log("[v0] Returning cached crop analysis")
+      return NextResponse.json({
+        success: true,
+        ...cachedResult,
+        cached: true
+      })
+    }
+
     const { origin } = new URL(request.url)
     const baseUrl = origin
 
-    // Fetch soil data
-    const soilResponse = await fetch(`${baseUrl}/api/soil`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ location, crop, month, hectare }),
-    })
+    // Fetch soil and weather data in parallel for better performance
+    const [soilResponse, weatherResponse] = await Promise.all([
+      fetch(`${baseUrl}/api/soil`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ location, crop, month, hectare }),
+      }),
+      fetch(`${baseUrl}/api/weather`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ location, month }),
+      })
+    ])
 
     let soilData = null
     if (soilResponse.ok) {
       const soilResult = await soilResponse.json()
       soilData = soilResult.data
     }
-
-    // Fetch weather data
-    const weatherResponse = await fetch(`${baseUrl}/api/weather`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ location, month }),
-    })
 
     let weatherData = null
     if (weatherResponse.ok) {
@@ -84,6 +133,10 @@ export async function POST(request) {
     }
 
     console.log("[v0] Enhanced crop analysis response generated")
+    
+    // Cache the result
+    setCachedAnalysis(location, crop, month, hectare, response)
+    
     return Response.json(response)
   } catch (error) {
     console.error("[v0] Crop analysis API error:", error)

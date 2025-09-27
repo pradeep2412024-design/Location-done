@@ -14,41 +14,34 @@ export async function POST(request) {
 
     let weatherData = null
 
-    // Try OpenWeatherMap API first
+    // Try all weather APIs in parallel for better performance
     try {
-      weatherData = await fetchOpenWeatherMapData(location, month)
-      if (weatherData) {
-        console.log("[v0] Successfully fetched data from OpenWeatherMap API")
-        return NextResponse.json({ weatherData })
+      const weatherPromises = [
+        fetchOpenWeatherMapData(location, month).catch(err => ({ error: err.message, source: 'OpenWeatherMap' })),
+        fetchOpenMeteoData(location, month).catch(err => ({ error: err.message, source: 'Open-Meteo' })),
+        fetchWeatherAPIData(location, month).catch(err => ({ error: err.message, source: 'WeatherAPI' }))
+      ]
+
+      const results = await Promise.allSettled(weatherPromises)
+      
+      // Find the first successful result
+      for (const result of results) {
+        if (result.status === 'fulfilled' && result.value && !result.value.error) {
+          weatherData = result.value
+          console.log(`[v0] Successfully fetched data from ${result.value.source || 'weather API'}`)
+          break
+        }
+      }
+
+      // If no API succeeded, use fallback
+      if (!weatherData) {
+        console.log("[v0] All external APIs failed, using enhanced location-based weather generation")
+        weatherData = generateEnhancedLocationBasedWeather(location, month)
       }
     } catch (error) {
-      console.log("[v0] OpenWeatherMap API failed:", error.message)
+      console.log("[v0] Weather API error, using fallback:", error.message)
+      weatherData = generateEnhancedLocationBasedWeather(location, month)
     }
-
-    // Try Open-Meteo API (free alternative)
-    try {
-      weatherData = await fetchOpenMeteoData(location, month)
-      if (weatherData) {
-        console.log("[v0] Successfully fetched data from Open-Meteo API")
-        return NextResponse.json({ weatherData })
-      }
-    } catch (error) {
-      console.log("[v0] Open-Meteo API failed:", error.message)
-    }
-
-    // Try WeatherAPI.com as third option
-    try {
-      weatherData = await fetchWeatherAPIData(location, month)
-      if (weatherData) {
-        console.log("[v0] Successfully fetched data from WeatherAPI.com")
-        return NextResponse.json({ weatherData })
-      }
-    } catch (error) {
-      console.log("[v0] WeatherAPI.com failed:", error.message)
-    }
-
-    console.log("[v0] All external APIs failed, using enhanced location-based weather generation")
-    weatherData = generateEnhancedLocationBasedWeather(location, month)
 
     return NextResponse.json({ weatherData })
   } catch (error) {
@@ -78,7 +71,7 @@ async function fetchOpenWeatherMapData(location, month) {
   // Get coordinates for the location
   const geoResponse = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(location)}&limit=1&appid=${apiKey}`,
-    { timeout: 5000 },
+    { timeout: 3000 },
   )
 
   if (!geoResponse.ok) {
@@ -95,7 +88,7 @@ async function fetchOpenWeatherMapData(location, month) {
   // Get weather forecast
   const weatherResponse = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`,
-    { timeout: 5000 },
+    { timeout: 3000 },
   )
 
   if (!weatherResponse.ok) {
@@ -111,7 +104,7 @@ async function fetchOpenMeteoData(location, month) {
   const geoResponse = await fetch(
     `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`,
     {
-      timeout: 5000,
+      timeout: 3000,
       headers: { "User-Agent": "CropWise-AI/1.0" },
     },
   )
@@ -130,7 +123,7 @@ async function fetchOpenMeteoData(location, month) {
   // Get weather forecast from Open-Meteo (free API)
   const weatherResponse = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,relative_humidity_2m,wind_speed_10m&timezone=auto&forecast_days=7`,
-    { timeout: 5000 },
+    { timeout: 3000 },
   )
 
   if (!weatherResponse.ok) {
@@ -151,7 +144,7 @@ async function fetchWeatherAPIData(location, month) {
   const query = location && location.includes(',') ? location : `${location}, India`
 
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 6000)
+  const timer = setTimeout(() => controller.abort(), 3000)
   try {
     const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=7&aqi=no&alerts=no`
     const weatherResponse = await fetch(url, {

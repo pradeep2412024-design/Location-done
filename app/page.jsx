@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useLocationAutocomplete } from "@/hooks/useLocationAutocomplete"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -261,84 +262,106 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <header style={{ backgroundColor: "rgba(255,253,246,255)" }} className="border-b border-amber-100">
+    <div className="min-h-screen agricultural-bg">
+      <header className="agricultural-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-                <Sprout className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 green-gradient logo-shine rounded-xl flex items-center justify-center shadow-lg">
+                <Sprout className="w-6 h-6 text-white relative z-10" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">{t("app.name")}</h1>
-                <p className="text-xs text-gray-600">{t("app.tagline")}</p>
+                <h1 className="text-xl font-bold text-green-800">{t("app.name")}</h1>
+                <p className="text-xs text-green-600">{t("app.tagline")}</p>
               </div>
             </div>
-            <div className="hidden sm:block">
-              <LanguageSwitch />
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Link href="/login">
+                  <Button variant="outline" size="sm" className="border-green-200 text-green-600 hover:bg-green-50 hover:border-green-300 hidden sm:flex">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="green-gradient logo-shine hover:opacity-90 text-white shadow-lg hidden sm:flex">
+                    Sign Up
+                  </Button>
+                </Link>
+                {/* Mobile menu button */}
+                <div className="sm:hidden">
+                  <Link href="/login">
+                    <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
+                      Sign In
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="hidden sm:block">
+                <LanguageSwitch />
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t("home.hero.title")}</h2>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto mb-12">{t("home.hero.subtitle")}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">{t("home.hero.title")}</h2>
+          <p className="text-lg text-green-700 max-w-4xl mx-auto mb-12">{t("home.hero.subtitle")}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">
-          <Card className="border-0 shadow-md" style={{ backgroundColor: "rgba(255,253,246,255)" }}>
+          <Card className="farmer-card">
             <CardContent className="p-6 text-center">
-              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-5 h-5 text-orange-600" />
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <TrendingUp className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">15%</div>
-              <div className="text-sm text-gray-600">{t("home.stats.yield_increase")}</div>
+              <div className="text-3xl font-bold text-green-800 mb-1">15%</div>
+              <div className="text-sm text-green-700">{t("home.stats.yield_increase")}</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md" style={{ backgroundColor: "rgba(255,253,246,255)" }}>
+          <Card className="farmer-card">
             <CardContent className="p-6 text-center">
-              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="w-5 h-5 text-orange-600" />
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">50K+</div>
-              <div className="text-sm text-gray-600">{t("home.stats.farmers_helped")}</div>
+              <div className="text-3xl font-bold text-green-800 mb-1">50K+</div>
+              <div className="text-sm text-green-700">{t("home.stats.farmers_helped")}</div>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-md" style={{ backgroundColor: "rgba(255,253,246,255)" }}>
+          <Card className="farmer-card">
             <CardContent className="p-6 text-center">
-              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Target className="w-5 h-5 text-orange-600" />
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Target className="w-5 h-5 text-green-600" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-1">95%</div>
-              <div className="text-sm text-gray-600">{t("home.stats.prediction_accuracy")}</div>
+              <div className="text-3xl font-bold text-green-800 mb-1">95%</div>
+              <div className="text-sm text-green-700">{t("home.stats.prediction_accuracy")}</div>
             </CardContent>
           </Card>
         </div>
 
-        <Card className="max-w-3xl mx-auto bg-orange-50 border-0 shadow-lg" style={{ backgroundColor: "#fffbed" }}>
+        <Card className="max-w-3xl mx-auto farmer-card shadow-lg leaf-pattern">
           <CardContent className="p-10">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">{t("home.form.title")}</h3>
-              <p className="text-gray-600 text-lg">{t("home.form.subtitle")}</p>
+              <h3 className="text-2xl font-bold text-green-800 mb-3">{t("home.form.title")}</h3>
+              <p className="text-green-700 text-lg">{t("home.form.subtitle")}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.name_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.name_label")}</label>
                 <Input
                   placeholder={t("home.form.name_placeholder")}
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="bg-white"
+                  className="bg-white border-green-200 focus:border-green-400 focus:ring-green-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.location_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.location_label")}</label>
                 <div className="relative" ref={prevDropdownRef}>
                   <Input
                     ref={locationInputRef}
@@ -346,17 +369,17 @@ export default function HomePage() {
                     value={formData.location}
                     onChange={(e) => { handleInputChange("location", e.target.value); loc.setQuery(e.target.value) }}
                     required
-                    className="bg-white pr-12"
+                    className="bg-white pr-12 border-green-200 focus:border-green-400 focus:ring-green-400"
                     autoComplete="off"
                   />
                   {loc.open && loc.suggestions.length > 0 && (
-                    <div ref={locationSuggestionsRef} className="absolute left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-20">
+                    <div ref={locationSuggestionsRef} className="absolute left-0 right-0 mt-1 bg-white border border-green-300 rounded-md shadow-lg max-h-60 overflow-y-auto z-20">
                       {loc.suggestions.map((s, i) => (
                         <button
                           key={i}
                           type="button"
                           onClick={() => { handleInputChange("location", s.displayName); loc.setOpen(false) }}
-                          className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-orange-50"
+                          className="w-full text-left px-3 py-2 text-sm text-green-700 hover:bg-green-50"
                         >
                           {s.displayName}
                         </button>
@@ -367,33 +390,33 @@ export default function HomePage() {
                     type="button"
                     onClick={getCurrentLocation}
                     disabled={isGettingLocation}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-orange-600 hover:text-orange-700 disabled:opacity-50 cursor-pointer"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-green-600 hover:text-green-700 disabled:opacity-50 cursor-pointer"
                   >
                     <Navigation className={`w-4 h-4 ${isGettingLocation ? "animate-spin" : ""}`} />
                   </button>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">{t("home.form.location_help")}</p>
+                <p className="text-xs text-green-600 mt-1">{t("home.form.location_help")}</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.size_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.size_label")}</label>
                 <Input
                   placeholder={t("home.form.size_placeholder")}
                   value={formData.farmSize}
                   onChange={(e) => handleInputChange("farmSize", e.target.value)}
                   required
-                  className="bg-white"
+                  className="bg-white border-green-200 focus:border-green-400 focus:ring-green-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.prev_crop_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.prev_crop_label")}</label>
                 <div className="relative" ref={nextDropdownRef}>
                   <Input
                     placeholder={t("home.form.prev_crop_placeholder")}
                     value={formData.previousCrop}
                     onChange={(e) => handleInputChange("previousCrop", e.target.value)}
-                    className="bg-white pr-8"
+                    className="bg-white pr-8 border-green-200 focus:border-green-400 focus:ring-green-400"
                   />
                   <button
                     type="button"
@@ -406,10 +429,10 @@ export default function HomePage() {
                   </button>
 
                   {showPreviousCropDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-green-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                       {Object.entries(cropCategories).map(([category, crops]) => (
                         <div key={category}>
-                          <div className="px-3 py-2 text-sm font-semibold text-gray-700 bg-gray-50 border-b">
+                          <div className="px-3 py-2 text-sm font-semibold text-green-700 bg-green-50 border-b border-green-200">
                             {t(`crop_categories.${category.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`) || category}
                           </div>
                           {crops.map((crop) => (
@@ -417,7 +440,7 @@ export default function HomePage() {
                               key={crop}
                               type="button"
                               onClick={() => handleCropSelect(crop, "previousCrop")}
-                              className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 cursor-pointer"
+                              className="w-full text-left px-3 py-2 text-sm text-green-700 hover:bg-green-50 hover:text-green-800 cursor-pointer"
                             >
                               {translateCrop(crop)}
                             </button>
@@ -430,14 +453,14 @@ export default function HomePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.next_crop_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.next_crop_label")}</label>
                 <div className="relative">
                   <Input
                     placeholder={t("home.form.next_crop_placeholder")}
                     value={formData.nextCrop}
                     onChange={(e) => handleInputChange("nextCrop", e.target.value)}
                     required
-                    className="bg-white pr-8"
+                    className="bg-white pr-8 border-green-200 focus:border-green-400 focus:ring-green-400"
                   />
                   <button
                     type="button"
@@ -450,10 +473,10 @@ export default function HomePage() {
                   </button>
 
                   {showNextCropDropdown && (
-                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-green-300 rounded-md shadow-lg max-h-60 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                       {Object.entries(cropCategories).map(([category, crops]) => (
                         <div key={category}>
-                          <div className="px-3 py-2 text-sm font-semibold text-gray-700 bg-gray-50 border-b">
+                          <div className="px-3 py-2 text-sm font-semibold text-green-700 bg-green-50 border-b border-green-200">
                             {t(`crop_categories.${category.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`) || category}
                           </div>
                           {crops.map((crop) => (
@@ -461,7 +484,7 @@ export default function HomePage() {
                               key={crop}
                               type="button"
                               onClick={() => handleCropSelect(crop, "nextCrop")}
-                              className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 cursor-pointer"
+                              className="w-full text-left px-3 py-2 text-sm text-green-700 hover:bg-green-50 hover:text-green-800 cursor-pointer"
                             >
                               {translateCrop(crop)}
                             </button>
@@ -474,9 +497,9 @@ export default function HomePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t("home.form.month_label")}</label>
+                <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.month_label")}</label>
                 <select
-                  className="w-full p-3 border border-gray-300 rounded-md bg-white text-gray-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none bg-no-repeat bg-right pr-10 cursor-pointer"
+                  className="w-full p-3 border border-green-300 rounded-md bg-white text-green-700 focus:ring-2 focus:ring-green-500 focus:border-green-500 appearance-none bg-no-repeat bg-right pr-10 cursor-pointer"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
                     backgroundPosition: "right 0.5rem center",
@@ -504,7 +527,7 @@ export default function HomePage() {
 
               <Button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 text-lg cursor-pointer"
+                className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg cursor-pointer shadow-lg"
                 disabled={
                   isLoading ||
                   !formData.location ||
@@ -521,28 +544,28 @@ export default function HomePage() {
         </Card>
 
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">{t("home.benefits.title")}</h3>
+          <h3 className="text-2xl font-bold text-green-800 mb-8">{t("home.benefits.title")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">{t("home.benefits.yield.title")}</h4>
-              <p className="text-gray-600">{t("home.benefits.yield.desc")}</p>
+              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.yield.title")}</h4>
+              <p className="text-green-700">{t("home.benefits.yield.desc")}</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sprout className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sprout className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">{t("home.benefits.recommendations.title")}</h4>
-              <p className="text-gray-600">{t("home.benefits.recommendations.desc")}</p>
+              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.recommendations.title")}</h4>
+              <p className="text-green-700">{t("home.benefits.recommendations.desc")}</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Target className="w-6 h-6 text-orange-600" />
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Target className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">{t("home.benefits.weather.title")}</h4>
-              <p className="text-gray-600">{t("home.benefits.weather.desc")}</p>
+              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.weather.title")}</h4>
+              <p className="text-green-700">{t("home.benefits.weather.desc")}</p>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle } from "lucide-react"
 import { useI18n } from "@/i18n"
+import { useAuth } from "@/app/contexts/AuthContext"
 import LanguageSwitch from "@/components/LanguageSwitch"
 import EnhancedCropWiseChatbot from "@/components/EnhancedCropWiseChatbot"
 import { useAppContext } from "@/contexts/AppContext"
@@ -3344,10 +3345,10 @@ export default function Dashboard() {
   const router = useRouter()
   const { t } = useI18n()
   const { setUserData, setAnalysisData } = useAppContext()
+  const { user, logout } = useAuth()
   const [farmData, setFarmData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [activeTab, setActiveTab] = useState("dashboard")
-  const [showExternalMenu, setShowExternalMenu] = useState(false)
   const [showFloatingBox, setShowFloatingBox] = useState(false)
   const [selectedExternalTool, setSelectedExternalTool] = useState(null)
 
@@ -3357,7 +3358,7 @@ export default function Dashboard() {
   const [showSoilHealthPanel, setShowSoilHealthPanel] = useState(false)
   const [showWeatherRiskPanel, setShowWeatherRiskPanel] = useState(false)
   const [userInputData, setUserInputData] = useState({
-    location: "Odisha",
+    location: "",
     crop: "",
     month: "",
     hectare: "",
@@ -3977,18 +3978,16 @@ export default function Dashboard() {
   ]
 
   const tabs = [
-    { id: "dashboard", label: t("dashboard.tabs.dashboard") },
-    { id: "yield", label: t("dashboard.tabs.yield_prediction") },
-    { id: "optimization", label: t("dashboard.tabs.optimization") },
-    { id: "iot", label: t("dashboard.tabs.iot_sensors") },
-    { id: "timeline", label: t("dashboard.tabs.timeline") },
-    { id: "sustainability", label: t("dashboard.tabs.sustainability") },
-    { id: "market", label: t("dashboard.tabs.market_analysis") },
-    { id: "recommended", label: t("dashboard.tabs.recommended_crops") },
-    { id: "schemes", label: "Government Schemes" },
+    { id: "dashboard", label: "Dashboard", icon: "📊", priority: "high" },
+    { id: "yield", label: "Yield Prediction", icon: "📈", priority: "high" },
+    { id: "recommended", label: "Recommended Crops", icon: "🌱", priority: "high" },
+    { id: "market", label: "Market Analysis", icon: "💰", priority: "high" },
+    { id: "optimization", label: "Optimization", icon: "⚡", priority: "medium" },
+    { id: "iot", label: "IoT Sensors", icon: "📡", priority: "medium" },
+    { id: "timeline", label: "Timeline", icon: "📅", priority: "medium" },
+    { id: "sustainability", label: "Sustainability", icon: "🌍", priority: "low" },
+    { id: "schemes", label: "Government Schemes", icon: "🏛️", priority: "low" },
   ]
-
-  const externalMenuItems = ["Disease Detection", "Community", "AI Chatbot"]
 
   const timelineData = [
     {
@@ -4017,7 +4016,7 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Weather Forecast */}
-              <Card className="bg-amber-50 border-amber-200">
+              <Card className="farmer-card">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg font-semibold flex items-center justify-between">
                     {t("dashboard.weather.title")}
@@ -4166,7 +4165,7 @@ export default function Dashboard() {
               </Card>
 
               {/* Soil Condition Analysis */}
-              <Card className="bg-amber-50 border-amber-200">
+              <Card className="farmer-card">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold flex items-center justify-between">
                     {t("dashboard.soil.title")}
@@ -4560,7 +4559,7 @@ export default function Dashboard() {
       case "iot":
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-blue-50 border-blue-200">
+            <Card className="farmer-card">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold flex items-center justify-between">
                   {t("dashboard.sensor.title")}
@@ -4624,7 +4623,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="bg-blue-50 border-blue-200">
+            <Card className="farmer-card">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">{t("dashboard.alerts.title")}</CardTitle>
                 <p className="text-sm text-gray-600">{t("dashboard.alerts.subtitle")}</p>
@@ -4696,7 +4695,7 @@ export default function Dashboard() {
       case "timeline":
         return (
           <div className="space-y-6">
-            <Card className="bg-green-50 border-green-200">
+            <Card className="farmer-card">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold flex items-center">
                   {t("dashboard.timeline.title_for", { crop: t(`crops.${(farmData?.userInfo?.nextCrop || userInputData.crop || "").toLowerCase().replace(/\s+/g, '_').replace(/[()]/g, '')}`) || (farmData?.userInfo?.nextCrop || userInputData.crop) })}
@@ -4879,7 +4878,7 @@ export default function Dashboard() {
       case "sustainability":
         return (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="bg-green-50 border-green-200">
+            <Card className="farmer-card">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold flex items-center">
                   {t("dashboard.sustainability.header_title")}
@@ -4938,7 +4937,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="bg-green-50 border-green-200">
+            <Card className="farmer-card">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold flex items-center">
                   {t("dashboard.disease.header_title")}
@@ -5033,8 +5032,8 @@ export default function Dashboard() {
   if (isLoading) {
     console.log("[v0] Rendering loading state")
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-lg">Loading dashboard...</div>
+      <div className="min-h-screen agricultural-bg flex items-center justify-center">
+        <div className="text-lg text-green-700">Loading dashboard...</div>
       </div>
     )
   }
@@ -5042,10 +5041,10 @@ export default function Dashboard() {
   if (!farmData) {
     console.log("[v0] Rendering no data state")
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen agricultural-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="text-lg mb-4">No farm data found</div>
-          <Button onClick={() => router.push("/")} className="bg-orange-500 hover:bg-orange-600">
+          <div className="text-lg mb-4 text-green-700">No farm data found</div>
+          <Button onClick={() => router.push("/")} className="green-gradient hover:opacity-90">
             Go Back to Home
           </Button>
         </div>
@@ -5055,8 +5054,8 @@ export default function Dashboard() {
 
   console.log("[v0] Rendering main dashboard")
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="bg-white shadow-sm border-b">
+    <div className="min-h-screen agricultural-bg animated-gradient">
+      <div className="dashboard-header">
         <div className="w-full px-2 sm:px-4 lg:px-6">
           {/* Header */}
           <div className="flex items-center justify-between py-4">
@@ -5065,12 +5064,12 @@ export default function Dashboard() {
                 ←
               </Button>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                  <Sprout className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 green-gradient logo-shine rounded-lg flex items-center justify-center shadow-lg">
+                  <Sprout className="w-5 h-5 text-white relative z-10" />
                 </div>
                 <div>
-                  <span className="text-xl font-bold text-gray-900">CropWise AI</span>
-                  <p className="text-xs text-gray-600">Smart Farming Solutions</p>
+                  <span className="text-xl font-bold text-green-800">CropWise AI</span>
+                  <p className="text-xs text-green-600">Smart Farming Solutions</p>
                 </div>
               </div>
             </div>
@@ -5095,16 +5094,25 @@ export default function Dashboard() {
               >
                 Update Farm Details
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowExternalMenu(!showExternalMenu)}
-                className="relative"
-              >
-                More Tools
-              </Button>
+              <div className="flex items-center space-x-3">
               <div className="hidden sm:block">
                 <LanguageSwitch />
+              </div>
+                {user && (
+                  <div className="flex items-center space-x-2">
+                    <div className="text-sm text-green-600">
+                      Welcome, <span className="font-semibold">{user.name}</span>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={logout}
+                      className="border-green-200 text-green-600 hover:bg-green-50"
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -5121,110 +5129,101 @@ export default function Dashboard() {
           </div>
 
           {/* Metrics Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pb-6">
-            <Card className="bg-orange-50 border-orange-200 cursor-pointer hover:bg-orange-100 transition-colors" onClick={() => setShowYieldIncreasePanel(!showYieldIncreasePanel)}>
-              <CardContent className="p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-8">
+            <Card className="stat-card cursor-pointer" onClick={() => setShowYieldIncreasePanel(!showYieldIncreasePanel)}>
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">{t("dashboard.metrics.predicted_yield_increase")}</p>
-                    <p className="text-2xl font-bold text-orange-600">
+                    <p className="text-sm text-green-600 font-medium">{t("dashboard.metrics.predicted_yield_increase")}</p>
+                    <p className="text-3xl font-bold text-green-700 mt-2">
                       {farmData?.predictions?.yieldIncrease || "8-12%"}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">Click to view breakdown</p>
+                    <p className="text-xs text-green-500 mt-2">Click to view breakdown</p>
                   </div>
-                  <TrendingUp className="w-8 h-8 text-orange-500" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-6 h-6 text-green-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-green-50 border-green-200 cursor-pointer hover:bg-green-100 transition-colors" onClick={() => setShowSoilHealthPanel(!showSoilHealthPanel)}>
-              <CardContent className="p-4">
+            <Card className="stat-card cursor-pointer" onClick={() => setShowSoilHealthPanel(!showSoilHealthPanel)}>
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">{t("dashboard.metrics.soil_health_score")}</p>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-sm text-green-600 font-medium">{t("dashboard.metrics.soil_health_score")}</p>
+                    <p className="text-3xl font-bold text-green-700 mt-2">
                       {farmData?.predictions?.soilHealthScore || "76"}/100
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">Click to view analysis</p>
+                    <p className="text-xs text-green-500 mt-2">Click to view analysis</p>
                   </div>
-                  <Sprout className="w-8 h-8 text-green-500" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <Sprout className="w-6 h-6 text-green-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-blue-50 border-blue-200 cursor-pointer hover:bg-blue-100 transition-colors" onClick={() => setShowWeatherRiskPanel(!showWeatherRiskPanel)}>
-              <CardContent className="p-4">
+            <Card className="stat-card cursor-pointer" onClick={() => setShowWeatherRiskPanel(!showWeatherRiskPanel)}>
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">{t("dashboard.metrics.weather_risk")}</p>
-                    <p className="text-2xl font-bold text-blue-600">{t(`dashboard.disease.risk_levels.${(farmData?.predictions?.weatherRisk || "medium").toLowerCase()}`)}</p>
-                    <p className="text-xs text-gray-500 mt-1">Click to view factors</p>
+                    <p className="text-sm text-green-600 font-medium">{t("dashboard.metrics.weather_risk")}</p>
+                    <p className="text-3xl font-bold text-green-700 mt-2">{t(`dashboard.disease.risk_levels.${(farmData?.predictions?.weatherRisk || "medium").toLowerCase()}`)}</p>
+                    <p className="text-xs text-green-500 mt-2">Click to view factors</p>
                   </div>
-                  <Thermometer className="w-8 h-8 text-blue-500" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <Thermometer className="w-6 h-6 text-green-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-red-50 border-red-200 cursor-pointer hover:bg-red-100 transition-colors" onClick={() => setShowPriorityTasksPanel(!showPriorityTasksPanel)}>
-              <CardContent className="p-4">
+            <Card className="stat-card cursor-pointer" onClick={() => setShowPriorityTasksPanel(!showPriorityTasksPanel)}>
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">{t("dashboard.metrics.high_priority_tasks")}</p>
-                    <p className="text-2xl font-bold text-red-600">{farmData?.predictions?.priorityTasks || "0"}</p>
-                    <p className="text-xs text-gray-500 mt-1">Click to view details</p>
+                    <p className="text-sm text-green-600 font-medium">{t("dashboard.metrics.high_priority_tasks")}</p>
+                    <p className="text-3xl font-bold text-green-700 mt-2">{farmData?.predictions?.priorityTasks || "0"}</p>
+                    <p className="text-xs text-green-500 mt-2">Click to view details</p>
                   </div>
-                  <AlertTriangle className="w-8 h-8 text-red-500" />
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="w-6 h-6 text-green-600" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Navigation Tabs */}
-          <div className="flex space-x-1 overflow-x-auto">
-            {tabs.map((tab) => (
-              <Button
-                key={tab.id}
-                variant={activeTab === tab.id ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setActiveTab(tab.id)}
-                className={`whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? "bg-orange-500 text-white hover:bg-orange-600"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {tab.label}
-              </Button>
-            ))}
+          {/* Navigation Tabs - Compact Layout */}
+          <div className="pb-4">
+            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
+              {tabs.map((tab) => (
+                <Button
+                  key={tab.id}
+                  variant={activeTab === tab.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`h-12 transition-all duration-300 ${
+                    activeTab === tab.id
+                      ? "green-gradient hover:opacity-90 text-white shadow-lg"
+                      : "text-green-600 hover:text-green-800 hover:bg-green-50 border-green-200"
+                  }`}
+                >
+                  <div className="flex flex-col items-center space-y-0.5">
+                    <span className="text-sm">{tab.icon}</span>
+                    <span className="text-xs font-medium text-center leading-tight">{tab.label}</span>
+                  </div>
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="w-full px-2 sm:px-4 lg:px-6 py-6">{renderTabContent()}</div>
+      <div className="dashboard-content">{renderTabContent()}</div>
 
-      {/* External Menu */}
-      {showExternalMenu && (
-        <div className="fixed top-20 right-4 bg-white rounded-lg shadow-xl border z-50 min-w-[200px]">
-          <div className="p-2">
-            {externalMenuItems.map((item, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start text-left"
-                onClick={() => {
-                  setSelectedExternalTool(item)
-                  setShowFloatingBox(true)
-                  setShowExternalMenu(false)
-                }}
-              >
-                {item}
-              </Button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Yield Increase Panel */}
       {showYieldIncreasePanel && (
@@ -5421,6 +5420,9 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Farmer Avatar */}
+      <div className="farmer-avatar" title="Your Farming Assistant"></div>
 
       {/* CropWiseAI Chatbot */}
       <EnhancedCropWiseChatbot />

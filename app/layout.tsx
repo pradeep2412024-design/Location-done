@@ -7,10 +7,14 @@ import { Suspense } from "react"
 import "./globals.css"
 import { I18nProvider } from "@/i18n"
 import { AppProvider } from "@/contexts/AppContext"
+import { AuthProvider } from "@/app/contexts/AuthContext"
 
 export const metadata: Metadata = {
   title: "CropWise AI - Smart Farming Solutions",
   description: "AI-powered crop yield prediction and optimization platform for farmers",
+  icons: {
+    icon: "/favicon.svg",
+  },
 }
 
 export default function RootLayout({
@@ -23,7 +27,9 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <I18nProvider>
           <AppProvider>
-            <Suspense fallback={null}>{children}</Suspense>
+            <AuthProvider>
+              <Suspense fallback={null}>{children}</Suspense>
+            </AuthProvider>
           </AppProvider>
         </I18nProvider>
         {/* <Analytics /> */}

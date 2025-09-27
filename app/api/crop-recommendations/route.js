@@ -1,5 +1,43 @@
 import { NextResponse } from "next/server"
 
+// Simple in-memory cache for crop recommendations
+const cropCache = new Map()
+const CACHE_TIMEOUT = 10 * 60 * 1000 // 10 minutes
+const MAX_CACHE_SIZE = 50
+
+function getCacheKey(location, month, category, previousCrop, state) {
+  return `${location}-${month}-${category || 'all'}-${previousCrop || 'none'}-${state}`.toLowerCase()
+}
+
+function getCachedData(location, month, category, previousCrop, state) {
+  const key = getCacheKey(location, month, category, previousCrop, state)
+  const cached = cropCache.get(key)
+  
+  if (cached && Date.now() - cached.timestamp < CACHE_TIMEOUT) {
+    return cached.data
+  }
+  
+  if (cached) {
+    cropCache.delete(key)
+  }
+  
+  return null
+}
+
+function setCachedData(location, month, category, previousCrop, state, data) {
+  const key = getCacheKey(location, month, category, previousCrop, state)
+  
+  if (cropCache.size >= MAX_CACHE_SIZE) {
+    const oldestKey = cropCache.keys().next().value
+    cropCache.delete(oldestKey)
+  }
+  
+  cropCache.set(key, {
+    data,
+    timestamp: Date.now()
+  })
+}
+
 export async function POST(request) {
   try {
     const { location, month, soilData, weatherData, category, previousCrop } = await request.json()
@@ -13,7 +51,23 @@ export async function POST(request) {
     // Get state from location
     const state = getStateFromLocation(location)
     
-    // Fetch soil and weather data if not provided
+    // Check cache first
+    const cachedResult = getCachedData(location, month, category, previousCrop, state)
+    if (cachedResult) {
+      console.log("[Crop Recommendations] Returning cached data")
+      return NextResponse.json({
+        success: true,
+        recommendations: cachedResult.recommendations,
+        location,
+        month,
+        category,
+        state,
+        dataSource: cachedResult.dataSource,
+        cached: true
+      })
+    }
+    
+    // Fetch soil and weather data if not provided - using parallel calls for better performance
     let finalSoilData = soilData
     let finalWeatherData = weatherData
 
@@ -21,30 +75,52 @@ export async function POST(request) {
       const { origin } = new URL(request.url)
       const baseUrl = origin
 
-      // Fetch soil data
+      // Create parallel fetch promises
+      const fetchPromises = []
+      
       if (!finalSoilData) {
-        const soilResponse = await fetch(`${baseUrl}/api/soil`, {
+        fetchPromises.push(
+          fetch(`${baseUrl}/api/soil`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ location, month }),
-        })
-        if (soilResponse.ok) {
-          const soilResult = await soilResponse.json()
-          finalSoilData = soilResult.data
-        }
+          }).then(async (response) => {
+            if (response.ok) {
+              const result = await response.json()
+              return { type: 'soil', data: result.data }
+            }
+            return { type: 'soil', data: null }
+          }).catch(() => ({ type: 'soil', data: null }))
+        )
       }
 
-      // Fetch weather data
       if (!finalWeatherData) {
-        const weatherResponse = await fetch(`${baseUrl}/api/weather`, {
+        fetchPromises.push(
+          fetch(`${baseUrl}/api/weather`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ location, month }),
+          }).then(async (response) => {
+            if (response.ok) {
+              const result = await response.json()
+              return { type: 'weather', data: result.weatherData }
+            }
+            return { type: 'weather', data: null }
+          }).catch(() => ({ type: 'weather', data: null }))
+        )
+      }
+
+      // Wait for all parallel requests to complete
+      if (fetchPromises.length > 0) {
+        const results = await Promise.all(fetchPromises)
+        
+        results.forEach(result => {
+          if (result.type === 'soil' && result.data) {
+            finalSoilData = result.data
+          } else if (result.type === 'weather' && result.data) {
+            finalWeatherData = result.data
+          }
         })
-        if (weatherResponse.ok) {
-          const weatherResult = await weatherResponse.json()
-          finalWeatherData = weatherResult.weatherData
-        }
       }
     }
 
@@ -61,7 +137,7 @@ export async function POST(request) {
       ? await getOdishaCropRecommendations(finalSoilData, finalWeatherData, location, month, category, previousCrop)
       : await getMultiStateCropRecommendations(finalSoilData, finalWeatherData, location, month, category, previousCrop, state)
 
-    return NextResponse.json({
+    const result = {
       success: true,
       recommendations,
       location,
@@ -69,7 +145,12 @@ export async function POST(request) {
       category,
       state,
       dataSource: state === 'odisha' ? 'odisha_database' : 'multi_state_database'
-    })
+    }
+
+    // Cache the result
+    setCachedData(location, month, category, previousCrop, state, result)
+
+    return NextResponse.json(result)
 
   } catch (error) {
     console.error("Crop recommendations API error:", error)
@@ -127,12 +208,27 @@ function getStateFromLocation(location) {
   return 'other'
 }
 
+// Cache for agricultural database
+let agriculturalDatabase = null
+let databaseLoadTime = 0
+const DATABASE_CACHE_TIMEOUT = 30 * 60 * 1000 // 30 minutes
+
+async function getAgriculturalDatabase() {
+  if (agriculturalDatabase && Date.now() - databaseLoadTime < DATABASE_CACHE_TIMEOUT) {
+    return agriculturalDatabase
+  }
+  
+  const database = await import('../../../complete_agricultural_database.json')
+  agriculturalDatabase = database.default
+  databaseLoadTime = Date.now()
+  return agriculturalDatabase
+}
+
 // Get Odisha-specific crop recommendations
 async function getOdishaCropRecommendations(soilData, weatherData, location, month, category, previousCrop) {
   try {
-    // Load agricultural database
-    const database = await import('../../../complete_agricultural_database.json')
-    const db = database.default
+    // Load agricultural database (with caching)
+    const db = await getAgriculturalDatabase()
     
     // Get Odisha yield data
     const odishaYieldData = db.yieldData?.odisha || {}
@@ -219,9 +315,8 @@ async function getOdishaCropRecommendations(soilData, weatherData, location, mon
 // Get multi-state crop recommendations
 async function getMultiStateCropRecommendations(soilData, weatherData, location, month, category, previousCrop, state) {
   try {
-    // Load agricultural database
-    const database = await import('../../../complete_agricultural_database.json')
-    const db = database.default
+    // Load agricultural database (with caching)
+    const db = await getAgriculturalDatabase()
     
     // Get state yield data
     const stateYieldData = db.yieldData?.[state] || {}

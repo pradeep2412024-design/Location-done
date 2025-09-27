@@ -2,8 +2,8 @@ export async function POST(request) {
   try {
     const formData = await request.json()
 
-    // Simulate AI processing delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    // Removed artificial delay for better performance
+    // await new Promise((resolve) => setTimeout(resolve, 2000))
 
     // Mock AI prediction response based on form data
     const mockResponse = {
