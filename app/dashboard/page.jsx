@@ -5010,8 +5010,8 @@ export default function Dashboard() {
             {/* Advanced Market Analysis Component */}
             <AdvancedMarketAnalysis
               crop={farmData?.userInfo?.nextCrop || userInputData.crop || "Chickpea"}
-              location={farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha"}
-              state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha")}
+              location={farmData?.userInfo?.location || userInputData.location}
+              state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location)}
               month={farmData?.userInfo?.cultivationMonth || userInputData.month || "6"}
               onAnalysisUpdate={(data) => {
                 // Update any parent state if needed
@@ -5038,8 +5038,8 @@ export default function Dashboard() {
         return (
           <GovernmentSchemes 
             crop={farmData?.userInfo?.crop || userInputData.crop || ""}
-            location={farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha"}
-            state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location || "Bhubaneswar, Odisha")}
+            location={farmData?.userInfo?.location || userInputData.location}
+            state={getStateFromLocation(farmData?.userInfo?.location || userInputData.location)}
             farmSize={farmData?.userInfo?.hectare || userInputData.hectare || "2"}
           />
         )

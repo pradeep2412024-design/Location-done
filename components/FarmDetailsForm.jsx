@@ -70,9 +70,9 @@ export default function FarmDetailsForm({ userInputData, setUserInputData, onSub
           <input
             ref={locationInputRef}
             type="text"
-            value={userInputData.location || "Odisha"}
+            value={userInputData.location || ""}
             onChange={(e) => { handleInputChange('location', e.target.value); loc.setQuery(e.target.value) }}
-            placeholder="Enter your location (default: Odisha)"
+            placeholder="Enter your location"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
             autoComplete="off"
