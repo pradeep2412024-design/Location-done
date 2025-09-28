@@ -12,8 +12,8 @@ export default function AgriculturalBackground({ children, className = "" }) {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
-          filter: "blur(4px) brightness(0.6) saturate(0.8)",
-          opacity: 0.3,
+          filter: "blur(3px) brightness(0.5) saturate(0.9)",
+          opacity: 0.7,
           transform: "scale(1.05)"
         }}
       />

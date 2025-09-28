@@ -137,11 +137,11 @@ export default function SignupPage() {
         {/* Signup Card */}
         <Card className="farmer-card shadow-xl">
           <CardHeader className="text-center pb-6">
-            <div className="w-16 h-16 green-gradient logo-shine rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-16 h-16 green-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <UserPlus className="w-8 h-8 text-white relative z-10" />
             </div>
-            <CardTitle className="text-2xl font-bold text-green-800">Join CropWise AI</CardTitle>
-            <p className="text-green-600">Create your account to get started</p>
+            <CardTitle className="text-2xl font-bold enhanced-heading">Join CropWise AI</CardTitle>
+            <p className="enhanced-subtitle">Create your account to get started</p>
           </CardHeader>
 
           <CardContent>
@@ -302,7 +302,7 @@ export default function SignupPage() {
 
                   <Button
                     type="submit"
-                    className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg shadow-lg"
+                    className="w-full green-gradient hover:opacity-90 text-white py-3 text-lg shadow-lg"
                     disabled={isLoading}
                   >
                     {isLoading ? "Processing..." : 
@@ -435,7 +435,7 @@ export default function SignupPage() {
 
                   <Button
                     type="submit"
-                    className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg shadow-lg"
+                    className="w-full green-gradient hover:opacity-90 text-white py-3 text-lg shadow-lg"
                     disabled={isLoading}
                   >
                     {isLoading ? "Processing..." : 

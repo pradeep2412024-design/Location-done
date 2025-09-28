@@ -98,11 +98,11 @@ export default function LoginPage() {
         {/* Login Card */}
         <Card className="farmer-card shadow-xl">
           <CardHeader className="text-center pb-6">
-            <div className="w-16 h-16 green-gradient logo-shine rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-16 h-16 green-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <User className="w-8 h-8 text-white relative z-10" />
             </div>
-            <CardTitle className="text-2xl font-bold text-green-800">Welcome Back</CardTitle>
-            <p className="text-green-600">Sign in to your CropWise AI account</p>
+            <CardTitle className="text-2xl font-bold enhanced-heading">Welcome Back</CardTitle>
+            <p className="enhanced-subtitle">Sign in to your CropWise AI account</p>
           </CardHeader>
 
           <CardContent>
@@ -130,7 +130,7 @@ export default function LoginPage() {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={(e) => handleInputChange("email", e.target.value)}
-                        className="pl-10 border-green-200 focus:border-green-400 focus:ring-green-400"
+                        className="enhanced-input pl-10"
                         required
                       />
                     </div>
@@ -144,7 +144,7 @@ export default function LoginPage() {
                         placeholder="Enter your password"
                         value={formData.password}
                         onChange={(e) => handleInputChange("password", e.target.value)}
-                        className="pr-10 border-green-200 focus:border-green-400 focus:ring-green-400"
+                        className="enhanced-input pr-10"
                         required
                       />
                       <button
@@ -169,7 +169,7 @@ export default function LoginPage() {
 
                   <Button
                     type="submit"
-                    className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg shadow-lg"
+                    className="w-full enhanced-button py-3 text-lg"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing in..." : "Sign In"}
@@ -200,7 +200,7 @@ export default function LoginPage() {
 
                       <Button
                         type="submit"
-                        className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg shadow-lg"
+                        className="w-full green-gradient hover:opacity-90 text-white py-3 text-lg shadow-lg"
                         disabled={isLoading}
                       >
                         {isLoading ? "Sending OTP..." : "Send OTP"}
@@ -241,7 +241,7 @@ export default function LoginPage() {
                         </Button>
                         <Button
                           type="submit"
-                          className="flex-1 green-gradient logo-shine hover:opacity-90 text-white shadow-lg"
+                          className="flex-1 green-gradient hover:opacity-90 text-white shadow-lg"
                           disabled={isLoading}
                         >
                           {isLoading ? "Verifying..." : "Verify OTP"}

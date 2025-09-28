@@ -8,20 +8,48 @@ export async function POST(request) {
 
     console.log(`[v0] Fetching soil data for location: ${location}, crop: ${crop}, month: ${month}`)
 
-    const getCoordinates = async (locationName) => {
-      try {
-        const geocodeResponse = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}&limit=1`,
-        )
+    // Overall timeout for the entire soil data fetching process
+    const overallController = new AbortController()
+    const overallTimeoutId = setTimeout(() => {
+      console.log(`[v0] Overall soil data fetch timeout after 10 seconds, using fallback data`)
+      overallController.abort()
+    }, 10000) // 10 second overall timeout
 
-        if (geocodeResponse.ok) {
-          const geocodeData = await geocodeResponse.json()
-          if (geocodeData.length > 0) {
-            console.log(`[v0] Geocoded ${locationName} to:`, geocodeData[0].lat, geocodeData[0].lon)
-            return {
-              lat: Number.parseFloat(geocodeData[0].lat),
-              lon: Number.parseFloat(geocodeData[0].lon),
+    try {
+      const getCoordinates = async (locationName) => {
+      try {
+        // Create AbortController for geocoding timeout
+        const geoController = new AbortController()
+        const geoTimeoutId = setTimeout(() => {
+          console.log(`[v0] Geocoding timeout after 5 seconds, using fallback coordinates`)
+          geoController.abort()
+        }, 5000) // 5 second timeout for geocoding
+
+        try {
+          const geocodeResponse = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}&limit=1`,
+            { signal: geoController.signal }
+          )
+
+          clearTimeout(geoTimeoutId) // Clear timeout if request completes
+
+          if (geocodeResponse.ok) {
+            const geocodeData = await geocodeResponse.json()
+            if (geocodeData.length > 0) {
+              console.log(`[v0] Geocoded ${locationName} to:`, geocodeData[0].lat, geocodeData[0].lon)
+              return {
+                lat: Number.parseFloat(geocodeData[0].lat),
+                lon: Number.parseFloat(geocodeData[0].lon),
+              }
             }
+          }
+        } catch (geoError) {
+          clearTimeout(geoTimeoutId) // Clear timeout on error
+          
+          if (geoError.name === 'AbortError') {
+            console.log(`[v0] Geocoding request aborted due to timeout, using fallback coordinates`)
+          } else {
+            console.error("Geocoding error:", geoError)
           }
         }
       } catch (error) {
@@ -46,16 +74,37 @@ export async function POST(request) {
       return coords
     }
 
-    const coordinates = await getCoordinates(location)
+      const coordinates = await getCoordinates(location)
 
-    const soilData = await fetchRealSoilData(coordinates, location, crop, month)
+      const soilData = await fetchRealSoilData(coordinates, location, crop, month)
 
-    console.log(`[v0] Fetched real soil data for ${location}:`, soilData)
+      console.log(`[v0] Fetched real soil data for ${location}:`, soilData)
 
-    return Response.json({
-      success: true,
-      data: soilData,
-    })
+      clearTimeout(overallTimeoutId) // Clear overall timeout if successful
+
+      return Response.json({
+        success: true,
+        data: soilData,
+      })
+    } catch (overallError) {
+      clearTimeout(overallTimeoutId) // Clear timeout on error
+      
+      if (overallError.name === 'AbortError') {
+        console.log(`[v0] Overall soil data fetch aborted due to timeout, using fallback data`)
+        // Generate fallback data with default coordinates
+        const fallbackCoords = { lat: 20.2961, lon: 85.8245 } // Odisha coordinates
+        const fallbackData = generateEnhancedLocationBasedSoilData(location, crop, month, fallbackCoords)
+        
+        return Response.json({
+          success: true,
+          data: fallbackData,
+          timeout: true,
+          message: "Data fetched using fallback due to timeout"
+        })
+      } else {
+        throw overallError
+      }
+    }
   } catch (error) {
     console.error("Soil API route error:", error)
     return Response.json({ success: false, error: "Failed to fetch soil data" }, { status: 500 })
@@ -73,26 +122,48 @@ async function fetchRealSoilData(coordinates, location, crop, month) {
     // SoilGrids API endpoint for soil properties
     const soilGridsUrl = `https://rest.isric.org/soilgrids/v2.0/properties/query?lon=${coordinates.lon}&lat=${coordinates.lat}&property=phh2o&property=soc&property=nitrogen&property=bdod&property=cec&property=sand&property=silt&property=clay&depth=0-5cm&depth=5-15cm&value=mean`
 
-    const soilResponse = await fetch(soilGridsUrl, {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "CropWiseAI/1.0",
-      },
-    })
+    // Create AbortController for timeout
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => {
+      console.log(`[v0] SoilGrids API timeout after 7 seconds, using fallback data`)
+      controller.abort()
+    }, 7000) // 7 second timeout
 
-    if (soilResponse.ok) {
-      const soilGridsData = await soilResponse.json()
-      console.log(`[v0] SoilGrids API response received:`, soilGridsData)
+    try {
+      const soilResponse = await fetch(soilGridsUrl, {
+        headers: {
+          Accept: "application/json",
+          "User-Agent": "CropWiseAI/1.0",
+        },
+        signal: controller.signal,
+      })
 
-      // Process SoilGrids data and convert to our format
-      const processedData = processSoilGridsData(soilGridsData, location, crop, month, coordinates)
-      return processedData
-    } else {
-      console.log(`[v0] SoilGrids API failed, using enhanced fallback data`)
+      clearTimeout(timeoutId) // Clear timeout if request completes
+
+      if (soilResponse.ok) {
+        const soilGridsData = await soilResponse.json()
+        console.log(`[v0] SoilGrids API response received:`, soilGridsData)
+
+        // Process SoilGrids data and convert to our format
+        const processedData = processSoilGridsData(soilGridsData, location, crop, month, coordinates)
+        return processedData
+      } else {
+        console.log(`[v0] SoilGrids API failed with status ${soilResponse.status}, using enhanced fallback data`)
+        return generateEnhancedLocationBasedSoilData(location, crop, month, coordinates)
+      }
+    } catch (fetchError) {
+      clearTimeout(timeoutId) // Clear timeout on error
+      
+      if (fetchError.name === 'AbortError') {
+        console.log(`[v0] SoilGrids API request aborted due to timeout, using fallback data`)
+      } else {
+        console.error(`[v0] Error fetching from SoilGrids API:`, fetchError)
+      }
+      
       return generateEnhancedLocationBasedSoilData(location, crop, month, coordinates)
     }
   } catch (error) {
-    console.error(`[v0] Error fetching from SoilGrids API:`, error)
+    console.error(`[v0] Error in fetchRealSoilData:`, error)
     console.log(`[v0] Using enhanced fallback soil data`)
     return generateEnhancedLocationBasedSoilData(location, crop, month, coordinates)
   }

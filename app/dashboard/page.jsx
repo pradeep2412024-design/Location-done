@@ -3523,6 +3523,13 @@ export default function Dashboard() {
   }
 
   const fetchSoilData = async (location, crop, month, hectare) => {
+    // Create AbortController for timeout (declare outside try block)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => {
+      console.log("Soil data fetch timeout after 8 seconds")
+      controller.abort()
+    }, 8000) // 8 second timeout
+
     try {
       const response = await fetch("/api/soil", {
         method: "POST",
@@ -3530,14 +3537,26 @@ export default function Dashboard() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ location, crop, month, hectare }),
+        signal: controller.signal,
       })
+
+      clearTimeout(timeoutId) // Clear timeout if request completes
 
       if (response.ok) {
         const result = await response.json()
+        if (result.timeout) {
+          console.log("Soil data fetched using fallback due to timeout:", result.message)
+        }
         return result.data
       }
     } catch (error) {
-      console.error("Failed to fetch soil data:", error)
+      clearTimeout(timeoutId) // Clear timeout on error
+      
+      if (error.name === 'AbortError') {
+        console.log("Soil data fetch aborted due to timeout, using fallback")
+      } else {
+        console.error("Failed to fetch soil data:", error)
+      }
     }
     return null
   }
@@ -5065,11 +5084,11 @@ export default function Dashboard() {
                 ←
               </Button>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 green-gradient logo-shine rounded-lg flex items-center justify-center shadow-lg">
+                <div className="w-8 h-8 green-gradient rounded-lg flex items-center justify-center shadow-lg">
                   <Sprout className="w-5 h-5 text-white relative z-10" />
                 </div>
                 <div>
-                  <span className="text-xl font-bold text-green-800">CropWise AI</span>
+                  <span className="text-xl font-bold enhanced-heading">CropWise AI</span>
                   <p className="text-xs text-green-600">Smart Farming Solutions</p>
                 </div>
               </div>
@@ -5223,7 +5242,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="dashboard-content">{renderTabContent()}</div>
+      <div className="dashboard-content section-bg-white">{renderTabContent()}</div>
 
 
       {/* Yield Increase Panel */}

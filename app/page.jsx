@@ -234,6 +234,13 @@ export default function HomePage() {
     e.preventDefault()
     setIsLoading(true)
 
+    // Create AbortController for timeout (declare outside try block)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => {
+      console.log("Crop analysis fetch timeout after 12 seconds")
+      controller.abort()
+    }, 12000) // 12 second timeout
+
     try {
       const response = await fetch("/api/crop-analysis", {
         method: "POST",
@@ -244,7 +251,10 @@ export default function HomePage() {
           month: formData.cultivationMonth,
           hectare: formData.farmSize,
         }),
+        signal: controller.signal,
       })
+
+      clearTimeout(timeoutId) // Clear timeout if request completes
 
       if (response.ok) {
         const data = await response.json()
@@ -255,8 +265,15 @@ export default function HomePage() {
         throw new Error("Failed to get crop analysis")
       }
     } catch (error) {
-      console.error("Error submitting form:", error)
-      alert("Failed to get analysis. Please try again.")
+      clearTimeout(timeoutId) // Clear timeout on error
+      
+      if (error.name === 'AbortError') {
+        console.log("Crop analysis fetch aborted due to timeout")
+        alert("Request timed out. Please try again or check your internet connection.")
+      } else {
+        console.error("Error submitting form:", error)
+        alert("Failed to get analysis. Please try again.")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -266,39 +283,46 @@ export default function HomePage() {
     <AgriculturalBackground>
       <header className="agricultural-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 green-gradient logo-shine rounded-xl flex items-center justify-center shadow-lg">
+          {/* Use 3-column grid to truly center brand and push actions to right */}
+          <div className="grid grid-cols-3 items-center">
+            {/* Left column (empty spacer) */}
+            <div></div>
+
+            {/* Center column: Logo + Brand centered */}
+            <div className="flex items-center justify-center space-x-3">
+              <div className="w-10 h-10 green-gradient rounded-xl flex items-center justify-center shadow-lg">
                 <Sprout className="w-6 h-6 text-white relative z-10" />
               </div>
-              <div>
+              <div className="text-center">
                 <h1 className="text-xl font-bold text-green-800">{t("app.name")}</h1>
                 <p className="text-xs text-green-600">{t("app.tagline")}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
+
+            {/* Right column: Language + Auth actions aligned to far right */}
+            <div className="flex items-center justify-end space-x-3">
+              <div className="hidden sm:block">
+                <LanguageSwitch />
+              </div>
+              <div className="hidden sm:flex items-center space-x-2">
                 <Link href="/login">
-                  <Button variant="outline" size="sm" className="border-green-200 text-green-600 hover:bg-green-50 hover:border-green-300 hidden sm:flex">
+                  <Button variant="outline" size="sm" className="border-green-200 text-green-600 hover:bg-green-50 hover:border-green-300">
                     Sign In
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button size="sm" className="green-gradient logo-shine hover:opacity-90 text-white shadow-lg hidden sm:flex">
+                  <Button size="sm" className="green-gradient hover:opacity-90 text-white shadow-lg">
                     Sign Up
                   </Button>
                 </Link>
-                {/* Mobile menu button */}
-                <div className="sm:hidden">
-                  <Link href="/login">
-                    <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
-                      Sign In
-                    </Button>
-                  </Link>
-                </div>
               </div>
-              <div className="hidden sm:block">
-                <LanguageSwitch />
+              {/* Mobile: show compact Sign In only to reduce congestion */}
+              <div className="sm:hidden">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
+                    Sign In
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -307,8 +331,8 @@ export default function HomePage() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">{t("home.hero.title")}</h2>
-          <p className="text-lg text-green-700 max-w-4xl mx-auto mb-12">{t("home.hero.subtitle")}</p>
+          <h2 className="text-3xl md:text-4xl enhanced-heading mb-6" style={{ color: "#ffffff" }}>{t("home.hero.title")}</h2>
+          <p className="text-lg enhanced-text max-w-4xl mx-auto mb-12" style={{ color: "#ffffff" }}>{t("home.hero.subtitle")}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">
@@ -357,7 +381,7 @@ export default function HomePage() {
                   placeholder={t("home.form.name_placeholder")}
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="bg-white border-green-200 focus:border-green-400 focus:ring-green-400"
+                  className="enhanced-input"
                 />
               </div>
 
@@ -370,7 +394,7 @@ export default function HomePage() {
                     value={formData.location}
                     onChange={(e) => { handleInputChange("location", e.target.value); loc.setQuery(e.target.value) }}
                     required
-                    className="bg-white pr-12 border-green-200 focus:border-green-400 focus:ring-green-400"
+                    className="enhanced-input pr-12"
                     autoComplete="off"
                   />
                   {loc.open && loc.suggestions.length > 0 && (
@@ -406,7 +430,7 @@ export default function HomePage() {
                   value={formData.farmSize}
                   onChange={(e) => handleInputChange("farmSize", e.target.value)}
                   required
-                  className="bg-white border-green-200 focus:border-green-400 focus:ring-green-400"
+                  className="enhanced-input"
                 />
               </div>
 
@@ -417,7 +441,7 @@ export default function HomePage() {
                     placeholder={t("home.form.prev_crop_placeholder")}
                     value={formData.previousCrop}
                     onChange={(e) => handleInputChange("previousCrop", e.target.value)}
-                    className="bg-white pr-8 border-green-200 focus:border-green-400 focus:ring-green-400"
+                    className="enhanced-input pr-8"
                   />
                   <button
                     type="button"
@@ -461,7 +485,7 @@ export default function HomePage() {
                     value={formData.nextCrop}
                     onChange={(e) => handleInputChange("nextCrop", e.target.value)}
                     required
-                    className="bg-white pr-8 border-green-200 focus:border-green-400 focus:ring-green-400"
+                    className="enhanced-input pr-8"
                   />
                   <button
                     type="button"
@@ -499,36 +523,33 @@ export default function HomePage() {
 
               <div>
                 <label className="block text-sm font-medium text-green-700 mb-2">{t("home.form.month_label")}</label>
-                <select
-                  className="w-full p-3 border border-green-300 rounded-md bg-white text-green-700 focus:ring-2 focus:ring-green-500 focus:border-green-500 appearance-none bg-no-repeat bg-right pr-10 cursor-pointer"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
-                    backgroundPosition: "right 0.5rem center",
-                    backgroundSize: "1.5em 1.5em",
-                  }}
-                  value={formData.cultivationMonth}
-                  onChange={(e) => handleInputChange("cultivationMonth", e.target.value)}
-                  required
-                >
-                  <option value="" className="text-gray-500">{t("home.form.month_placeholder")}</option>
-                  <option value="january" className="font-medium text-gray-800">{t("months.january")}</option>
-                  <option value="february" className="font-medium text-gray-800">{t("months.february")}</option>
-                  <option value="march" className="font-medium text-gray-800">{t("months.march")}</option>
-                  <option value="april" className="font-medium text-gray-800">{t("months.april")}</option>
-                  <option value="may" className="font-medium text-gray-800">{t("months.may")}</option>
-                  <option value="june" className="font-medium text-gray-800">{t("months.june")}</option>
-                  <option value="july" className="font-medium text-gray-800">{t("months.july")}</option>
-                  <option value="august" className="font-medium text-gray-800">{t("months.august")}</option>
-                  <option value="september" className="font-medium text-gray-800">{t("months.september")}</option>
-                  <option value="october" className="font-medium text-gray-800">{t("months.october")}</option>
-                  <option value="november" className="font-medium text-gray-800">{t("months.november")}</option>
-                  <option value="december" className="font-medium text-gray-800">{t("months.december")}</option>
-                </select>
+                <div className="relative">
+                  <select
+                    className="enhanced-select w-full"
+                    value={formData.cultivationMonth}
+                    onChange={(e) => handleInputChange("cultivationMonth", e.target.value)}
+                    required
+                  >
+                  <option value="" disabled>{t("home.form.month_placeholder")}</option>
+                  <option value="january">{t("months.january")}</option>
+                  <option value="february">{t("months.february")}</option>
+                  <option value="march">{t("months.march")}</option>
+                  <option value="april">{t("months.april")}</option>
+                  <option value="may">{t("months.may")}</option>
+                  <option value="june">{t("months.june")}</option>
+                  <option value="july">{t("months.july")}</option>
+                  <option value="august">{t("months.august")}</option>
+                  <option value="september">{t("months.september")}</option>
+                  <option value="october">{t("months.october")}</option>
+                  <option value="november">{t("months.november")}</option>
+                  <option value="december">{t("months.december")}</option>
+                  </select>
+                </div>
               </div>
 
               <Button
                 type="submit"
-                className="w-full green-gradient logo-shine hover:opacity-90 text-white py-3 text-lg cursor-pointer shadow-lg"
+                className="w-full enhanced-button py-3 text-lg cursor-pointer"
                 disabled={
                   isLoading ||
                   !formData.location ||
@@ -545,28 +566,28 @@ export default function HomePage() {
         </Card>
 
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-green-800 mb-8">{t("home.benefits.title")}</h3>
+          <h3 className="text-2xl font-bold enhanced-heading mb-8 text-white" style={{ color: "#ffffff" }}>{t("home.benefits.title")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.yield.title")}</h4>
-              <p className="text-green-700">{t("home.benefits.yield.desc")}</p>
+              <h4 className="text-lg font-semibold mb-2 text-white">{t("home.benefits.yield.title")}</h4>
+              <p className="text-white">{t("home.benefits.yield.desc")}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sprout className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.recommendations.title")}</h4>
-              <p className="text-green-700">{t("home.benefits.recommendations.desc")}</p>
+              <h4 className="text-lg font-semibold mb-2 text-white">{t("home.benefits.recommendations.title")}</h4>
+              <p className="text-white">{t("home.benefits.recommendations.desc")}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="text-lg font-semibold text-green-800 mb-2">{t("home.benefits.weather.title")}</h4>
-              <p className="text-green-700">{t("home.benefits.weather.desc")}</p>
+              <h4 className="text-lg font-semibold mb-2 text-white">{t("home.benefits.weather.title")}</h4>
+              <p className="text-white">{t("home.benefits.weather.desc")}</p>
             </div>
           </div>
         </div>
