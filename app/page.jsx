@@ -291,7 +291,7 @@ export default function HomePage() {
 
             {/* Center column: Logo + Brand centered */}
             <div className="flex items-center justify-center space-x-3">
-              <div className="w-10 h-10 green-gradient rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+              <div className="w-10 h-10 logo-green-gradient rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                 <Sprout className="w-6 h-6 text-white relative z-10" />
               </div>
               <div className="text-center">

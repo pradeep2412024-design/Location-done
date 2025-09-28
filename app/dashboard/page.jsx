@@ -5086,7 +5086,7 @@ export default function Dashboard() {
                 ←
               </Button>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 green-gradient rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
+                <div className="w-8 h-8 logo-green-gradient rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
                   <Sprout className="w-5 h-5 text-white relative z-10" />
                 </div>
                 <div className="min-w-0">
