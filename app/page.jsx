@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, TrendingUp, Users, Target, Navigation, ChevronDown, Sprout } from "lucide-react"
 import { useI18n } from "@/i18n"
 import LanguageSwitch from "@/components/LanguageSwitch"
+import AgriculturalBackground from "@/components/AgriculturalBackground"
 
 export default function HomePage() {
   const router = useRouter()
@@ -262,7 +263,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen agricultural-bg">
+    <AgriculturalBackground>
       <header className="agricultural-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -570,6 +571,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+    </AgriculturalBackground>
   )
 }

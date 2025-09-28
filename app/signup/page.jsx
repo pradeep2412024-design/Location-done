@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ArrowLeft, Eye, EyeOff, Phone, Mail, User, UserPlus, CheckCircle } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { useAuth } from "@/app/contexts/AuthContext"
+import AgriculturalBackground from "@/components/AgriculturalBackground"
 
 export default function SignupPage() {
   const router = useRouter()
@@ -123,7 +124,7 @@ export default function SignupPage() {
   )
 
   return (
-    <div className="min-h-screen agricultural-bg flex items-center justify-center p-4">
+    <AgriculturalBackground className="flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Back Button */}
         <div className="mb-6">
@@ -464,6 +465,6 @@ export default function SignupPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </AgriculturalBackground>
   )
 }

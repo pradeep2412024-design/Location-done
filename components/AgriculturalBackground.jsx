@@ -1,0 +1,27 @@
+"use client"
+
+export default function AgriculturalBackground({ children, className = "" }) {
+  return (
+    <div className={`min-h-screen agricultural-bg ${className}`}>
+      {/* Background Image Overlay */}
+      <div 
+        className="fixed inset-0 w-full h-full z-0"
+        style={{
+          backgroundImage: "url('/agricultural-bg.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          filter: "blur(4px) brightness(0.6) saturate(0.8)",
+          opacity: 0.3,
+          transform: "scale(1.05)"
+        }}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        {children}
+      </div>
+    </div>
+  )
+}

@@ -14,6 +14,7 @@ import FarmDetailsForm from "@/components/FarmDetailsForm"
 import EnhancedCropRecommendations from "@/components/EnhancedCropRecommendations"
 import AdvancedMarketAnalysis from "@/components/AdvancedMarketAnalysis"
 import GovernmentSchemes from "@/components/GovernmentSchemes"
+import AgriculturalBackground from "@/components/AgriculturalBackground"
 
 const formatLocation = (location, t) => {
 	if (!location || typeof location !== "string") return location || ""
@@ -5054,7 +5055,7 @@ export default function Dashboard() {
 
   console.log("[v0] Rendering main dashboard")
   return (
-    <div className="min-h-screen agricultural-bg animated-gradient">
+    <AgriculturalBackground className="animated-gradient">
       <div className="dashboard-header">
         <div className="w-full px-2 sm:px-4 lg:px-6">
           {/* Header */}
@@ -5427,7 +5428,7 @@ export default function Dashboard() {
       {/* CropWiseAI Chatbot */}
       <EnhancedCropWiseChatbot />
       
-    </div>
+    </AgriculturalBackground>
   )
 }
 
