@@ -7,7 +7,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, TrendingUp, Users, Target, Navigation, ChevronDown, Sprout } from "lucide-react"
+import { ArrowRight, TrendingUp, Users, Target, Navigation, ChevronDown, Sprout, Menu } from "lucide-react"
 import { useI18n } from "@/i18n"
 import LanguageSwitch from "@/components/LanguageSwitch"
 import AgriculturalBackground from "@/components/AgriculturalBackground"
@@ -34,6 +34,7 @@ export default function HomePage() {
   })
   const [isLoading, setIsLoading] = useState(false)
   const [isGettingLocation, setIsGettingLocation] = useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [showPreviousCropDropdown, setShowPreviousCropDropdown] = useState(false)
   const [showNextCropDropdown, setShowNextCropDropdown] = useState(false)
   const prevDropdownRef = useRef(null)
@@ -281,8 +282,8 @@ export default function HomePage() {
 
   return (
     <AgriculturalBackground>
-      <header className="agricultural-header">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="agricultural-header -mx-2 sm:-mx-4 lg:-mx-6">
+        <div className="w-full px-2 sm:px-4 lg:px-6 py-4">
           {/* Use 3-column grid to truly center brand and push actions to right */}
           <div className="grid grid-cols-3 items-center">
             {/* Left column (empty spacer) */}
@@ -290,7 +291,7 @@ export default function HomePage() {
 
             {/* Center column: Logo + Brand centered */}
             <div className="flex items-center justify-center space-x-3">
-              <div className="w-10 h-10 green-gradient rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 green-gradient rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                 <Sprout className="w-6 h-6 text-white relative z-10" />
               </div>
               <div className="text-center">
@@ -316,16 +317,40 @@ export default function HomePage() {
                   </Button>
                 </Link>
               </div>
-              {/* Mobile: show compact Sign In only to reduce congestion */}
+              {/* Mobile: hamburger menu */}
               <div className="sm:hidden">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-label="Toggle menu"
+                  onClick={() => setMobileNavOpen((v) => !v)}
+                  className="text-green-700 hover:text-green-800"
+                >
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </div>
+            </div>
+          </div>
+          {/* Mobile menu panel */}
+          {mobileNavOpen && (
+            <div className="sm:hidden mt-3 border-t border-green-200 pt-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <LanguageSwitch />
+              </div>
+              <div className="flex items-center gap-2">
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
+                  <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50 hover:border-green-300">
                     Sign In
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="green-gradient hover:opacity-90 text-white shadow-lg">
+                    Sign Up
                   </Button>
                 </Link>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </header>
 

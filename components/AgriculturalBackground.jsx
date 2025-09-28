@@ -9,9 +9,9 @@ export default function AgriculturalBackground({ children, className = "" }) {
         style={{
           backgroundImage: "url('/agricultural-bg.jpg')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "center top",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
+          backgroundAttachment: "scroll",
           filter: "blur(3px) brightness(0.5) saturate(0.9)",
           opacity: 0.7,
           transform: "scale(1.05)"
@@ -19,7 +19,7 @@ export default function AgriculturalBackground({ children, className = "" }) {
       />
       
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 px-2 sm:px-4 lg:px-6">
         {children}
       </div>
     </div>

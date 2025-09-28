@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle } from "lucide-react"
+import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle, Menu } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { useAuth } from "@/app/contexts/AuthContext"
 import LanguageSwitch from "@/components/LanguageSwitch"
@@ -5077,7 +5077,7 @@ export default function Dashboard() {
   console.log("[v0] Rendering main dashboard")
   return (
     <AgriculturalBackground className="animated-gradient">
-      <div className="dashboard-header">
+      <div className="dashboard-header rounded-3xl shadow-lg overflow-hidden mx-2 sm:mx-4 lg:mx-6 mt-3 sm:mt-4 mb-4 sm:mb-6">
         <div className="w-full px-2 sm:px-4 lg:px-6">
           {/* Header */}
           <div className="flex items-center justify-between py-4">
@@ -5086,12 +5086,12 @@ export default function Dashboard() {
                 ←
               </Button>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 green-gradient rounded-lg flex items-center justify-center shadow-lg">
+                <div className="w-8 h-8 green-gradient rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">
                   <Sprout className="w-5 h-5 text-white relative z-10" />
                 </div>
-                <div>
-                  <span className="text-xl font-bold enhanced-heading">CropWise AI</span>
-                  <p className="text-xs text-green-600">Smart Farming Solutions</p>
+                <div className="min-w-0">
+                  <span className="text-xl font-bold enhanced-heading block truncate max-w-[9rem]">CropWise AI</span>
+                  <p className="text-xs text-green-600 truncate max-w-[10rem]">Smart Farming Solutions</p>
                 </div>
               </div>
             </div>
@@ -5116,7 +5116,7 @@ export default function Dashboard() {
               >
                 Update Farm Details
               </Button>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
               <div className="hidden sm:flex items-center gap-3">
                 <DashboardVoiceSearch dataSources={{
                   farmData,
@@ -5139,9 +5139,73 @@ export default function Dashboard() {
                     </Button>
                   </div>
                 )}
+                {/* Mobile voice search outside hamburger */}
+                <div className="sm:hidden">
+                  <DashboardVoiceSearch dataSources={{ farmData, apiData }} />
+                </div>
+                {/* Mobile hamburger */}
+                <div className="sm:hidden">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    aria-label="Toggle menu"
+                    onClick={() => setShowFloatingBox((v) => !v)}
+                    className="text-green-700 hover:text-green-800"
+                  >
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Mobile dropdown panel */}
+          {showFloatingBox && (
+            <div className="sm:hidden border-t border-green-200 pt-3 pb-2 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <LanguageSwitch />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    if (farmData?.userInfo) {
+                      setUserInputData({
+                        location: farmData.userInfo.location || "",
+                        crop: farmData.userInfo.nextCrop || "",
+                        month: farmData.userInfo.cultivationMonth || "",
+                        hectare: farmData.userInfo.farmSize || ""
+                      })
+                    }
+                    setShowUserInputForm(true)
+                  }}
+                  className="border-green-200 text-green-700 hover:bg-green-50 hover:border-green-300"
+                >
+                  Update Details
+                </Button>
+              </div>
+              <div className="flex items-center gap-2">
+                {user ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={logout}
+                    className="border-green-200 text-green-600 hover:bg-green-50"
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <>
+                    <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50 hover:border-green-300" onClick={() => router.push('/login')}>
+                      Sign In
+                    </Button>
+                    <Button size="sm" className="green-gradient hover:opacity-90 text-white shadow-lg" onClick={() => router.push('/signup')}>
+                      Sign Up
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="text-sm text-gray-600 space-y-1">
             <p>
@@ -5155,7 +5219,7 @@ export default function Dashboard() {
           </div>
 
           {/* Metrics Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 pb-8">
             <Card className="stat-card cursor-pointer" onClick={() => setShowYieldIncreasePanel(!showYieldIncreasePanel)}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -5250,7 +5314,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="dashboard-content section-bg-white">{renderTabContent()}</div>
+      <div className="dashboard-content section-bg-white rounded-3xl shadow-lg overflow-hidden mx-2 sm:mx-4 lg:mx-6">{renderTabContent()}</div>
 
 
       {/* Yield Increase Panel */}
