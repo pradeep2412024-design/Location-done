@@ -5223,22 +5223,24 @@ export default function Dashboard() {
 
           {/* Navigation Tabs - Compact Layout */}
           <div className="pb-4">
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2">
               {tabs.map((tab) => (
                 <Button
                   key={tab.id}
                   variant={activeTab === tab.id ? "default" : "outline"}
                   size="sm"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`h-12 transition-all duration-300 ${
+                  className={`h-12 w-full min-w-0 transition-all duration-300 ${
                     activeTab === tab.id
                       ? "green-gradient hover:opacity-90 text-white shadow-lg"
                       : "text-green-600 hover:text-green-800 hover:bg-green-50 border-green-200"
                   }`}
                 >
-                  <div className="flex flex-col items-center space-y-0.5">
-                    <span className="text-sm">{tab.icon}</span>
-                    <span className="text-xs font-medium text-center leading-tight">{tab.label}</span>
+                  <div className="flex items-center justify-center gap-2 w-full min-w-0">
+                    <span className="text-sm flex-shrink-0">{tab.icon}</span>
+                    <span className="text-xs sm:text-sm font-medium leading-tight truncate max-w-[7rem] sm:max-w-[9rem]">
+                      {tab.label}
+                    </span>
                   </div>
                 </Button>
               ))}

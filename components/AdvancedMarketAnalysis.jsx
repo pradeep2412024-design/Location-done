@@ -224,12 +224,12 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
   return (
     <Card className="w-full">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
           <CardTitle className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5" />
             Advanced Market Analysis
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
             <Button
               variant="outline"
               size="sm"
@@ -248,7 +248,7 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
       
       <CardContent>
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="pricing">Pricing</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
@@ -257,7 +257,7 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Current Price */}
               <Card>
                 <CardContent className="p-4">
@@ -338,7 +338,7 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
                 <CardTitle className="text-lg">Market Distribution</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
+              <div className="h-64 sm:h-72">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
@@ -369,7 +369,7 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
                 <CardTitle className="text-lg">Price Trends (12 Months)</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-80">
+              <div className="h-72 sm:h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={priceHistory}>
                       <CartesianGrid strokeDasharray="3 3" />
@@ -393,7 +393,7 @@ const AdvancedMarketAnalysis = ({ crop, location, state, month, onAnalysisUpdate
             </Card>
 
             {/* Price Statistics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Card>
                 <CardContent className="p-4">
                   <div className="text-center">

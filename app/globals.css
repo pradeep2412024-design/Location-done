@@ -285,9 +285,21 @@
 }
 
 .dashboard-content {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .dashboard-content {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-content {
+    padding: 2rem;
+  }
 }
 
 .glass-effect {
