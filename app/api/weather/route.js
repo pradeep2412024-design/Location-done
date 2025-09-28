@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 export async function POST(request) {
   try {
     const body = await request.json()
-    const location = body.location || "Odisha"
+    const location = body.location
     const month = body.month || "October"
 
     if (!location) {

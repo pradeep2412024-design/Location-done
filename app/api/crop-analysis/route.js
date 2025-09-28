@@ -41,7 +41,7 @@ function setCachedAnalysis(location, crop, month, hectare, data) {
 export async function POST(request) {
   try {
     const body = await request.json()
-    const location = body.location || "Odisha"
+    const location = body.location
     const crop = body.crop || body.nextCrop || "Rice"
     const month = body.month || body.cultivationMonth || "October"
     const hectare = body.hectare || body.farmSize || "5"
