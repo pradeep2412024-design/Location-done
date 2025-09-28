@@ -68,7 +68,11 @@ const EnhancedCropRecommendations = ({
 
       if (response.ok) {
         const data = await response.json()
-        setRecommendations(data.recommendations || [])
+        const recs = data.recommendations || []
+        setRecommendations(recs)
+        try {
+          localStorage.setItem('dashboardRecommendations', JSON.stringify(recs))
+        } catch {}
       } else {
         console.error('Failed to fetch recommendations')
       }

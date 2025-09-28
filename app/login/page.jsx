@@ -89,7 +89,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Back Button */}
         <div className="mb-6">
-          <Link href="/" className="inline-flex items-center text-green-600 hover:text-green-700 transition-colors">
+          <Link href="/" className="inline-flex items-center text-white hover:text-green-200 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
           </Link>

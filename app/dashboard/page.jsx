@@ -8,11 +8,13 @@ import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, C
 import { useI18n } from "@/i18n"
 import { useAuth } from "@/app/contexts/AuthContext"
 import LanguageSwitch from "@/components/LanguageSwitch"
-import EnhancedCropWiseChatbot from "@/components/EnhancedCropWiseChatbot"
+import DashboardVoiceSearch from "@/components/DashboardVoiceSearch"
+// import EnhancedCropWiseChatbot from "@/components/EnhancedCropWiseChatbot"
 import { useAppContext } from "@/contexts/AppContext"
 import FarmDetailsForm from "@/components/FarmDetailsForm"
 import EnhancedCropRecommendations from "@/components/EnhancedCropRecommendations"
 import AdvancedMarketAnalysis from "@/components/AdvancedMarketAnalysis"
+// import PlansPanel from "@/components/PlansPanel"
 import GovernmentSchemes from "@/components/GovernmentSchemes"
 import AgriculturalBackground from "@/components/AgriculturalBackground"
 
@@ -5115,7 +5117,11 @@ export default function Dashboard() {
                 Update Farm Details
               </Button>
               <div className="flex items-center space-x-3">
-              <div className="hidden sm:block">
+              <div className="hidden sm:flex items-center gap-3">
+                <DashboardVoiceSearch dataSources={{
+                  farmData,
+                  apiData,
+                }} />
                 <LanguageSwitch />
               </div>
                 {user && (
@@ -5441,11 +5447,9 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Farmer Avatar */}
-      <div className="farmer-avatar" title="Your Farming Assistant"></div>
+      {/* Farmer Avatar hidden */}
 
-      {/* CropWiseAI Chatbot */}
-      <EnhancedCropWiseChatbot />
+      {/* Plans Panel hidden */}
       
     </AgriculturalBackground>
   )

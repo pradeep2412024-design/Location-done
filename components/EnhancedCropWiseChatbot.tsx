@@ -43,7 +43,8 @@ interface ChatbotProps {
 }
 
 export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps) {
-  const { t } = useI18n()
+  const { t, locale } = useI18n()
+  const { plans, addPlan, addTaskToPlan } = useAppContext()
   const { userData, analysisData, getCurrentData } = useAppContext()
   
   const [isOpen, setIsOpen] = useState(false)
@@ -144,7 +145,8 @@ export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps
         body: JSON.stringify({
           message,
           userData: currentData.userData,
-          analysisData: currentData.analysisData
+          analysisData: currentData.analysisData,
+          locale
         })
       })
 
@@ -215,10 +217,44 @@ export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps
     }
   }
 
+  const handleAddSuggestionToPlan = (text: string) => {
+    const planId = plans[0]?.id || addPlan('My Plan')
+    addTaskToPlan(planId, text)
+  }
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
+    }
+  }
+
+  // Voice input with language auto-detect via browser SpeechRecognition
+  const [isListening, setIsListening] = useState(false)
+  const startVoiceInput = () => {
+    try {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+      if (!SpeechRecognition) {
+        alert('Speech recognition not supported in this browser')
+        return
+      }
+      const recognition = new SpeechRecognition()
+      recognition.lang = locale || 'en-IN'
+      recognition.interimResults = false
+      recognition.maxAlternatives = 1
+      recognition.onresult = async (event: any) => {
+        const transcript = event.results[0][0].transcript
+        setInputValue(transcript)
+        setIsListening(false)
+        // auto-send
+        setTimeout(() => handleSendMessage(), 0)
+      }
+      recognition.onerror = () => setIsListening(false)
+      recognition.onend = () => setIsListening(false)
+      setIsListening(true)
+      recognition.start()
+    } catch (e) {
+      setIsListening(false)
     }
   }
 
@@ -232,6 +268,25 @@ export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps
     "Give me irrigation recommendations",
     "What's my market outlook?"
   ]
+
+  const renderSuggestions = (suggestions: string[] | undefined) => {
+    if (!suggestions || suggestions.length === 0) return null
+    return (
+      <div className="mt-4 space-y-2">
+        {suggestions.map((s, idx) => (
+          <div key={idx} className="flex items-center justify-between border rounded-md px-3 py-2">
+            <span className="text-sm">{s}</span>
+            <button
+              className="text-xs px-2 py-1 rounded-md bg-green-600 text-white hover:opacity-90"
+              onClick={() => handleAddSuggestionToPlan(s)}
+            >
+              Add to Plan
+            </button>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   const handleQuickQuestion = (question: string) => {
     const userMessage: Message = {
@@ -400,6 +455,14 @@ export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps
                 <Button
                   size="sm"
                   variant="outline"
+                  onClick={startVoiceInput}
+                  className={`${isListening ? 'bg-red-50' : ''}`}
+                >
+                  {isListening ? 'Listening…' : '🎙️ Voice'}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
                   onClick={resetPosition}
                   className="text-xs"
                 >
@@ -471,6 +534,21 @@ export default function EnhancedCropWiseChatbot({ className = "" }: ChatbotProps
                                   {message.data.intent.replace('_', ' ')}
                                 </Badge>
                               )}
+                            </div>
+                          )}
+                          {message.type === 'bot' && message.data?.suggestions && message.data.suggestions.length > 0 && (
+                            <div className="mt-3 border-t pt-2">
+                              <div className="text-xs font-semibold mb-2">Suggestions</div>
+                              <div className="space-y-2">
+                                {message.data.suggestions.map((s: string, idx: number) => (
+                                  <div key={idx} className="flex items-center justify-between border rounded-md px-2 py-1">
+                                    <span className="text-xs mr-2">{s}</span>
+                                    <Button size="xs" className="bg-green-600 text-white hover:bg-green-700" onClick={() => handleAddSuggestionToPlan(s)}>
+                                      Add to Plan
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                           )}
                         </div>
