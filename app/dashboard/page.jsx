@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle, Menu } from "lucide-react"
+import { TrendingUp, Thermometer, AlertTriangle, Sprout, Droplets, Cloud, Sun, CheckCircle, Menu, Bell } from "lucide-react"
 import { useI18n } from "@/i18n"
 import { useAuth } from "@/app/contexts/AuthContext"
 import LanguageSwitch from "@/components/LanguageSwitch"
@@ -5631,7 +5631,54 @@ function PriorityTasksPanel({ data }) {
 // Yield Increase Panel Component
 function YieldIncreasePanel({ data }) {
   const { t } = useI18n()
-  
+  const [completedSteps, setCompletedSteps] = useState({})
+  const [reminders, setReminders] = useState({})
+  const [showReminderDropdown, setShowReminderDropdown] = useState({})
+
+  useEffect(() => {
+    try {
+      const c = localStorage.getItem('yieldIncrease_completedSteps')
+      const r = localStorage.getItem('yieldIncrease_reminders')
+      if (c) setCompletedSteps(JSON.parse(c))
+      if (r) setReminders(JSON.parse(r))
+    } catch {}
+  }, [])
+
+  useEffect(() => {
+    try { localStorage.setItem('yieldIncrease_completedSteps', JSON.stringify(completedSteps)) } catch {}
+  }, [completedSteps])
+
+  useEffect(() => {
+    try { localStorage.setItem('yieldIncrease_reminders', JSON.stringify(reminders)) } catch {}
+  }, [reminders])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = Date.now()
+      Object.entries(reminders).forEach(([key, ts]) => {
+        if (!ts) return
+        const timeMs = typeof ts === 'number' ? ts : Date.parse(ts)
+        if (!Number.isFinite(timeMs)) return
+        if (timeMs <= now) {
+          try {
+            alert(`Reminder: ${data?.steps?.[Number(key)]?.title || 'Yield Action'} is due`)
+          } catch {}
+          setReminders(prev => ({ ...prev, [key]: null }))
+        }
+      })
+    }, 30000)
+    return () => clearInterval(timer)
+  }, [reminders, data?.steps])
+
+  const toggleReminderDropdown = (idx) => {
+    setShowReminderDropdown(prev => ({ ...prev, [idx]: !prev[idx] }))
+  }
+
+  const setReminder = (idx, dateTime) => {
+    setReminders(prev => ({ ...prev, [idx]: dateTime ? new Date(dateTime).getTime() : null }))
+    setShowReminderDropdown(prev => ({ ...prev, [idx]: false }))
+  }
+
   if (!data) {
     return (
       <div className="text-center py-8">
@@ -5694,32 +5741,88 @@ function YieldIncreasePanel({ data }) {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900">Action Plan</h3>
           <div className="space-y-3">
-            {data.steps.map((step, idx) => (
-              <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium text-green-800">{step.title}</p>
-                      {step.impact && (
-                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">~{step.impact} of increase</span>
+            {data.steps.map((step, idx) => {
+              const checked = Boolean(completedSteps[idx])
+              const reminderValue = reminders[idx] ? (() => {
+                const v = reminders[idx]
+                if (typeof v === 'number') return new Date(v).toISOString().slice(0,16)
+                try { return new Date(v).toISOString().slice(0,16) } catch { return '' }
+              })() : ''
+              const hasReminder = Boolean(reminders[idx])
+              return (
+                <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-4 relative">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <p className={`font-medium text-green-800 ${checked ? 'line-through opacity-70' : ''}`}>{step.title}</p>
+                          {step.impact && (
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">~{step.impact} of increase</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => toggleReminderDropdown(idx)}
+                            className={`p-1 rounded ${hasReminder ? 'bg-green-200 text-green-800' : 'text-green-600 hover:bg-green-100'}`}
+                            title="Set reminder"
+                          >
+                            <Bell className="w-4 h-4" />
+                          </button>
+                          <label className="flex items-center gap-1 text-sm text-green-800">
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={(e) => setCompletedSteps(prev => ({ ...prev, [idx]: e.target.checked }))}
+                            />
+                            Done
+                          </label>
+                        </div>
+                      </div>
+                      <p className={`text-sm text-green-700 mt-1 ${checked ? 'line-through opacity-70' : ''}`}>{step.action}</p>
+                      {step.details && (
+                        <p className={`text-xs text-green-700 mt-1 ${checked ? 'line-through opacity-70' : ''}`}>{step.details}</p>
+                      )}
+                      {Array.isArray(step.items) && step.items.length > 0 && (
+                        <ul className="mt-2 list-disc pl-5 text-xs text-green-800 space-y-1">
+                          {step.items.map((it, i) => (
+                            <li key={i} className={checked ? 'line-through opacity-70' : ''}>{typeof it === 'string' ? it : (it?.text || String(it))}</li>
+                          ))}
+                        </ul>
                       )}
                     </div>
-                    <p className="text-sm text-green-700 mt-1">{step.action}</p>
-                    {step.details && (
-                      <p className="text-xs text-green-700 mt-1">{step.details}</p>
-                    )}
-                    {Array.isArray(step.items) && step.items.length > 0 && (
-                      <ul className="mt-2 list-disc pl-5 text-xs text-green-800 space-y-1">
-                        {step.items.map((it, i) => (
-                          <li key={i}>{typeof it === 'string' ? it : (it?.text || String(it))}</li>
-                        ))}
-                      </ul>
-                    )}
                   </div>
+                  
+                  {/* Reminder Dropdown */}
+                  {showReminderDropdown[idx] && (
+                    <div className="absolute top-12 right-2 bg-white border border-green-300 rounded-lg shadow-lg p-3 z-10 min-w-64">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-medium text-green-800">Set Reminder</label>
+                        <input
+                          type="datetime-local"
+                          className="w-full text-sm border border-green-300 rounded px-2 py-1"
+                          value={reminderValue}
+                          onChange={(e) => setReminder(idx, e.target.value)}
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setReminder(idx, null)}
+                            className="text-xs text-red-600 hover:text-red-800"
+                          >
+                            Clear
+                          </button>
+                          <button
+                            onClick={() => setShowReminderDropdown(prev => ({ ...prev, [idx]: false }))}
+                            className="text-xs text-gray-600 hover:text-gray-800"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              )})}
           </div>
         </div>
       )}
