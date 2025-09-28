@@ -4,45 +4,45 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* New Color Palette */
-  --primary-green: #2E7D32;
-  --dark-green: #1B5E20;
-  --accent-amber: #FFA000;
-  --accent-yellow: #FBC02D;
-  --light-bg: #F1F8E9;
-  --neutral-bg: #FAFAF5;
-  --text-neutral: #333333;
-  --border-neutral: #E0E0E0;
+  /* New Color Palette (Blue/Teal) */
+  --primary-green: #0E7490; /* teal-700 */
+  --dark-green: #0C4A6E; /* sky-900 */
+  --accent-amber: #0284C7; /* sky-600 */
+  --accent-yellow: #38BDF8; /* sky-400 */
+  --light-bg: #ECFEFF; /* cyan-50 */
+  --neutral-bg: #F0F9FF; /* sky-50 */
+  --text-neutral: #0F172A; /* slate-900 */
+  --border-neutral: #E2E8F0; /* slate-200 */
   
   /* Updated Design System */
-  --background: oklch(0.99 0.01 120);
-  --foreground: oklch(0.2 0.02 120);
+  --background: oklch(0.99 0.01 230);
+  --foreground: oklch(0.2 0.02 230);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.2 0.02 120);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.02 120);
-  --primary: oklch(0.35 0.15 140);
-  --primary-foreground: oklch(0.98 0.01 120);
-  --secondary: oklch(0.95 0.05 120);
-  --secondary-foreground: oklch(0.2 0.02 120);
+  --primary: oklch(0.55 0.1 230);
+  --primary-foreground: oklch(0.98 0.01 230);
+  --secondary: oklch(0.96 0.04 240);
+  --secondary-foreground: oklch(0.2 0.02 230);
   --muted: oklch(0.95 0.05 120);
   --muted-foreground: oklch(0.5 0.02 120);
-  --accent: oklch(0.7 0.15 60);
-  --accent-foreground: oklch(0.2 0.02 120);
+  --accent: oklch(0.7 0.1 220);
+  --accent-foreground: oklch(0.2 0.02 230);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.88 0.02 120);
   --input: oklch(0.88 0.02 120);
-  --ring: oklch(0.35 0.15 140);
-  --chart-1: oklch(0.35 0.15 140);
-  --chart-2: oklch(0.7 0.15 60);
-  --chart-3: oklch(0.5 0.1 200);
-  --chart-4: oklch(0.6 0.1 300);
-  --chart-5: oklch(0.4 0.1 40);
+  --ring: oklch(0.55 0.1 230);
+  --chart-1: oklch(0.55 0.1 230);
+  --chart-2: oklch(0.7 0.1 210);
+  --chart-3: oklch(0.6 0.12 260);
+  --chart-4: oklch(0.62 0.1 300);
+  --chart-5: oklch(0.5 0.1 180);
   --radius: 0.75rem;
   --sidebar: oklch(0.98 0.01 120);
   --sidebar-foreground: oklch(0.2 0.02 120);
-  --sidebar-primary: oklch(0.35 0.15 140);
+  --sidebar-primary: oklch(0.55 0.1 230);
   --sidebar-primary-foreground: oklch(0.98 0.01 120);
   --sidebar-accent: oklch(0.95 0.05 120);
   --sidebar-accent-foreground: oklch(0.2 0.02 120);
@@ -230,7 +230,7 @@
 }
 
 .green-gradient {
-  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 50%, #2E7D32 100%);
+  background: linear-gradient(135deg, #0E7490 0%, #0C4A6E 50%, #0E7490 100%);
   position: relative;
   overflow: hidden;
 }
@@ -238,7 +238,12 @@
 /* Shiny effects removed for cleaner design */
 
 .green-gradient-light {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 50%, #86efac 100%);
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+}
+
+/* Preserve original green gradient specifically for logo marks */
+.logo-green-gradient {
+  background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 50%, #2E7D32 100%);
 }
 
 .leaf-pattern {
