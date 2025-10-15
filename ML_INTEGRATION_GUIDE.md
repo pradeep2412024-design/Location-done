@@ -271,9 +271,7 @@ Your ML models are now ready to provide:
 The models are trained on real Indian agricultural data and will provide accurate predictions for your users!
 
 **Next Steps:**
-1. Add the `MLPredictionCard` component to your dashboard
-2. Use the `useMLPredictions` hook for custom implementations
-3. Test with different farm conditions
-4. Customize the UI to match your design
+
+
 
 **Happy Farming with AI! 🤖🌾**
